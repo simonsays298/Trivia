@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                             String atext = response.body().string();
                             Log.v("TAGUL", Boolean.toString(atext.contains("not found")));
                             if(atext.contains("not found")){
-                                Toast.makeText(getApplicationContext(), "No user found", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "User/Password inccorect", Toast.LENGTH_LONG).show();
                             }else{
                                 Intent intent =  new Intent(getApplicationContext(), Dashboard.class);
                                 startActivity(intent);
