@@ -14,6 +14,7 @@ import com.google.gson.internal.$Gson$Types;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -45,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
             .build();
 
     UserService service = retrofit.create(UserService.class);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
                 text = editTxt.getText().toString();
                 myPassword = pass.getText().toString();
 
-                result = "{\"username\":\"" + text + "\",\"password\":\"" + myPassword  + "\",\"points\":\"0\"}";
+                result = "{\"username\":\"" + text + "\",\"password\":\"" + myPassword + "\",\"points\":\"0\"}";
 
 
                 Call<ResponseBody> mService = service.createUser(result);
@@ -71,14 +73,13 @@ public class RegisterActivity extends AppCompatActivity {
                         assert response.body() != null;
                         try {
                             String atext = response.body().string();
-                            if(atext.contains("already exists")){
+                            if (atext.contains("already exists")) {
                                 Toast.makeText(getApplicationContext(), "The user already exists", Toast.LENGTH_LONG).show();
-                            }else{
+                            } else {
                                 Toast.makeText(getApplicationContext(), "You have succesfully created you account", Toast.LENGTH_LONG).show();
-                                Intent intent =  new Intent(getApplicationContext(), MainActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
                             }
-
 
 
                         } catch (IOException e) {
@@ -95,7 +96,6 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
-
 
 
     }

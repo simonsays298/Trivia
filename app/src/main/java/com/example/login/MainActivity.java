@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this,
                     new String[]{Manifest.permission.INTERNET},
                     100);
-        }else{
+        } else {
             Log.v("TAGUL", "ALREADY GRANTED");
 
         }
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
                 user = editText.getText().toString();
                 password = psswd.getText().toString();
-                Log.v("TAGUL",password);
+                Log.v("TAGUL", password);
                 //result = "{\"username\":\"" + user + "\",\"password\":\"" + password +"\"}";
 
                 Call<ResponseBody> mService = service.authenticate(user, password);
@@ -81,10 +81,10 @@ public class MainActivity extends AppCompatActivity {
 //                            Log.v("TAGUL", response.body().string());
                             String atext = response.body().string();
                             Log.v("TAGUL", Boolean.toString(atext.contains("not found")));
-                            if(atext.contains("not found")){
-                                Toast.makeText(getApplicationContext(), "User/Password inccorect", Toast.LENGTH_LONG).show();
-                            }else{
-                                Intent intent =  new Intent(getApplicationContext(), Dashboard.class);
+                            if (atext.contains("not found")) {
+                                Toast.makeText(getApplicationContext(), "User/Password incorrect", Toast.LENGTH_LONG).show();
+                            } else {
+                                Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                                 startActivity(intent);
                             }
 
@@ -106,15 +106,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO make a request to server using retrofit
-                Intent intent =  new Intent(getApplicationContext(), RegisterActivity.class);
+                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(intent);
             }
 
         });
 
 
-
     }
 
-    }
+}
 
