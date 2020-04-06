@@ -18,7 +18,7 @@ import retrofit2.http.Query;
 
 public interface UserService {
         @GET("api/has_user")
-        Call<ResponseBody> authenticate(@Query("username") String user);
+        Call<ResponseBody> authenticate(@Query("username") String user, @Query("password") String password);
 
 
         @POST("api/create_account")

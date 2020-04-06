@@ -14,8 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.json.JSONObject;
-
 import java.io.IOException;
 
 import okhttp3.ResponseBody;
@@ -31,7 +29,10 @@ public class MainActivity extends AppCompatActivity {
     private EditText editText;
     private Button btn;
     private Button btnR;
-    private String text;
+    private EditText psswd;
+    private String user;
+    private String password;
+    private String result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         btn = findViewById(R.id.Login);
         editText = findViewById(R.id.User);
         btnR = findViewById(R.id.buttonRegister);
+        psswd = findViewById(R.id.Password);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://firsttry-272817.appspot.com/")
@@ -65,13 +67,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //TODO make a request to server using retrofit
 
-                text = editText.getText().toString();
-//                JSONObject obj = new JSONObject();
-//                obj.put("username",text);
-                //Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+                user = editText.getText().toString();
+                password = psswd.getText().toString();
+                Log.v("TAGUL",password);
+                //result = "{\"username\":\"" + user + "\",\"password\":\"" + password +"\"}";
 
-
-                Call<ResponseBody> mService = service.authenticate(text);
+                Call<ResponseBody> mService = service.authenticate(user, password);
                 mService.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

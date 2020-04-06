@@ -31,8 +31,10 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText editTxt;
+    private EditText pass;
     private Button btnCreate;
     private String text;
+    private String myPassword;
     private JSONObject obj = new JSONObject();
     private String result;
 
@@ -50,14 +52,16 @@ public class RegisterActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         editTxt = findViewById(R.id.editText);
+        pass = findViewById(R.id.newPass);
         btnCreate = findViewById(R.id.buttonCreate);
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 text = editTxt.getText().toString();
+                myPassword = pass.getText().toString();
 
-                result = "{\"username\":\"" + text + "\",\"points\":\"0\"}";
+                result = "{\"username\":\"" + text + "\",\"password\":\"" + myPassword  + "\",\"points\":\"0\"}";
 
 
                 Call<ResponseBody> mService = service.createUser(result);
