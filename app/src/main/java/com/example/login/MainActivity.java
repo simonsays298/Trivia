@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
                 user = editText.getText().toString();
                 password = psswd.getText().toString();
-                Log.v("TAGUL", password);
                 //result = "{\"username\":\"" + user + "\",\"password\":\"" + password +"\"}";
 
                 Call<ResponseBody> mService = service.authenticate(user, password);
