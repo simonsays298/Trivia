@@ -4,24 +4,44 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
+
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Dashboard extends AppCompatActivity {
 
     private TextView myText;
     private String welcomeText;
+    private Button btn_Tr;
+    private Button btn_Co;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         Intent intent = getIntent();
+
+        btn_Tr = findViewById(R.id.training);
+        btn_Co = findViewById(R.id.competitive);
+
+        btn_Tr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TrainingActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }

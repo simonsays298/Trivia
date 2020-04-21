@@ -1,13 +1,15 @@
 <resources>
     <string name="app_name">Trivia</string>
     <string name="dashboard_text">Welcome to your account</string>
+    <string name="training_style">Training Module</string>
+    <string name="competitive_style">Competitive Game</string>
     <string name="trivia_textbox">Test your knowledge in this Trivia Quiz Game</string>
     <string name="enter_new_username">Enter new username</string>
     <string name="enter_username">Enter username</string>
-    <string name ="create_user">Create user</string>
-    <string name ="password">Type your password</string>
-    <string name ="newPassword">Type your new password</string>
-    <string name ="login">Login</string>
+    <string name="create_user">Create user</string>
+    <string name="password">Type your password</string>
+    <string name="newPassword">Type your new password</string>
+    <string name="login">Login</string>
     <string name="test_your">Test your</string>
     <string name="knowledge_in_this">knowledge in this</string>
     <string name="trivia_game">Trivia Game</string>
