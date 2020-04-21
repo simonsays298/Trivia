@@ -4,19 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class Dashboard extends AppCompatActivity {
 
-    private TextView myText;
-    private String welcomeText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,16 +33,21 @@ public class Dashboard extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        Toast.makeText(getApplicationContext(),"HOME",Toast.LENGTH_LONG);
+//        Toast.makeText(getApplicationContext(),"HOME",Toast.LENGTH_LONG);
         switch (item.getItemId()) {
-            case R.id.Item1:
-                //ce va fi pentru home
-                Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+            case R.id.Item_Profile:
+                // for view profile
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.Item2:
-                //ce va fi oentru friends list
-                intent = new Intent(getApplicationContext(), Dashboard.class);
+            case R.id.Item_Friends:
+                // for friends
+                intent = new Intent(getApplicationContext(), FriendsActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.Item_QSuggestion:
+                // for question suggestions
+                intent = new Intent(getApplicationContext(), QSuggestionActivity.class);
                 startActivity(intent);
                 return true;
             default:
@@ -56,9 +57,9 @@ public class Dashboard extends AppCompatActivity {
 
     }
 
-    private void fooThis() {
-        Toast.makeText(getApplicationContext(),"HOME",Toast.LENGTH_LONG);
-    }
+//    private void fooThis() {
+//        Toast.makeText(getApplicationContext(),"HOME",Toast.LENGTH_LONG);
+//    }
 
 
 }
