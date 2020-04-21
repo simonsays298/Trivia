@@ -16,4 +16,17 @@
     <string name="view_profile">View Profile</string>
     <string name="friends">Friends</string>
     <string name="question_factory">Question Factory</string>
+    <string name="geography">Geography</string>
+    <string name="choose_a_domain">Choose a domain</string>
+    <string name="science">Science</string>
+    <string name="history">History</string>
+    <string name="movies_celebrities"><![CDATA[Movies & Celebrities]]></string>
+    <string name="question_suggestion">Suggest a question</string>
+    <string name="arts_sports"><![CDATA[Arts & Sports]]></string>
+    <string name="register">Register</string>
+    <string name="right_answer">Right answer</string>
+    <string name="type_right_answer">Type right answer</string>
+    <string name="wrong_answer_1">Wrong answer 1</string>
+    <string name="wrong_answer_2">Wrong answer 2</string>
+    <string name="wrong_answer_3">Wrong answer 3</string>
 </resources>

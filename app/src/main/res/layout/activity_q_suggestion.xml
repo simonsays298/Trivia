@@ -6,4 +6,177 @@
     android:layout_height="match_parent"
     tools:context=".QSuggestionActivity">
 
+
+    <CheckBox
+        android:id="@+id/geography"
+        android:layout_width="187dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="362dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/geography"
+        android:textColor="@color/ic_launcher_background"
+        app:layout_constraintBottom_toTopOf="@+id/history"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.324" />
+
+    <CheckBox
+        android:id="@+id/history"
+        android:layout_width="187dp"
+        android:layout_height="41dp"
+        android:background="@color/colorPrimaryDark"
+        android:checked="true"
+        android:text="@string/history"
+        android:textColor="@color/ic_launcher_background"
+        android:textColorHighlight="#009688"
+        android:textColorHint="@color/ic_launcher_background"
+        android:textColorLink="@color/Green"
+        android:textCursorDrawable="@color/Green"
+        android:textIsSelectable="false"
+        app:layout_constraintBottom_toTopOf="@+id/science"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.911" />
+
+    <CheckBox
+        android:id="@+id/science"
+        android:layout_width="187dp"
+        android:layout_height="41dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/science"
+        android:textColor="@color/ic_launcher_background"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/movies"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.925" />
+
+    <CheckBox
+        android:id="@+id/movies"
+        android:layout_width="187dp"
+        android:layout_height="41dp"
+
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/movies_celebrities"
+        android:textColor="@color/ic_launcher_background"
+        app:layout_constraintBottom_toTopOf="@+id/geography"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintVertical_bias="0.954" />
+
+    <CheckBox
+        android:id="@+id/artsports"
+        android:layout_width="187dp"
+        android:layout_height="41dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/arts_sports"
+        android:textColor="@color/ic_launcher_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.553" />
+
+    <TextView
+        android:id="@+id/choose"
+        android:layout_width="256dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="68dp"
+        android:text="@string/choose_a_domain"
+        android:textColor="@color/Green"
+        android:textSize="23sp"
+
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.212"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/questionSuggestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="204dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/question_suggestion"
+        android:inputType="textPersonName"
+        android:textColor="@color/Green"
+        android:textColorHint="@color/Green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/rightAnswerSuggestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="436dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/type_right_answer"
+        android:textColor="@color/colorPrimaryDark"
+        android:textColorHint="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/wrongAnswer1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="472dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/wrong_answer_1"
+        android:textColor="@color/colorPrimaryDark"
+        android:textColorHint="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/wrongAnswer2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="508dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/wrong_answer_2"
+        android:textColor="@color/colorPrimaryDark"
+        android:textColorHint="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/wrongAnswer3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="540dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/wrong_answer_3"
+        android:textColor="@color/colorPrimaryDark"
+        android:textColorHint="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
