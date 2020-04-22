@@ -34,19 +34,20 @@ public class TrainingActivity extends AppCompatActivity {
     private String user;
     private String sendDomain;
 
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://firsttry-272817.appspot.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
 
-    UserService service = retrofit.create(UserService.class);
-
-
+    //SharedPReferences
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://firsttry-272817.appspot.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserService service = retrofit.create(UserService.class);
 
         user = getIntent().getStringExtra("USERNAME").toString();
 
@@ -281,7 +282,7 @@ public class TrainingActivity extends AppCompatActivity {
                         Log.v("TAGUL",gamesId);
                         Intent intent = new Intent(getApplicationContext(), GameActivity.class);
                         intent.putExtra("USERNAME",user);
-                        intent.putExtra("GAMESID",gamesId);
+                        intent.putExtra("GAMESID", gamesId);
                         intent.putExtra("TOPIC", "SCIENCE");
                         startActivity(intent);
 

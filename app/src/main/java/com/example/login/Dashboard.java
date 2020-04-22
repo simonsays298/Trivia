@@ -22,7 +22,6 @@ public class Dashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         user = getIntent().getStringExtra("USERNAME");
-        //Toast.makeText(getApplicationContext(), user, Toast.LENGTH_LONG).show();
 
 
         btn_Tr = findViewById(R.id.training);

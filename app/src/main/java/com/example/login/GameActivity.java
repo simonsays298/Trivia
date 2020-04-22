@@ -15,6 +15,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -45,14 +47,15 @@ public class GameActivity extends AppCompatActivity {
             .build();
 
     UserService service = retrofit.create(UserService.class);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-         getId = getIntent().getStringExtra("GAMESID");
-         user = getIntent().getStringExtra("USERNAME");
-         topicName = getIntent().getStringExtra("TOPIC");
+        getId = getIntent().getStringExtra("GAMESID");
+        user = getIntent().getStringExtra("USERNAME");
+        topicName = getIntent().getStringExtra("TOPIC");
 
 
         question = findViewById(R.id.Question);
@@ -64,12 +67,12 @@ public class GameActivity extends AppCompatActivity {
         topic = findViewById(R.id.topicName);
 
         topic.setText(topicName);
-         tm  = new CountDownTimer(16 * 1000, 1000){
+        tm = new CountDownTimer(16 * 1000, 1000) {
 
 
             @Override
             public void onTick(long millisUntilFinished) {
-                timer.setText(""+ millisUntilFinished / 1000);
+                timer.setText("" + millisUntilFinished / 1000);
             }
 
             @Override
@@ -81,12 +84,35 @@ public class GameActivity extends AppCompatActivity {
         loadQuestions();
 
 
+//        List<String> listQuestionTitle =  new ArrayList<>();
+//        listQuestionTitle.add("INTREBARE1");
+//        listQuestionTitle.add("INTREBARE2");
+//        listQuestionTitle.add("INTREBARE3");
+//        listQuestionTitle.add("INTREBARE4");
+//        listQuestionTitle.add("INTREBARE5");
+//
+//        int counterList = 0;
+//        bbutonel.setOnClcikListener{
+//            tv.setTExt(listQuestionTitle.get(counterList));
+//            //call
+//
+//            counterList++;
+//            if(counterList ==5){
+//                //Intent
+//            }
+
+
+
+
+
 
     }
-    public void loadQuestions(){
+
+    public void loadQuestions() {
+
         timer.setText("" + 16);
 
-        if(tm != null){
+        if (tm != null) {
             tm.start();
         }
 
@@ -110,6 +136,7 @@ public class GameActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                //care activity suntem acum?
 
                 Log.v("TAGUL", obj.toString());
                 try {
@@ -127,20 +154,23 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         try {
-                            if (finalObj.getString("answer1").equals(finalObj.getString("right"))){
-                                Toast.makeText(getApplicationContext(), "CORRECT", Toast.LENGTH_SHORT).show();
-                            }else{
+                            if (finalObj.getString("answer1").contains(finalObj.getString("right"))) {
+                                Toast.makeText(getApplicationContext(), "CORRECT", Toast.LENGTH_LONG).show();
+                                Log.v("TAGUL", "Correct");
+                                points = points + 10;
+                            } else {
                                 Toast.makeText(getApplicationContext(), "INCORRECT", Toast.LENGTH_SHORT).show();
+                                if (points != 0) {
+                                    points = points - 5;
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        if(counter < 5){
+                        if (counter < 5) {
                             tm.cancel();
                             counter++;
                             loadQuestions();
-                        }else{
-                            Toast.makeText(getApplicationContext(), "FINISH GAME", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -148,20 +178,22 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         try {
-                            if (finalObj.getString("answer2").equals(finalObj.getString("right"))){
-                                Toast.makeText(getApplicationContext(), "CORRECT", Toast.LENGTH_SHORT).show();
-                            }else{
+                            if (finalObj.getString("answer2").contains(finalObj.getString("right"))) {
+                                Toast.makeText(getApplicationContext(), "CORRECT", Toast.LENGTH_LONG).show();
+                                points = points + 10;
+                            } else {
                                 Toast.makeText(getApplicationContext(), "INCORRECT", Toast.LENGTH_SHORT).show();
+                                if (points != 0) {
+                                    points = points - 5;
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        if(counter < 5){
+                        if (counter < 5) {
                             tm.cancel();
                             counter++;
                             loadQuestions();
-                        }else{
-                            Toast.makeText(getApplicationContext(), "FINISH GAME", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -170,42 +202,46 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         try {
-                            if (finalObj.getString("answer3").equals(finalObj.getString("right"))){
-                                Toast.makeText(getApplicationContext(), "CORRECT", Toast.LENGTH_SHORT).show();
-                            }else{
+                            if (finalObj.getString("answer3").contains(finalObj.getString("right"))) {
+                                Toast.makeText(getApplicationContext(), "CORRECT", Toast.LENGTH_LONG).show();
+                                points = points + 10;
+                            } else {
                                 Toast.makeText(getApplicationContext(), "INCORRECT", Toast.LENGTH_SHORT).show();
+                                if (points != 0) {
+                                    points = points - 5;
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        if(counter < 5){
+                        if (counter < 5) {
                             tm.cancel();
                             counter++;
                             loadQuestions();
-                        }else{
-                            Toast.makeText(getApplicationContext(), "FINISH GAME", Toast.LENGTH_SHORT).show();
                         }
 
-                        }
+                    }
                 });
                 ans4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         try {
-                            if (finalObj.getString("answer4").equals(finalObj.getString("right"))){
-                                Toast.makeText(getApplicationContext(), "CORRECT", Toast.LENGTH_SHORT).show();
-                            }else{
+                            if (finalObj.getString("answer4").contains(finalObj.getString("right"))) {
+                                Toast.makeText(getApplicationContext(), "CORRECT", Toast.LENGTH_LONG).show();
+                                points = points + 10;
+                            } else {
                                 Toast.makeText(getApplicationContext(), "INCORRECT", Toast.LENGTH_SHORT).show();
+                                if (points != 0) {
+                                    points = points - 5;
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        if(counter < 5){
+                        if (counter < 5) {
                             tm.cancel();
                             counter++;
                             loadQuestions();
-                        }else{
-                            Toast.makeText(getApplicationContext(), "FINISH GAME", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -221,39 +257,54 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-        JSONObject finish = new JSONObject();
-        try {
-            finish.put("id",getId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            finish.put("points", String.valueOf(points));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        if (counter == 5){
-            Call<ResponseBody> finishService = service.finish_game(finish);
-            finishService.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+        if (counter == 5) {
+            finishGame();
 
-                    try {
-                        Toast.makeText(getApplicationContext(), response.body().string(), Toast.LENGTH_SHORT).show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Intent intent = new Intent(getApplicationContext(), Dashboard.class);
-                    startActivity(intent);
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                }
-            });
         }
 
     }
+
+    public void finishGame() {
+        JSONObject finish = new JSONObject();
+        try {
+            finish.put("id", getId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            //Log.v("TAGUL", String.valueOf(points));
+            finish.put("points", points);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Call<ResponseBody> finishService = service.finish_game(finish);
+        finishService.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                try {
+                    Toast.makeText(getApplicationContext(), response.body().string(), Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                intent.putExtra("USERNAME",user);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
 }
+
+
+
+
+
