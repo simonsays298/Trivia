@@ -76,12 +76,6 @@ public class GameDone extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                        try {
-                            Toast.makeText(getApplicationContext(), response.body().string(), Toast.LENGTH_SHORT).show();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
                         Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                         intent.putExtra("USERNAME",user);
                         startActivity(intent);
