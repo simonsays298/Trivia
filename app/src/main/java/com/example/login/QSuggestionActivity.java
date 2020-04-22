@@ -91,14 +91,14 @@ public class QSuggestionActivity extends AppCompatActivity {
                     + "\",\"answer1\":\"" + wrongAnswer2String +  "\",\"answer2\":\"" + wrongAnswer3String
                     + "\",\"right\":\"" + rightAnswerString + "\",\"domain\":\"" + domainID + "\"}";
 
-            Call<ResponseBody> mService = service.createUser(result);
+            Call<ResponseBody> mService = service.add_questionAndAnswers(result);
 
             mService.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         Toast.makeText(getApplicationContext(), R.string.createQA, Toast.LENGTH_LONG).show();
-//                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                                startActivity(intent);
+                        Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                        startActivity(intent);
                     }
 
                     @Override
@@ -110,13 +110,6 @@ public class QSuggestionActivity extends AppCompatActivity {
             }
 
         });
-
-
-
-
-
-
-
-
+        
     }
 }
