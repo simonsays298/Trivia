@@ -42,27 +42,27 @@
         android:id="@+id/History"
         android:layout_width="154dp"
         android:layout_height="76dp"
-        android:text="@string/history"
+        android:text="@string/historyT"
         app:layout_constraintBottom_toTopOf="@+id/Science"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chooseD"
         app:layout_constraintVertical_bias="0.855"
-        tools:text="@string/history" />
+        tools:text="@string/historyT" />
 
     <Button
         android:id="@+id/Science"
         android:layout_width="154dp"
         android:layout_height="76dp"
-        android:text="@string/science"
+        android:text="@string/scienceT"
         app:layout_constraintBottom_toTopOf="@+id/Movies"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chooseD"
         app:layout_constraintVertical_bias="0.898"
-        tools:text="@string/science" />
+        tools:text="@string/scienceT" />
 
     <Button
         android:id="@+id/Movies"

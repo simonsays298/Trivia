@@ -37,6 +37,7 @@ public class GameActivity extends AppCompatActivity {
     private Button ans4;
     private int counter = 0;
     private int points = 0;
+    private CountDownTimer tm = null;
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://firsttry-272817.appspot.com/")
@@ -61,10 +62,9 @@ public class GameActivity extends AppCompatActivity {
         ans3 = findViewById(R.id.ans3);
         ans4 = findViewById(R.id.ans4);
         topic = findViewById(R.id.topicName);
-        timer.setText("" + 16);
-        topic.setText(topicName);
 
-        new CountDownTimer(15 * 1000, 1000){
+        topic.setText(topicName);
+         tm  = new CountDownTimer(16 * 1000, 1000){
 
 
             @Override
@@ -76,7 +76,7 @@ public class GameActivity extends AppCompatActivity {
             public void onFinish() {
                 Toast.makeText(GameActivity.this, "Quiz Over", Toast.LENGTH_LONG).show();
             }
-        }.start();
+        };
 
         loadQuestions();
 
@@ -84,6 +84,12 @@ public class GameActivity extends AppCompatActivity {
 
     }
     public void loadQuestions(){
+        timer.setText("" + 16);
+
+        if(tm != null){
+            tm.start();
+        }
+
         JSONObject obj = null;
         Call<ResponseBody> mService = service.get_questions(getId);
         mService.enqueue(new Callback<ResponseBody>() {
@@ -130,6 +136,7 @@ public class GameActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         if(counter < 5){
+                            tm.cancel();
                             counter++;
                             loadQuestions();
                         }else{
@@ -150,6 +157,7 @@ public class GameActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         if(counter < 5){
+                            tm.cancel();
                             counter++;
                             loadQuestions();
                         }else{
@@ -171,6 +179,7 @@ public class GameActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         if(counter < 5){
+                            tm.cancel();
                             counter++;
                             loadQuestions();
                         }else{
@@ -192,6 +201,7 @@ public class GameActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         if(counter < 5){
+                            tm.cancel();
                             counter++;
                             loadQuestions();
                         }else{

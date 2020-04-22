@@ -11,9 +11,9 @@
     <string name="fourth_ans">Fourth Ans</string>
     <string name="domain">Choose the desired topic</string>
     <string name="geo">GEOGRAPHY</string>
-    <string name="history">HISTORY</string>
+    <string name="historyT">HISTORY</string>
     <string name="topic">TOPIC</string>
-    <string name="science">SCIENCE</string>
+    <string name="scienceT">SCIENCE</string>
     <string name="arts">ARTS &amp; SPORTS</string>
     <string name="movie">MOVIES &amp; CELEBRITIES</string>
     <string name="trivia_textbox">Test your knowledge in this Trivia Quiz Game</string>
