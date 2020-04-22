@@ -27,7 +27,7 @@
         app:layout_constraintHorizontal_bias="0.23"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72" />
+        app:layout_constraintVertical_bias="0.3" />
 
     <CheckBox
         android:id="@+id/geography"
@@ -51,7 +51,7 @@
         android:layout_width="@dimen/buttonWidth"
         android:layout_height="wrap_content"
         android:layout_marginStart="103dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="121dp"
         android:background="@color/colorPrimaryDark"
 
@@ -68,7 +68,7 @@
         android:layout_width="@dimen/buttonWidth"
         android:layout_height="wrap_content"
         android:layout_marginStart="103dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="121dp"
         android:background="@color/colorPrimaryDark"
 
@@ -85,7 +85,7 @@
         android:layout_width="@dimen/buttonWidth"
         android:layout_height="wrap_content"
         android:layout_marginStart="103dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="121dp"
         android:background="@color/colorPrimaryDark"
 
@@ -102,9 +102,9 @@
         android:layout_width="@dimen/buttonWidth"
         android:layout_height="wrap_content"
         android:layout_marginStart="103dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="121dp"
-        android:layout_marginBottom="34dp"
+        android:layout_marginBottom="16dp"
 
         android:background="@color/colorPrimaryDark"
         android:gravity="center"
@@ -121,9 +121,8 @@
         android:layout_height="45dp"
         android:layout_margin="8dp"
         android:layout_marginStart="38dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="87dp"
-        android:layout_marginBottom="16dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/question_suggestion"
@@ -141,7 +140,6 @@
         android:layout_height="wrap_content"
 
         android:layout_marginStart="53dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="71dp"
         android:hint="@string/type_right_answer"
         android:textColor="@color/colorPrimaryDark"
@@ -157,7 +155,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="53dp"
         android:layout_marginEnd="71dp"
-        android:layout_marginBottom="8dp"
         android:hint="@string/wrong_answer_1"
         android:textColor="@color/colorPrimaryDark"
         android:textColorHint="@color/colorPrimaryDark"
@@ -172,7 +169,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="53dp"
         android:layout_marginEnd="71dp"
-        android:layout_marginBottom="7dp"
         android:hint="@string/wrong_answer_2"
         android:textColor="@color/colorPrimaryDark"
         android:textColorHint="@color/colorPrimaryDark"
@@ -187,7 +183,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="53dp"
         android:layout_marginEnd="71dp"
-        android:layout_marginBottom="55dp"
+        android:layout_marginBottom="75dp"
         android:hint="@string/wrong_answer_3"
         android:textColor="@color/colorPrimaryDark"
         android:textColorHint="@color/colorPrimaryDark"
@@ -195,5 +191,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wrongAnswer2" />
+
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="155dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="168dp"
+        android:layout_marginBottom="30dp"
+        android:text="@string/send"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wrongAnswer3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

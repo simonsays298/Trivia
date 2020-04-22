@@ -31,8 +31,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText editTxt;
-    private EditText pass;
+    private EditText enterUsernameEditText;
+    private EditText passEditText;
     private Button btnCreate;
     private String text;
     private String myPassword;
@@ -53,15 +53,15 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register2);
         Intent intent = getIntent();
 
-        editTxt = findViewById(R.id.editText);
-        pass = findViewById(R.id.newPass);
+        enterUsernameEditText = findViewById(R.id.enterUsername);
+        passEditText = findViewById(R.id.newPass);
         btnCreate = findViewById(R.id.buttonCreate);
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                text = editTxt.getText().toString();
-                myPassword = pass.getText().toString();
+                text = enterUsernameEditText.getText().toString();
+                myPassword = passEditText.getText().toString();
 
                 result = "{\"username\":\"" + text + "\",\"password\":\"" + myPassword + "\",\"points\":\"0\"}";
 

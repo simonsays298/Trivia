@@ -42,4 +42,6 @@
     <string name="wrong_answer_1">Wrong answer 1</string>
     <string name="wrong_answer_2">Wrong answer 2</string>
     <string name="wrong_answer_3">Wrong answer 3</string>
+    <string name="send">SEND</string>
+    <string name="createQA"><![CDATA[Congrats! You have successfully created a Trivia Q & A!]]></string>
 </resources>
