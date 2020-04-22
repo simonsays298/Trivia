@@ -8,9 +8,9 @@
 
     <TextView
         android:id="@+id/messageG"
-        android:layout_width="411dp"
-        android:layout_height="77dp"
-        android:layout_marginTop="136dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="330dp"
         android:background="#8BC34A"
         android:gravity="center_horizontal|center_vertical"
         android:text="@string/message"
@@ -22,7 +22,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.81"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="@string/message" />
 
     <TextView
