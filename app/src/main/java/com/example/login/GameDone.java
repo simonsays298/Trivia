@@ -88,7 +88,7 @@ public class GameDone extends AppCompatActivity {
                     }
                 });
             }
-        },5000);
+        },3000);
 
 
 

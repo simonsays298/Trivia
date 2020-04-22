@@ -1,27 +1,24 @@
 package com.example.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -89,7 +86,7 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                Toast.makeText(GameActivity.this, "Quiz Over", Toast.LENGTH_LONG).show();
+
             }
         };
 
@@ -118,6 +115,8 @@ public class GameActivity extends AppCompatActivity {
 
 
 
+
+
         JSONObject obj = null;
         Call<ResponseBody> mService = service.get_questions(getId);
         mService.enqueue(new Callback<ResponseBody>() {
@@ -140,7 +139,7 @@ public class GameActivity extends AppCompatActivity {
                 }
 
 
-                //Log.v("TAGUL", obj.toString());
+                Log.v("TAGUL", obj.toString());
                 if(counter != 5) {
                     try {
                         question.setText(String.valueOf(counter + 1) + "." + " " + obj.getString("question"));
@@ -161,6 +160,7 @@ public class GameActivity extends AppCompatActivity {
 //                        ans1.setBackgroundColor(Color.LTGRAY);
 //                        ans2.setBackgroundColor(Color.LTGRAY);
 //                        ans4.setBackgroundColor(Color.LTGRAY);
+
                         try {
 
                             if (finalObj.getString("answer0").toLowerCase().contains(finalObj.getString("right").toLowerCase())) {
@@ -168,17 +168,19 @@ public class GameActivity extends AppCompatActivity {
                                 //Log.v("TAGUL", "Correct");
                                 // Wrong option
                                 //ans1.setBackgroundColor(Color.GREEN);
-                                checkAns.setText("CORRECT");
-                                checkAns.setTextColor(Color.GREEN);
-
-
+                                ColorDrawable[] color = {new ColorDrawable(Color.GREEN), new ColorDrawable(Color.LTGRAY)};
+                                TransitionDrawable trans = new TransitionDrawable(color);
+                                ans1.setBackground(trans);
+                                trans.startTransition(400);
 
 
                                 points = points + 10;
                                 myPoints.setText("Points: " + String.valueOf(points));
                             } else {
-                                checkAns.setText("WRONG");
-                                checkAns.setTextColor(Color.RED);
+                                ColorDrawable[] color = {new ColorDrawable(Color.RED), new ColorDrawable(Color.LTGRAY)};
+                                TransitionDrawable trans = new TransitionDrawable(color);
+                                ans1.setBackground(trans);
+                                trans.startTransition(400);
 
                                 if (points != 0) {
                                     points = points - 5;
@@ -212,14 +214,18 @@ public class GameActivity extends AppCompatActivity {
                         try {
                             if (finalObj.getString("answer0").toLowerCase().contains(finalObj.getString("right").toLowerCase())) {
                                 //ans2.setBackgroundColor(Color.GREEN);
-                                checkAns.setText("CORRECT");
-                                checkAns.setTextColor(Color.GREEN);
+                                ColorDrawable[] color = {new ColorDrawable(Color.GREEN), new ColorDrawable(Color.LTGRAY)};
+                                TransitionDrawable trans = new TransitionDrawable(color);
+                                ans2.setBackground(trans);
+                                trans.startTransition(400);
                                 points = points + 10;
                                 myPoints.setText("Points: "+ String.valueOf(points));
                             } else {
                                 //ans2.setBackgroundColor(Color.RED);
-                                checkAns.setText("WRONG");
-                                checkAns.setTextColor(Color.RED);
+                                ColorDrawable[] color = {new ColorDrawable(Color.RED), new ColorDrawable(Color.LTGRAY)};
+                                TransitionDrawable trans = new TransitionDrawable(color);
+                                ans2.setBackground(trans);
+                                trans.startTransition(400);
                                 if (points != 0) {
                                     points = points - 5;
                                     myPoints.setText("Points: "+ String.valueOf(points));
@@ -231,7 +237,7 @@ public class GameActivity extends AppCompatActivity {
                         if (counter < 5) {
                             tm.cancel();
                             counter++;
-//                            SystemClock.sleep(1000);
+//
                             loadQuestions();
                         }
 
@@ -240,21 +246,22 @@ public class GameActivity extends AppCompatActivity {
                 ans3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        ans3.setBackgroundColor(Color.LTGRAY);
-//                        ans1.setBackgroundColor(Color.LTGRAY);
-//                        ans2.setBackgroundColor(Color.LTGRAY);
-//                        ans4.setBackgroundColor(Color.LTGRAY);
+//
                         try {
                             if (finalObj.getString("answer2").toLowerCase().contains(finalObj.getString("right").toLowerCase())) {
                                 //ans3.setBackgroundColor(Color.GREEN);
-                                checkAns.setText("CORRECT");
-                                checkAns.setTextColor(Color.GREEN);
+                                ColorDrawable[] color = {new ColorDrawable(Color.GREEN), new ColorDrawable(Color.LTGRAY)};
+                                TransitionDrawable trans = new TransitionDrawable(color);
+                                ans3.setBackground(trans);
+                                trans.startTransition(400);
                                 points = points + 10;
                                 myPoints.setText("Points: "+ String.valueOf(points));
                             } else {
                                 //ans3.setBackgroundColor(Color.RED);
-                                checkAns.setText("WRONG");
-                                checkAns.setTextColor(Color.RED);
+                                ColorDrawable[] color = {new ColorDrawable(Color.RED), new ColorDrawable(Color.LTGRAY)};
+                                TransitionDrawable trans = new TransitionDrawable(color);
+                                ans3.setBackground(trans);
+                                trans.startTransition(400);
                                 if (points != 0) {
                                     points = points - 5;
                                     myPoints.setText("Points: "+ String.valueOf(points));
@@ -266,7 +273,7 @@ public class GameActivity extends AppCompatActivity {
                         if (counter < 5) {
                             tm.cancel();
                             counter++;
-//                            SystemClock.sleep(1000);
+//
 
                             loadQuestions();
                         }
@@ -281,14 +288,18 @@ public class GameActivity extends AppCompatActivity {
                         try {
                             if (finalObj.getString("answer3").toLowerCase().contains(finalObj.getString("right").toLowerCase())) {
                                // ans4.setBackgroundColor(Color.GREEN);
-                                checkAns.setText("CORRECT");
-                                checkAns.setTextColor(Color.GREEN);
+                                ColorDrawable[] color = {new ColorDrawable(Color.GREEN), new ColorDrawable(Color.LTGRAY)};
+                                TransitionDrawable trans = new TransitionDrawable(color);
+                                ans4.setBackground(trans);
+                                trans.startTransition(400);
                                 points = points + 10;
                                 myPoints.setText("Points: "+ String.valueOf(points));
                             } else {
                                 //ans4.setBackgroundColor(Color.RED);
-                                checkAns.setText("WRONG");
-                                checkAns.setTextColor(Color.RED);
+                                ColorDrawable[] color = {new ColorDrawable(Color.RED), new ColorDrawable(Color.LTGRAY)};
+                                TransitionDrawable trans = new TransitionDrawable(color);
+                                ans4.setBackground(trans);
+                                trans.startTransition(400);
                                 if (points != 0) {
                                     points = points - 5;
                                     myPoints.setText("Points: "+ String.valueOf(points));
@@ -300,7 +311,7 @@ public class GameActivity extends AppCompatActivity {
                         if (counter < 5) {
                             tm.cancel();
                             counter++;
-//                            SystemClock.sleep(1000);
+//
                             loadQuestions();
                             //ans4.setBackgroundColor(Color.LTGRAY);
                         }
@@ -323,6 +334,7 @@ public class GameActivity extends AppCompatActivity {
 
 
         if (counter == 5) {
+            tm.cancel();
             finishGame();
         }
 
