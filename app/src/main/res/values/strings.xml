@@ -13,6 +13,9 @@
     <string name="geo">GEOGRAPHY</string>
     <string name="historyT">HISTORY</string>
     <string name="topic">TOPIC</string>
+    <string name="points">Points: </string>
+    <string name="message">CONGRATULATIONS!</string>
+    <string name="yourScore">Final Score: </string>
     <string name="scienceT">SCIENCE</string>
     <string name="arts">ARTS &amp; SPORTS</string>
     <string name="movie">MOVIES &amp; CELEBRITIES</string>

@@ -3,8 +3,11 @@ package com.example.login;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +20,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -32,14 +37,17 @@ public class GameActivity extends AppCompatActivity {
     private String topicName;
     private TextView question;
     private TextView timer;
+    private TextView myPoints;
     private TextView topic;
     private Button ans1;
     private Button ans2;
     private Button ans3;
     private Button ans4;
+    private TextView checkAns;
     private int counter = 0;
     private int points = 0;
     private CountDownTimer tm = null;
+    private Timer timing;
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://firsttry-272817.appspot.com/")
@@ -65,14 +73,18 @@ public class GameActivity extends AppCompatActivity {
         ans3 = findViewById(R.id.ans3);
         ans4 = findViewById(R.id.ans4);
         topic = findViewById(R.id.topicName);
+        myPoints = findViewById(R.id.myPoints);
+        checkAns = findViewById(R.id.checkAnswer);
 
         topic.setText(topicName);
+        myPoints.setText("Points: "+ String.valueOf(points));
         tm = new CountDownTimer(16 * 1000, 1000) {
 
 
             @Override
             public void onTick(long millisUntilFinished) {
                 timer.setText("" + millisUntilFinished / 1000);
+
             }
 
             @Override
@@ -81,25 +93,10 @@ public class GameActivity extends AppCompatActivity {
             }
         };
 
+
+
         loadQuestions();
 
-
-//        List<String> listQuestionTitle =  new ArrayList<>();
-//        listQuestionTitle.add("INTREBARE1");
-//        listQuestionTitle.add("INTREBARE2");
-//        listQuestionTitle.add("INTREBARE3");
-//        listQuestionTitle.add("INTREBARE4");
-//        listQuestionTitle.add("INTREBARE5");
-//
-//        int counterList = 0;
-//        bbutonel.setOnClcikListener{
-//            tv.setTExt(listQuestionTitle.get(counterList));
-//            //call
-//
-//            counterList++;
-//            if(counterList ==5){
-//                //Intent
-//            }
 
 
 
@@ -110,11 +107,16 @@ public class GameActivity extends AppCompatActivity {
 
     public void loadQuestions() {
 
+
+
         timer.setText("" + 16);
+        //checkAns.setText("");
 
         if (tm != null) {
             tm.start();
         }
+
+
 
         JSONObject obj = null;
         Call<ResponseBody> mService = service.get_questions(getId);
@@ -136,32 +138,51 @@ public class GameActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                //care activity suntem acum?
 
-                Log.v("TAGUL", obj.toString());
-                try {
-                    question.setText(obj.getString("question"));
-                    ans1.setText(obj.getString("answer0"));
-                    ans2.setText(obj.getString("answer1"));
-                    ans3.setText(obj.getString("answer2"));
-                    ans4.setText(obj.getString("answer3"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
+
+                //Log.v("TAGUL", obj.toString());
+                if(counter != 5) {
+                    try {
+                        question.setText(String.valueOf(counter + 1) + "." + " " + obj.getString("question"));
+                        ans1.setText(obj.getString("answer0"));
+                        ans2.setText(obj.getString("answer1"));
+                        ans3.setText(obj.getString("answer2"));
+                        ans4.setText(obj.getString("answer3"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 JSONObject finalObj = obj;
                 ans1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+//                        ans3.setBackgroundColor(Color.LTGRAY);
+//                        ans1.setBackgroundColor(Color.LTGRAY);
+//                        ans2.setBackgroundColor(Color.LTGRAY);
+//                        ans4.setBackgroundColor(Color.LTGRAY);
                         try {
-                            if (finalObj.getString("answer1").contains(finalObj.getString("right"))) {
-                                Toast.makeText(getApplicationContext(), "CORRECT", Toast.LENGTH_LONG).show();
-                                Log.v("TAGUL", "Correct");
+
+                            if (finalObj.getString("answer0").toLowerCase().contains(finalObj.getString("right").toLowerCase())) {
+                                //Toast.makeText(getApplicationContext(), "CORRECT", Toast.LENGTH_LONG).show();
+                                //Log.v("TAGUL", "Correct");
+                                // Wrong option
+                                //ans1.setBackgroundColor(Color.GREEN);
+                                checkAns.setText("CORRECT");
+                                checkAns.setTextColor(Color.GREEN);
+
+
+
+
                                 points = points + 10;
+                                myPoints.setText("Points: " + String.valueOf(points));
                             } else {
-                                Toast.makeText(getApplicationContext(), "INCORRECT", Toast.LENGTH_SHORT).show();
+                                checkAns.setText("WRONG");
+                                checkAns.setTextColor(Color.RED);
+
                                 if (points != 0) {
                                     points = points - 5;
+                                    myPoints.setText("Points: " + String.valueOf(points));
                                 }
                             }
                         } catch (JSONException e) {
@@ -169,22 +190,39 @@ public class GameActivity extends AppCompatActivity {
                         }
                         if (counter < 5) {
                             tm.cancel();
+
                             counter++;
+
                             loadQuestions();
+
                         }
                     }
-                });
+                }
+
+                );
+
                 ans2.setOnClickListener(new View.OnClickListener() {
+
                     @Override
                     public void onClick(View v) {
+//                        ans3.setBackgroundColor(Color.LTGRAY);
+//                        ans1.setBackgroundColor(Color.LTGRAY);
+//                        ans2.setBackgroundColor(Color.LTGRAY);
+//                        ans4.setBackgroundColor(Color.LTGRAY);
                         try {
-                            if (finalObj.getString("answer2").contains(finalObj.getString("right"))) {
-                                Toast.makeText(getApplicationContext(), "CORRECT", Toast.LENGTH_LONG).show();
+                            if (finalObj.getString("answer0").toLowerCase().contains(finalObj.getString("right").toLowerCase())) {
+                                //ans2.setBackgroundColor(Color.GREEN);
+                                checkAns.setText("CORRECT");
+                                checkAns.setTextColor(Color.GREEN);
                                 points = points + 10;
+                                myPoints.setText("Points: "+ String.valueOf(points));
                             } else {
-                                Toast.makeText(getApplicationContext(), "INCORRECT", Toast.LENGTH_SHORT).show();
+                                //ans2.setBackgroundColor(Color.RED);
+                                checkAns.setText("WRONG");
+                                checkAns.setTextColor(Color.RED);
                                 if (points != 0) {
                                     points = points - 5;
+                                    myPoints.setText("Points: "+ String.valueOf(points));
                                 }
                             }
                         } catch (JSONException e) {
@@ -193,6 +231,7 @@ public class GameActivity extends AppCompatActivity {
                         if (counter < 5) {
                             tm.cancel();
                             counter++;
+//                            SystemClock.sleep(1000);
                             loadQuestions();
                         }
 
@@ -201,14 +240,24 @@ public class GameActivity extends AppCompatActivity {
                 ans3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+//                        ans3.setBackgroundColor(Color.LTGRAY);
+//                        ans1.setBackgroundColor(Color.LTGRAY);
+//                        ans2.setBackgroundColor(Color.LTGRAY);
+//                        ans4.setBackgroundColor(Color.LTGRAY);
                         try {
-                            if (finalObj.getString("answer3").contains(finalObj.getString("right"))) {
-                                Toast.makeText(getApplicationContext(), "CORRECT", Toast.LENGTH_LONG).show();
+                            if (finalObj.getString("answer2").toLowerCase().contains(finalObj.getString("right").toLowerCase())) {
+                                //ans3.setBackgroundColor(Color.GREEN);
+                                checkAns.setText("CORRECT");
+                                checkAns.setTextColor(Color.GREEN);
                                 points = points + 10;
+                                myPoints.setText("Points: "+ String.valueOf(points));
                             } else {
-                                Toast.makeText(getApplicationContext(), "INCORRECT", Toast.LENGTH_SHORT).show();
+                                //ans3.setBackgroundColor(Color.RED);
+                                checkAns.setText("WRONG");
+                                checkAns.setTextColor(Color.RED);
                                 if (points != 0) {
                                     points = points - 5;
+                                    myPoints.setText("Points: "+ String.valueOf(points));
                                 }
                             }
                         } catch (JSONException e) {
@@ -217,6 +266,8 @@ public class GameActivity extends AppCompatActivity {
                         if (counter < 5) {
                             tm.cancel();
                             counter++;
+//                            SystemClock.sleep(1000);
+
                             loadQuestions();
                         }
 
@@ -225,14 +276,22 @@ public class GameActivity extends AppCompatActivity {
                 ans4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        //ans4.setBackgroundColor(Color.LTGRAY);
                         try {
-                            if (finalObj.getString("answer4").contains(finalObj.getString("right"))) {
-                                Toast.makeText(getApplicationContext(), "CORRECT", Toast.LENGTH_LONG).show();
+                            if (finalObj.getString("answer3").toLowerCase().contains(finalObj.getString("right").toLowerCase())) {
+                               // ans4.setBackgroundColor(Color.GREEN);
+                                checkAns.setText("CORRECT");
+                                checkAns.setTextColor(Color.GREEN);
                                 points = points + 10;
+                                myPoints.setText("Points: "+ String.valueOf(points));
                             } else {
-                                Toast.makeText(getApplicationContext(), "INCORRECT", Toast.LENGTH_SHORT).show();
+                                //ans4.setBackgroundColor(Color.RED);
+                                checkAns.setText("WRONG");
+                                checkAns.setTextColor(Color.RED);
                                 if (points != 0) {
                                     points = points - 5;
+                                    myPoints.setText("Points: "+ String.valueOf(points));
                                 }
                             }
                         } catch (JSONException e) {
@@ -241,7 +300,9 @@ public class GameActivity extends AppCompatActivity {
                         if (counter < 5) {
                             tm.cancel();
                             counter++;
+//                            SystemClock.sleep(1000);
                             loadQuestions();
+                            //ans4.setBackgroundColor(Color.LTGRAY);
                         }
                     }
 
@@ -249,6 +310,7 @@ public class GameActivity extends AppCompatActivity {
 
 
             }
+
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
@@ -258,48 +320,24 @@ public class GameActivity extends AppCompatActivity {
         });
 
 
+
+
         if (counter == 5) {
             finishGame();
-
         }
 
     }
 
     public void finishGame() {
-        JSONObject finish = new JSONObject();
-        try {
-            finish.put("id", getId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            //Log.v("TAGUL", String.valueOf(points));
-            finish.put("points", points);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Call<ResponseBody> finishService = service.finish_game(finish);
-        finishService.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                try {
-                    Toast.makeText(getApplicationContext(), response.body().string(), Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                Intent intent = new Intent(getApplicationContext(), GameDone.class);
                 intent.putExtra("USERNAME",user);
+                intent.putExtra("ID",getId);
+                intent.putExtra("POINTS",String.valueOf(points));
                 startActivity(intent);
                 finish();
-            }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
+//
     }
 
 }

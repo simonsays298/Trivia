@@ -1,3 +1,4 @@
+
 <resources>
 
     <!-- Base application theme. -->
@@ -6,8 +7,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlHighlight">@color/Pink</item>
+        <item name="colorControlHighlight">@color/myRed</item>
+        <item name="colorControlActivated">@color/Green</item>
     </style>
 
 
+
+
 </resources>
+
