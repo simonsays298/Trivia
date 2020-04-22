@@ -74,7 +74,7 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                Toast.makeText(GameActivity.this, "Quiz Over", Toast.LENGTH_LONG).show();
+                Toast.makeText(GameActivity.this, R.string.quiz_over, Toast.LENGTH_LONG).show();
             }
         };
 

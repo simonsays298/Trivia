@@ -8,11 +8,17 @@
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/view_profile"
         android:visible="true"
+        android:textColor="@color/colorPrimaryDark"
         app:showAsAction="collapseActionView" />
     <item
         android:id="@+id/Item_Friends"
+        android:textColor="@color/colorPrimaryDark"
         android:title="@string/friends" />
     <item
         android:id="@+id/Item_QSuggestion"
+        android:textColor="@color/colorPrimaryDark"
         android:title="@string/question_factory" />
+    <item
+        android:id="@+id/Item_Logout"
+        android:title="@string/log_out" />
 </menu>

@@ -7,7 +7,7 @@
     <string name="my_question">The question</string>
     <string name="fst_ans">First Ans</string>
     <string name="snd_ans">Second Ans</string>
-    <string name="third_ans">Thirs Ans</string>
+    <string name="third_ans">Third Ans</string>
     <string name="fourth_ans">Fourth Ans</string>
     <string name="domain">Choose the desired topic</string>
     <string name="geo">GEOGRAPHY</string>
@@ -43,5 +43,7 @@
     <string name="wrong_answer_2">Wrong answer 2</string>
     <string name="wrong_answer_3">Wrong answer 3</string>
     <string name="send">SEND</string>
-    <string name="createQA"><![CDATA[Congrats! You have successfully created a Trivia Q & A!]]></string>
+    <string name="createQA"><![CDATA[Congrats! You have successfully contributed with a Trivia Q & A!]]></string>
+    <string name="quiz_over">Quiz Over</string>
+    <string name="log_out">Log out</string>
 </resources>

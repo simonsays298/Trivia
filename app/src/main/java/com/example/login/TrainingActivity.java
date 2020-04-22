@@ -48,7 +48,7 @@ public class TrainingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training);
 
-        user = getIntent().getStringExtra("USERNAME").toString();
+        user = getIntent().getStringExtra("USERNAME");
 
         history = findViewById(R.id.History);
         geo = findViewById(R.id.geography);

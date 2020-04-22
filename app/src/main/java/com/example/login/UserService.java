@@ -31,5 +31,8 @@ public interface UserService {
     @POST("/api/add_question")
     Call<ResponseBody> add_questionAndAnswers(@Body String qAndA);
 
+    @GET("/api/profile")
+    Call<ResponseBody> get_profile(@Query("username") String user);
+
 
 }

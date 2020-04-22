@@ -56,6 +56,7 @@ public class Dashboard extends AppCompatActivity {
             case R.id.Item_Profile:
                 // for view profile
                 Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                intent.putExtra("USERNAME",user);
                 startActivity(intent);
                 return true;
             case R.id.Item_Friends:
@@ -68,6 +69,12 @@ public class Dashboard extends AppCompatActivity {
                 intent = new Intent(getApplicationContext(), QSuggestionActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.Item_Logout:
+                // for view profile
+                intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("USERNAME",user);
+                startActivity(intent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -75,9 +82,6 @@ public class Dashboard extends AppCompatActivity {
 
     }
 
-//    private void fooThis() {
-//        Toast.makeText(getApplicationContext(),"HOME",Toast.LENGTH_LONG);
-//    }
 
 
 }

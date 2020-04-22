@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -40,8 +41,6 @@ public class QSuggestionActivity extends AppCompatActivity {
 
     private String result;
 
-    private JSONObject obj = new JSONObject();
-
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://firsttry-272817.appspot.com/")
             .addConverterFactory(ScalarsConverterFactory.create())
@@ -61,6 +60,8 @@ public class QSuggestionActivity extends AppCompatActivity {
         scienceCheckBox = findViewById(R.id.science);
         artsSportsCheckBox = findViewById(R.id.artsports);
         moviesCheckBox = findViewById(R.id.movies);
+
+        selectOnlyOneCheckBox();
 
         questionSuggestionText = findViewById(R.id.questionSuggestion);
         rightAnswerText = findViewById(R.id.rightAnswerSuggestion);
@@ -103,13 +104,73 @@ public class QSuggestionActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.v("TAGUL", t.getMessage());
+                        Log.v("FailQA", t.getMessage());
                     }
                 });
 
             }
 
         });
-        
+
+    }
+
+    private void selectOnlyOneCheckBox() {
+        historyCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    geographyCheckBox.setChecked(false);
+                    scienceCheckBox.setChecked(false);
+                    artsSportsCheckBox.setChecked(false);
+                    moviesCheckBox.setChecked(false);
+                }
+            }
+        });
+        geographyCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    historyCheckBox.setChecked(false);
+                    scienceCheckBox.setChecked(false);
+                    artsSportsCheckBox.setChecked(false);
+                    moviesCheckBox.setChecked(false);
+                }
+            }
+        });
+        scienceCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    historyCheckBox.setChecked(false);
+                    geographyCheckBox.setChecked(false);
+                    artsSportsCheckBox.setChecked(false);
+                    moviesCheckBox.setChecked(false);
+                }
+            }
+        });
+
+        artsSportsCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    historyCheckBox.setChecked(false);
+                    geographyCheckBox.setChecked(false);
+                    scienceCheckBox.setChecked(false);
+                    moviesCheckBox.setChecked(false);
+                }
+            }
+        });
+
+        moviesCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    historyCheckBox.setChecked(false);
+                    geographyCheckBox.setChecked(false);
+                    scienceCheckBox.setChecked(false);
+                    artsSportsCheckBox.setChecked(false);
+                }
+            }
+        });
     }
 }
