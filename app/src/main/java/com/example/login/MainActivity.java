@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "User/Password incorrect", Toast.LENGTH_LONG).show();
                             } else {
                                 Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                                intent.putExtra("USERNAME",user);
                                 startActivity(intent);
                             }
 

@@ -28,7 +28,8 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomeText"
-        app:layout_constraintVertical_bias="0.179" />
+        app:layout_constraintVertical_bias="0.179"
+        tools:text="@string/training_style" />
 
     <Button
         android:id="@+id/competitive"
@@ -38,6 +39,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/training" />
+        app:layout_constraintTop_toBottomOf="@+id/training"
+        tools:text="@string/competitive_style" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

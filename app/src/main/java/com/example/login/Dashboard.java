@@ -15,12 +15,15 @@ import android.widget.Toast;
 public class Dashboard extends AppCompatActivity {
     private Button btn_Tr;
     private Button btn_Co;
+    private String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        Intent intent = getIntent();
+        user = getIntent().getStringExtra("USERNAME");
+        //Toast.makeText(getApplicationContext(), user, Toast.LENGTH_LONG).show();
+
 
         btn_Tr = findViewById(R.id.training);
         btn_Co = findViewById(R.id.competitive);
@@ -29,6 +32,7 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), TrainingActivity.class);
+                intent.putExtra("USERNAME",user);
                 startActivity(intent);
             }
         });
