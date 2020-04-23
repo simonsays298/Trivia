@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class GameDone extends AppCompatActivity {
     private String getId;
     private TextView messageGame;
     private TextView finalScore;
+    private ImageView image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,8 @@ public class GameDone extends AppCompatActivity {
 
         messageGame = findViewById(R.id.messageG);
         finalScore = findViewById(R.id.finalScore);
+        image = findViewById(R.id.imageView);
+
 
 
         user = getIntent().getStringExtra("USERNAME");
@@ -53,6 +57,7 @@ public class GameDone extends AppCompatActivity {
 
         if(Integer.parseInt(points) == 0){
             messageGame.setText("Better Luck Next Time!");
+            image.setImageResource(R.drawable.ghost);
         }
 
         timer = new Timer();
