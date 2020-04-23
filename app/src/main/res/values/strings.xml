@@ -48,4 +48,7 @@
     <string name="send">SEND</string>
     <string name="createQA"><![CDATA[Congrats! You have successfully created a Trivia Q & A!]]></string>
     <string name="log_out">Log out</string>
+    <string name="invite">Invite</string>
+    <string name="add_new_friend">Add new friend</string>
+    <string name="ok">Ok</string>
 </resources>
