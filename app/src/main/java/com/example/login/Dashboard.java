@@ -16,6 +16,7 @@ public class Dashboard extends AppCompatActivity {
     private Button btn_Tr;
     private Button btn_Co;
     private String user;
+    private TextView welcomeTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,8 @@ public class Dashboard extends AppCompatActivity {
 
         btn_Tr = findViewById(R.id.training);
         btn_Co = findViewById(R.id.competitive);
+        welcomeTextView = findViewById(R.id.welcomeText);
+        welcomeTextView.setText("Let's play a quiz, " + user + "!");
 
         btn_Tr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,7 +38,6 @@ public class Dashboard extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
     }
 
@@ -55,6 +57,7 @@ public class Dashboard extends AppCompatActivity {
             case R.id.Item_Profile:
                 // for view profile
                 Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                intent.putExtra("USERNAME",user);
                 startActivity(intent);
                 return true;
             case R.id.Item_Friends:
@@ -70,7 +73,7 @@ public class Dashboard extends AppCompatActivity {
             case R.id.Item_Logout:
                 // for view profile
                 intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("USERNAME",user);
+                intent.putExtra("USERNAME", user);
                 startActivity(intent);
                 return true;
             default:
