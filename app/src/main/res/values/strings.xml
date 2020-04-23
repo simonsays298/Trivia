@@ -47,4 +47,5 @@
     <string name="wrong_answer_3">Wrong answer 3</string>
     <string name="send">SEND</string>
     <string name="createQA"><![CDATA[Congrats! You have successfully created a Trivia Q & A!]]></string>
+    <string name="log_out">Log out</string>
 </resources>

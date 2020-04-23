@@ -67,6 +67,12 @@ public class Dashboard extends AppCompatActivity {
                 intent = new Intent(getApplicationContext(), QSuggestionActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.Item_Logout:
+                // for view profile
+                intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("USERNAME",user);
+                startActivity(intent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

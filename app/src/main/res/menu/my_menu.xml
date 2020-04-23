@@ -15,4 +15,7 @@
     <item
         android:id="@+id/Item_QSuggestion"
         android:title="@string/question_factory" />
+    <item
+        android:id="@+id/Item_Logout"
+        android:title="@string/log_out" />
 </menu>
