@@ -54,7 +54,7 @@ public class GameDone extends AppCompatActivity {
         finalScore.setText(points);
 
         if(Integer.parseInt(points) == 0){
-            messageGame.setText("Better Luck Next Time!");
+            messageGame.setText(R.string.luck_next_time);
             image.setImageResource(R.drawable.ghost);
         }
 

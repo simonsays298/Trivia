@@ -2,17 +2,30 @@ package com.example.login;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -28,7 +41,10 @@ public class FriendsListViewActivity extends AppCompatActivity {
     private Button addNewFriendButton;
     final Context context = this;
 
+    EditText friendNameText;
+
     String userName;
+    String friendName;
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://firsttry-272817.appspot.com/")
@@ -46,6 +62,14 @@ public class FriendsListViewActivity extends AppCompatActivity {
 
         colorIndex = 0;
 
+        listView = (ListView) findViewById(R.id.listView);
+
+        friendsArrayAdapter = new FriendsArrayAdapter(getApplicationContext(),
+                R.layout.activity_listview_row_layout);
+        listView.setAdapter(friendsArrayAdapter);
+
+        refreshFriendList();
+
         addNewFriendButton = findViewById(R.id.addNewFriendButton);
         addNewFriendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,109 +77,130 @@ public class FriendsListViewActivity extends AppCompatActivity {
                 // custom dialog
                 final Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.dialog_add_new_friend);
-                dialog.setTitle("Enter a new friend");
 
-                // set the custom dialog components - text, image and button
-                EditText friendNameText = dialog.findViewById(R.id.friendToBeAdded);
+                // set the custom dialog components - text and button
+                friendNameText = (EditText) dialog.findViewById(R.id.friendToBeAdded);
 
-                Button dialogOKButton = dialog.findViewById(R.id.dialogButtonOK);
-                // if button is clicked, close the dialog
+                Button dialogOKButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+
+                // if OK button is clicked, type friend name and close the dialog
                 dialogOKButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog.dismiss();
+                        friendName = friendNameText.getText().toString();
+                        // check if friend name is not empty
+                        if (friendName.length() == 0) {
+                            Toast.makeText(getApplicationContext(), R.string.friend_name_empty,
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            String result = "{\"username\":\"" + userName + "\",\"friend\":\"" + friendName + "\"}";
+
+                            Call<ResponseBody> mService = service.add_friend(result);
+                            mService.enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    assert response.body() != null;
+                                    try {
+                                        String atext = response.body().string();
+                                        Log.v("Friend not user", Boolean.toString(atext.contains("is not a user")));
+
+                                        // check if name is a user from DB
+                                        if (atext.contains("is not a user")) {
+                                            Toast.makeText(getApplicationContext(),
+                                                    R.string.not_trivia_user, Toast.LENGTH_LONG).show();
+                                        } else if (atext.contains("Friend added")) {
+                                            Toast.makeText(getApplicationContext(),
+                                                    R.string.friend_succ_added, Toast.LENGTH_LONG).show();
+                                            //friendsArrayAdapter.notifyDataSetChanged();
+                                            dialog.dismiss();
+//                                            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+//                                            startActivity(intent);
+                                        }
+
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    Log.v("Fail friend name", t.getMessage());
+                                }
+                            });
+
+                        }
                     }
                 });
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
 
-//                Intent intent = new Intent(getApplicationContext(), FriendsListViewActivity.class);
-////                intent.putExtra("USERNAME", userName);
-//                startActivity(intent);
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        //refreshFriendList();
+                        FriendsListViewActivity.this.recreate();
+                        friendsArrayAdapter.notifyDataSetChanged();
+
+                    }
+                });
 
                 dialog.show();
             }
         });
 
 
-        listView = findViewById(R.id.listView);
-        friendsArrayAdapter = new FriendsArrayAdapter(getApplicationContext(), R.layout.activity_listview_row_layout);
-        listView.setAdapter(friendsArrayAdapter);
-
-        List<String[]> friendList = readData();
-        for(String[] friendData:friendList ) {
-            String fruitName = friendData[0];
-            String nrFriendPoints = friendData[1];
-
-            FriendData friend = new FriendData(fruitName, nrFriendPoints);
-            friendsArrayAdapter.add(friend);
-        }
     }
 
-    public List<String[]> readData(){
-        List<String[]> resultList = new ArrayList<>();
+    private void refreshFriendList() {
+        Call<ResponseBody> mService1 = service.get_friends(userName);
 
-        String[] fruit7 = new String[2];
-        fruit7[0] = "orange";
-        fruit7[1] = "47 Calories";
-        resultList.add(fruit7);
+        mService1.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-        String[] fruit1 = new String[2];
-        fruit1[0] = "cherry";
-        fruit1[1] = "50 Calories";
-        resultList.add(fruit1);
+                assert response.body() != null;
+                String friendNameAndPoints = null;
+                try {
+                    friendNameAndPoints = response.body().string();
 
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-        String[] fruit3 = new String[2];
-        fruit3[0] = "banana";
-        fruit3[1] = "89 Calories";
-        resultList.add(fruit3);
+                JSONObject obj = null;
+                try {
+                    assert friendNameAndPoints != null;
+                    obj = new JSONObject(friendNameAndPoints);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-        String[] fruit4 = new String[2];
-        fruit4[0] = "apple";
-        fruit4[1] = "52 Calories";
-        resultList.add(fruit4);
+                int jsonLength = obj.length();
 
-        String[] fruit10 = new String[2];
-        fruit10[0] = "kiwi";
-        fruit10[1] = "61 Calories";
-        resultList.add(fruit10);
+                for (int i = 0; i < jsonLength / 2; i++) {
+                    try {
+                        String friendN = obj.getString(String.valueOf(i));
+                        String nrFriendPoints = obj.getString("points" + String.valueOf(i))
+                                + " " + getString(R.string.points_friendslist);
 
-        String[] fruit5 = new String[2];
-        fruit5[0] = "pear";
-        fruit5[1] = "57 Calories";
-        resultList.add(fruit5);
+                        FriendData friend = new FriendData(friendN, nrFriendPoints);
 
+                        friendsArrayAdapter.insert(friend, i);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
 
-        String[] fruit2 = new String[2];
-        fruit2[0] = "strawberry";
-        fruit2[1] = "33 Calories";
-        resultList.add(fruit2);
+            }
 
-        String[] fruit6 = new String[2];
-        fruit6[0] = "lemon";
-        fruit6[1] = "29 Calories";
-        resultList.add(fruit6);
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.v("FAIL Friends List View", t.getMessage());
 
-        String[] fruit8 = new String[2];
-        fruit8[0] = "peach";
-        fruit8[1] = "39 Calories";
-        resultList.add(fruit8);
-
-        String[] fruit9 = new String[2];
-        fruit9[0] = "apricot";
-        fruit9[1] = "48 Calories";
-        resultList.add(fruit9);
-
-        String[] fruit11 = new String[2];
-        fruit11[0] = "mango";
-        fruit11[1] = "60 Calories";
-        resultList.add(fruit11);
-
-        String[] fruit15 = new String[2];
-        fruit15[0] = "blueberry";
-        fruit15[1] = "60 Calories";
-        resultList.add(fruit15);
-
-        return  resultList;
+            }
+        });
     }
-
+//    @Override
+//    public void onWindowFocusChanged(boolean hasFocus) {
+//        super.onWindowFocusChanged(hasFocus);
+//        refreshData();
+//    }
 }
