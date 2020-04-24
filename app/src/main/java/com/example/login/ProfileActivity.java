@@ -66,6 +66,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 JSONObject obj = null;
                 try {
+                    assert pointsAndFriends != null;
                     obj = new JSONObject(pointsAndFriends);
                 } catch (JSONException e) {
                     e.printStackTrace();

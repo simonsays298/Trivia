@@ -74,7 +74,6 @@ public class Dashboard extends AppCompatActivity {
             case R.id.Item_Logout:
                 // for view profile
                 intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("USERNAME", user);
                 startActivity(intent);
                 return true;
             default:

@@ -36,4 +36,7 @@ public interface UserService {
 
     @POST("api/add_friend")
     Call<ResponseBody> add_friend(@Body String friend);
+
+    @GET("api/get_friends")
+    Call<ResponseBody> get_friends(@Query("username") String user);
 }

@@ -52,4 +52,6 @@
     <string name="add_new_friend">Add new friend</string>
     <string name="ok">Ok</string>
     <string name="q_a_empty">Question / Answer is empty !</string>
+    <string name="friend_succ_added">Friend successfully added!</string>
+    <string name="points_friendslist"> points</string>
 </resources>
