@@ -57,4 +57,7 @@
     <string name="luck_next_time">Better Luck Next Time!</string>
     <string name="not_trivia_user">This is not a Trivia User!</string>
     <string name="friend_name_empty">Friend name is empty</string>
+    <string name="user_pass_empty">User / Password empty</string>
+    <string name="user_already_exists">The user already exists</string>
+    <string name="succ_created_account">You have successfully created you account</string>
 </resources>

@@ -74,9 +74,11 @@ public class RegisterActivity extends AppCompatActivity {
                         try {
                             String atext = response.body().string();
                             if (atext.contains("already exists")) {
-                                Toast.makeText(getApplicationContext(), "The user already exists", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), R.string.user_already_exists, Toast.LENGTH_LONG).show();
+                            } else if (text.length() == 0 || myPassword.length() == 0) {
+                                Toast.makeText(getApplicationContext(), R.string.user_pass_empty, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getApplicationContext(), "You have succesfully created you account", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), R.string.succ_created_account, Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
                             }
