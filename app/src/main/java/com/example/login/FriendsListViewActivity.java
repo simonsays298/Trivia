@@ -2,10 +2,12 @@ package com.example.login;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -66,6 +68,88 @@ public class FriendsListViewActivity extends AppCompatActivity {
                 R.layout.activity_listview_row_layout);
         listView.setAdapter(friendsArrayAdapter);
 
+        refreshFriendList();
+
+        addNewFriendButton = findViewById(R.id.addNewFriendButton);
+        addNewFriendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // custom dialog
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.dialog_add_new_friend);
+
+                // set the custom dialog components - text and button
+                friendNameText = (EditText) dialog.findViewById(R.id.friendToBeAdded);
+
+                Button dialogOKButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+
+                // if OK button is clicked, type friend name and close the dialog
+                dialogOKButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        friendName = friendNameText.getText().toString();
+                        // check if friend name is not empty
+                        if (friendName.length() == 0) {
+                            Toast.makeText(getApplicationContext(), R.string.friend_name_empty,
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            String result = "{\"username\":\"" + userName + "\",\"friend\":\"" + friendName + "\"}";
+
+                            Call<ResponseBody> mService = service.add_friend(result);
+                            mService.enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    assert response.body() != null;
+                                    try {
+                                        String atext = response.body().string();
+                                        Log.v("Friend not user", Boolean.toString(atext.contains("is not a user")));
+
+                                        // check if name is a user from DB
+                                        if (atext.contains("is not a user")) {
+                                            Toast.makeText(getApplicationContext(),
+                                                    R.string.not_trivia_user, Toast.LENGTH_LONG).show();
+                                        } else if (atext.contains("Friend added")) {
+                                            Toast.makeText(getApplicationContext(),
+                                                    R.string.friend_succ_added, Toast.LENGTH_LONG).show();
+                                            //friendsArrayAdapter.notifyDataSetChanged();
+                                            dialog.dismiss();
+//                                            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+//                                            startActivity(intent);
+                                        }
+
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    Log.v("Fail friend name", t.getMessage());
+                                }
+                            });
+
+                        }
+                    }
+                });
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        //refreshFriendList();
+                        FriendsListViewActivity.this.recreate();
+                        friendsArrayAdapter.notifyDataSetChanged();
+
+                    }
+                });
+
+                dialog.show();
+            }
+        });
+
+
+    }
+
+    private void refreshFriendList() {
         Call<ResponseBody> mService1 = service.get_friends(userName);
 
         mService1.enqueue(new Callback<ResponseBody>() {
@@ -98,7 +182,8 @@ public class FriendsListViewActivity extends AppCompatActivity {
                                 + " " + getString(R.string.points_friendslist);
 
                         FriendData friend = new FriendData(friendN, nrFriendPoints);
-                        friendsArrayAdapter.add(friend);
+
+                        friendsArrayAdapter.insert(friend, i);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -112,69 +197,6 @@ public class FriendsListViewActivity extends AppCompatActivity {
 
             }
         });
-
-        addNewFriendButton = findViewById(R.id.addNewFriendButton);
-        addNewFriendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // custom dialog
-                final Dialog dialog = new Dialog(context);
-                dialog.setContentView(R.layout.dialog_add_new_friend);
-
-                // set the custom dialog components - text and button
-                friendNameText = (EditText) dialog.findViewById(R.id.friendToBeAdded);
-
-                Button dialogOKButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
-
-                // if OK button is clicked, type friend name and close the dialog
-                dialogOKButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        friendName = friendNameText.getText().toString();
-                        // check if friend name is not empty
-                        if (friendName.length() == 0) {
-                            Toast.makeText(getApplicationContext(), "Friend name is empty", Toast.LENGTH_LONG).show();
-                        } else {
-                            String result = "{\"username\":\"" + userName + "\",\"friend\":\"" + friendName + "\"}";
-
-                            Call<ResponseBody> mService = service.add_friend(result);
-                            mService.enqueue(new Callback<ResponseBody>() {
-                                @Override
-                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                    assert response.body() != null;
-                                    try {
-                                        String atext = response.body().string();
-                                        Log.v("Friend not user", Boolean.toString(atext.contains("is not a user")));
-
-                                        // check if name is a user from DB
-                                        if (atext.contains("is not a user")) {
-                                            Toast.makeText(getApplicationContext(), "This is not a Trivia User!", Toast.LENGTH_LONG).show();
-                                        } else if (atext.contains("Friend added")) {
-                                            Toast.makeText(getApplicationContext(), R.string.friend_succ_added, Toast.LENGTH_LONG).show();
-                                            friendsArrayAdapter.notifyDataSetChanged();
-                                            dialog.dismiss();
-                                        }
-
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                    Log.v("Fail friend name", t.getMessage());
-                                }
-                            });
-
-                        }
-                    }
-                });
-
-                dialog.show();
-            }
-        });
-
-
     }
 //    @Override
 //    public void onWindowFocusChanged(boolean hasFocus) {

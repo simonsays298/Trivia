@@ -14,7 +14,7 @@ import java.util.List;
 
 public class FriendsArrayAdapter extends ArrayAdapter<FriendData> {
     private static final String TAG = "FriendArrayAdapter";
-    private List<FriendData> friendDataList = new ArrayList<FriendData>();
+    private List<FriendData> friendDataArrayList = new ArrayList<FriendData>();
 
     static class FriendViewHolder {
         TextView friendNameTextView;
@@ -27,18 +27,24 @@ public class FriendsArrayAdapter extends ArrayAdapter<FriendData> {
 
     @Override
     public void add(FriendData object) {
-        friendDataList.add(object);
+        friendDataArrayList.add(object);
         super.add(object);
     }
 
     @Override
+    public void insert(FriendData object, int index) {
+        friendDataArrayList.add(index, object);
+        super.insert(object, index);
+    }
+
+    @Override
     public int getCount() {
-        return this.friendDataList.size();
+        return this.friendDataArrayList.size();
     }
 
     @Override
     public FriendData getItem(int index) {
-        return this.friendDataList.get(index);
+        return this.friendDataArrayList.get(index);
     }
 
     @Override

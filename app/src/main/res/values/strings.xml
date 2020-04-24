@@ -54,4 +54,7 @@
     <string name="q_a_empty">Question / Answer is empty !</string>
     <string name="friend_succ_added">Friend successfully added!</string>
     <string name="points_friendslist"> points</string>
+    <string name="luck_next_time">Better Luck Next Time!</string>
+    <string name="not_trivia_user">This is not a Trivia User!</string>
+    <string name="friend_name_empty">Friend name is empty</string>
 </resources>
