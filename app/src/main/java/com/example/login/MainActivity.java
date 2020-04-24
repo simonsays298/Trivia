@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
                 user = editText.getText().toString();
                 password = psswd.getText().toString();
-                //result = "{\"username\":\"" + user + "\",\"password\":\"" + password +"\"}";
 
                 Call<ResponseBody> mService = service.authenticate(user, password);
                 mService.enqueue(new Callback<ResponseBody>() {
@@ -78,9 +77,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         assert response.body() != null;
                         try {
-//                            Log.v("TAGUL", response.body().string());
                             String atext = response.body().string();
-                            Log.v("TAGUL", Boolean.toString(atext.contains("not found")));
+
                             if (atext.contains("not found")) {
                                 Toast.makeText(getApplicationContext(), "User/Password incorrect", Toast.LENGTH_LONG).show();
                             } else {

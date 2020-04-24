@@ -56,9 +56,9 @@ public class FriendsListViewActivity extends AppCompatActivity {
                 dialog.setTitle("Enter a new friend");
 
                 // set the custom dialog components - text, image and button
-                EditText friendNameText = (EditText) dialog.findViewById(R.id.friendToBeAdded);
+                EditText friendNameText = dialog.findViewById(R.id.friendToBeAdded);
 
-                Button dialogOKButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+                Button dialogOKButton = dialog.findViewById(R.id.dialogButtonOK);
                 // if button is clicked, close the dialog
                 dialogOKButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -76,7 +76,7 @@ public class FriendsListViewActivity extends AppCompatActivity {
         });
 
 
-        listView = (ListView) findViewById(R.id.listView);
+        listView = findViewById(R.id.listView);
         friendsArrayAdapter = new FriendsArrayAdapter(getApplicationContext(), R.layout.activity_listview_row_layout);
         listView.setAdapter(friendsArrayAdapter);
 

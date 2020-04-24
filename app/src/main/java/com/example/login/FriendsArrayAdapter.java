@@ -49,8 +49,8 @@ public class FriendsArrayAdapter extends ArrayAdapter<FriendData> {
             LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(R.layout.activity_listview_row_layout, parent, false);
             viewHolder = new FriendViewHolder();
-            viewHolder.friendNameTextView = (TextView) row.findViewById(R.id.friendName);
-            viewHolder.nrPointsFriendTextView = (TextView) row.findViewById(R.id.pointsFriend);
+            viewHolder.friendNameTextView = row.findViewById(R.id.friendName);
+            viewHolder.nrPointsFriendTextView = row.findViewById(R.id.pointsFriend);
             row.setTag(viewHolder);
         } else {
             viewHolder = (FriendViewHolder)row.getTag();

@@ -11,6 +11,7 @@
     <string name="fourth_ans">Fourth Ans</string>
     <string name="domain">Choose the desired topic</string>
     <string name="geo">GEOGRAPHY</string>
+    <string name="createRoom">Create Room</string>
     <string name="historyT">HISTORY</string>
     <string name="topic">TOPIC</string>
     <string name="points">Points: </string>

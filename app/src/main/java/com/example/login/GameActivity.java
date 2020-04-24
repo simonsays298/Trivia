@@ -36,7 +36,6 @@ public class GameActivity extends AppCompatActivity {
     private TextView question;
     private TextView timer;
     private TextView myPoints;
-    private ImageView image;
     private TextView topic;
     private Button ans1;
     private Button ans2;
@@ -46,8 +45,7 @@ public class GameActivity extends AppCompatActivity {
     private int counter = 0;
     private int points = 0;
     private CountDownTimer tm = null;
-    private Timer timing;
-    private int timeValue = 15;
+
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://firsttry-272817.appspot.com/")
@@ -65,7 +63,6 @@ public class GameActivity extends AppCompatActivity {
         user = getIntent().getStringExtra("USERNAME");
         topicName = getIntent().getStringExtra("TOPIC");
 
-
         question = findViewById(R.id.Question);
         timer = findViewById(R.id.timer);
         ans1 = findViewById(R.id.ans1);
@@ -76,26 +73,19 @@ public class GameActivity extends AppCompatActivity {
         myPoints = findViewById(R.id.myPoints);
         checkAns = findViewById(R.id.checkAnswer);
 
-
-
         topic.setText(topicName);
-        myPoints.setText("Points: "+ String.valueOf(points));
+        myPoints.setText("Points: "+ points);
 
         tm = new CountDownTimer(16 * 1000, 1000) {
-
-
-
 
             @Override
             public void onTick(long millisUntilFinished) {
                 timer.setText("" + millisUntilFinished / 1000);
-
-
-                if(millisUntilFinished/ 1000== 0){
+                
+                if(millisUntilFinished / 1000 == 0){
                     tm.cancel();
-                    counter+=1;
+                    counter +=1;
                     loadQuestions();
-
                 }
 
 
@@ -103,113 +93,77 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-
-
-
+                
             }
         };
 
-
-
         loadQuestions();
-
-
-
-
-
-
-
-    }
-
-    public void timeUp(){
 
 
     }
 
     public void loadQuestions() {
 
-
         timer.setText("" + 16);
-        //checkAns.setText("");
 
         if (tm != null) {
             tm.start();
         }
 
-
-
-
-
-
-
-        JSONObject obj = null;
         Call<ResponseBody> mService = service.get_questions(getId);
         mService.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
                 assert response.body() != null;
+
                 String gamesId = null;
+                JSONObject resGet = null;
                 try {
                     gamesId = response.body().string();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                JSONObject obj = null;
                 try {
-                    obj = new JSONObject(gamesId);
+                    resGet = new JSONObject(gamesId);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
+                Log.v("TAGUL",resGet.toString());
 
-                Log.v("TAGUL", obj.toString());
                 if(counter != 5) {
                     try {
-                        question.setText(String.valueOf(counter + 1) + "." + " " + obj.getString("question"));
-                        ans1.setText(obj.getString("answer0"));
-                        ans2.setText(obj.getString("answer1"));
-                        ans3.setText(obj.getString("answer2"));
-                        ans4.setText(obj.getString("answer3"));
+                        question.setText(String.format("%d. %s", counter + 1, resGet.getString("question")));
+                        ans1.setText(resGet.getString("answer0"));
+                        ans2.setText(resGet.getString("answer1"));
+                        ans3.setText(resGet.getString("answer2"));
+                        ans4.setText(resGet.getString("answer3"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
 
-                JSONObject finalObj = obj;
+                JSONObject finalObj = resGet;
                 ans1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        ans3.setBackgroundColor(Color.LTGRAY);
-//                        ans1.setBackgroundColor(Color.LTGRAY);
-//                        ans2.setBackgroundColor(Color.LTGRAY);
-//                        ans4.setBackgroundColor(Color.LTGRAY);
-
                         try {
-
                             if (finalObj.getString("answer0").toLowerCase().contains(finalObj.getString("right").toLowerCase())) {
-                                //Toast.makeText(getApplicationContext(), "CORRECT", Toast.LENGTH_LONG).show();
-                                //Log.v("TAGUL", "Correct");
-                                // Wrong option
-                                //ans1.setBackgroundColor(Color.GREEN);
-                                ColorDrawable[] color = {new ColorDrawable(Color.GREEN), new ColorDrawable(Color.LTGRAY)};
-                                TransitionDrawable trans = new TransitionDrawable(color);
+                                TransitionDrawable trans = correctAns();
                                 ans1.setBackground(trans);
                                 trans.startTransition(400);
 
-
                                 points = points + 10;
-                                myPoints.setText("Points: " + String.valueOf(points));
+                                myPoints.setText("Points: " + points);
                             } else {
-                                ColorDrawable[] color = {new ColorDrawable(Color.RED), new ColorDrawable(Color.LTGRAY)};
-                                TransitionDrawable trans = new TransitionDrawable(color);
+                                TransitionDrawable trans = wrongAns();
                                 ans1.setBackground(trans);
                                 trans.startTransition(400);
 
                                 if (points != 0) {
                                     points = points - 5;
-                                    myPoints.setText("Points: " + String.valueOf(points));
+                                    myPoints.setText("Points: " + points);
                                 }
                             }
                         } catch (JSONException e) {
@@ -217,11 +171,8 @@ public class GameActivity extends AppCompatActivity {
                         }
                         if (counter < 5) {
                             tm.cancel();
-
                             counter++;
-
                             loadQuestions();
-
                         }
                     }
                 }
@@ -232,28 +183,22 @@ public class GameActivity extends AppCompatActivity {
 
                     @Override
                     public void onClick(View v) {
-//                        ans3.setBackgroundColor(Color.LTGRAY);
-//                        ans1.setBackgroundColor(Color.LTGRAY);
-//                        ans2.setBackgroundColor(Color.LTGRAY);
-//                        ans4.setBackgroundColor(Color.LTGRAY);
                         try {
-                            if (finalObj.getString("answer0").toLowerCase().contains(finalObj.getString("right").toLowerCase())) {
-                                //ans2.setBackgroundColor(Color.GREEN);
-                                ColorDrawable[] color = {new ColorDrawable(Color.GREEN), new ColorDrawable(Color.LTGRAY)};
-                                TransitionDrawable trans = new TransitionDrawable(color);
+                            if (finalObj.getString("answer1").toLowerCase().contains(finalObj.getString("right").toLowerCase())) {
+                                TransitionDrawable trans = correctAns();
                                 ans2.setBackground(trans);
                                 trans.startTransition(400);
+
                                 points = points + 10;
-                                myPoints.setText("Points: "+ String.valueOf(points));
+                                myPoints.setText("Points: "+ points);
                             } else {
-                                //ans2.setBackgroundColor(Color.RED);
-                                ColorDrawable[] color = {new ColorDrawable(Color.RED), new ColorDrawable(Color.LTGRAY)};
-                                TransitionDrawable trans = new TransitionDrawable(color);
+                                TransitionDrawable trans = wrongAns();
                                 ans2.setBackground(trans);
                                 trans.startTransition(400);
+
                                 if (points != 0) {
                                     points = points - 5;
-                                    myPoints.setText("Points: "+ String.valueOf(points));
+                                    myPoints.setText("Points: "+ points);
                                 }
                             }
                         } catch (JSONException e) {
@@ -262,34 +207,31 @@ public class GameActivity extends AppCompatActivity {
                         if (counter < 5) {
                             tm.cancel();
                             counter++;
-//
                             loadQuestions();
                         }
 
                     }
                 });
+
                 ans3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//
                         try {
                             if (finalObj.getString("answer2").toLowerCase().contains(finalObj.getString("right").toLowerCase())) {
-                                //ans3.setBackgroundColor(Color.GREEN);
-                                ColorDrawable[] color = {new ColorDrawable(Color.GREEN), new ColorDrawable(Color.LTGRAY)};
-                                TransitionDrawable trans = new TransitionDrawable(color);
+                                TransitionDrawable trans = correctAns();
                                 ans3.setBackground(trans);
                                 trans.startTransition(400);
+
                                 points = points + 10;
-                                myPoints.setText("Points: "+ String.valueOf(points));
+                                myPoints.setText("Points: "+ points);
                             } else {
-                                //ans3.setBackgroundColor(Color.RED);
-                                ColorDrawable[] color = {new ColorDrawable(Color.RED), new ColorDrawable(Color.LTGRAY)};
-                                TransitionDrawable trans = new TransitionDrawable(color);
+                                TransitionDrawable trans = wrongAns();
                                 ans3.setBackground(trans);
                                 trans.startTransition(400);
+
                                 if (points != 0) {
                                     points = points - 5;
-                                    myPoints.setText("Points: "+ String.valueOf(points));
+                                    myPoints.setText("Points: "+ points);
                                 }
                             }
                         } catch (JSONException e) {
@@ -298,8 +240,6 @@ public class GameActivity extends AppCompatActivity {
                         if (counter < 5) {
                             tm.cancel();
                             counter++;
-//
-
                             loadQuestions();
                         }
 
@@ -308,26 +248,22 @@ public class GameActivity extends AppCompatActivity {
                 ans4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        //ans4.setBackgroundColor(Color.LTGRAY);
                         try {
                             if (finalObj.getString("answer3").toLowerCase().contains(finalObj.getString("right").toLowerCase())) {
-                               // ans4.setBackgroundColor(Color.GREEN);
-                                ColorDrawable[] color = {new ColorDrawable(Color.GREEN), new ColorDrawable(Color.LTGRAY)};
-                                TransitionDrawable trans = new TransitionDrawable(color);
+                                TransitionDrawable trans = correctAns();
                                 ans4.setBackground(trans);
                                 trans.startTransition(400);
+
                                 points = points + 10;
-                                myPoints.setText("Points: "+ String.valueOf(points));
+                                myPoints.setText("Points: "+ points);
                             } else {
-                                //ans4.setBackgroundColor(Color.RED);
-                                ColorDrawable[] color = {new ColorDrawable(Color.RED), new ColorDrawable(Color.LTGRAY)};
-                                TransitionDrawable trans = new TransitionDrawable(color);
+                                TransitionDrawable trans = wrongAns();
                                 ans4.setBackground(trans);
                                 trans.startTransition(400);
+
                                 if (points != 0) {
                                     points = points - 5;
-                                    myPoints.setText("Points: "+ String.valueOf(points));
+                                    myPoints.setText("Points: "+ points);
                                 }
                             }
                         } catch (JSONException e) {
@@ -336,45 +272,43 @@ public class GameActivity extends AppCompatActivity {
                         if (counter < 5) {
                             tm.cancel();
                             counter++;
-//
                             loadQuestions();
-                            //ans4.setBackgroundColor(Color.LTGRAY);
                         }
                     }
 
                 });
-
-
             }
-
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.v("TAGUL", t.getMessage());
-
             }
         });
-
-
-
 
         if (counter == 5) {
             tm.cancel();
             finishGame();
         }
-
     }
 
     public void finishGame() {
-
                 Intent intent = new Intent(getApplicationContext(), GameDone.class);
                 intent.putExtra("USERNAME",user);
                 intent.putExtra("ID",getId);
                 intent.putExtra("POINTS",String.valueOf(points));
                 startActivity(intent);
                 finish();
+    }
 
-//
+    public TransitionDrawable correctAns(){
+        ColorDrawable[] color = {new ColorDrawable(Color.GREEN), new ColorDrawable(Color.LTGRAY)};
+        TransitionDrawable trans = new TransitionDrawable(color);
+        return trans;
+    }
+    public TransitionDrawable wrongAns(){
+        ColorDrawable[] color = {new ColorDrawable(Color.RED), new ColorDrawable(Color.LTGRAY)};
+        TransitionDrawable trans = new TransitionDrawable(color);
+        return trans;
     }
 
 }

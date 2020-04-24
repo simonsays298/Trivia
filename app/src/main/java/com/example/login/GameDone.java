@@ -47,8 +47,6 @@ public class GameDone extends AppCompatActivity {
         finalScore = findViewById(R.id.finalScore);
         image = findViewById(R.id.imageView);
 
-
-
         user = getIntent().getStringExtra("USERNAME");
         points = getIntent().getStringExtra("POINTS");
         getId = getIntent().getStringExtra("ID");

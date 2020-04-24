@@ -22,8 +22,8 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        user = getIntent().getStringExtra("USERNAME");
 
+        user = getIntent().getStringExtra("USERNAME");
 
         btn_Tr = findViewById(R.id.training);
         btn_Co = findViewById(R.id.competitive);
@@ -34,6 +34,15 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), TrainingActivity.class);
+                intent.putExtra("USERNAME",user);
+                startActivity(intent);
+            }
+        });
+
+        btn_Co.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CompetitiveActivity.class);
                 intent.putExtra("USERNAME",user);
                 startActivity(intent);
             }

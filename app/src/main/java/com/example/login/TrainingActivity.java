@@ -49,7 +49,7 @@ public class TrainingActivity extends AppCompatActivity {
 
         UserService service = retrofit.create(UserService.class);
 
-        user = getIntent().getStringExtra("USERNAME").toString();
+        user = getIntent().getStringExtra("USERNAME");
 
         history = findViewById(R.id.History);
         geo = findViewById(R.id.geography);
