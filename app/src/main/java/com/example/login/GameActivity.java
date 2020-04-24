@@ -9,6 +9,7 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView question;
     private TextView timer;
     private TextView myPoints;
+    private ImageView image;
     private TextView topic;
     private Button ans1;
     private Button ans2;
@@ -45,6 +47,7 @@ public class GameActivity extends AppCompatActivity {
     private int points = 0;
     private CountDownTimer tm = null;
     private Timer timing;
+    private int timeValue = 15;
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://firsttry-272817.appspot.com/")
@@ -73,19 +76,35 @@ public class GameActivity extends AppCompatActivity {
         myPoints = findViewById(R.id.myPoints);
         checkAns = findViewById(R.id.checkAnswer);
 
+
+
         topic.setText(topicName);
         myPoints.setText("Points: "+ String.valueOf(points));
+
         tm = new CountDownTimer(16 * 1000, 1000) {
+
+
 
 
             @Override
             public void onTick(long millisUntilFinished) {
                 timer.setText("" + millisUntilFinished / 1000);
 
+
+                if(millisUntilFinished/ 1000== 0){
+                    tm.cancel();
+                    counter+=1;
+                    loadQuestions();
+
+                }
+
+
             }
 
             @Override
             public void onFinish() {
+
+
 
             }
         };
@@ -102,8 +121,12 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    public void loadQuestions() {
+    public void timeUp(){
 
+
+    }
+
+    public void loadQuestions() {
 
 
         timer.setText("" + 16);
@@ -112,6 +135,8 @@ public class GameActivity extends AppCompatActivity {
         if (tm != null) {
             tm.start();
         }
+
+
 
 
 

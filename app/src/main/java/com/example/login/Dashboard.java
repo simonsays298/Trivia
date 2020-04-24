@@ -28,7 +28,7 @@ public class Dashboard extends AppCompatActivity {
         btn_Tr = findViewById(R.id.training);
         btn_Co = findViewById(R.id.competitive);
         welcomeTextView = findViewById(R.id.welcomeText);
-        welcomeTextView.setText("Let's play a quiz, " + user + "!");
+        welcomeTextView.setText("Let's take a quiz, " + user + "!");
 
         btn_Tr.setOnClickListener(new View.OnClickListener() {
             @Override

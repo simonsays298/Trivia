@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameDone">
+    android:background="#FFFFFF"
+    tools:context=".GameDone"
+    tools:visibility="visible">
 
     <TextView
         android:id="@+id/messageG"
@@ -54,4 +56,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.782" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="70dp"
+        android:soundEffectsEnabled="false"
+        app:layout_constraintBottom_toTopOf="@+id/messageG"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.466"
+        app:srcCompat="@drawable/images"
+        tools:srcCompat="@drawable/images" />
 </androidx.constraintlayout.widget.ConstraintLayout>
