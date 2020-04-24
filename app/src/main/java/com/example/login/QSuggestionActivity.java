@@ -86,7 +86,7 @@ public class QSuggestionActivity extends AppCompatActivity {
                 if (suggestedQuestion.length() == 0 || rightAnswerString.length() == 0
                         || wrongAnswer1String.length() == 0 || wrongAnswer2String.length() == 0
                         || wrongAnswer3String.length() == 0) {
-                    Toast.makeText(getApplicationContext(), "Question / Answer is empty !", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.q_a_empty, Toast.LENGTH_LONG).show();
 
                 } else {
 
