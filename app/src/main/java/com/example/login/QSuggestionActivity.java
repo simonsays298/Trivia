@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -62,6 +63,8 @@ public class QSuggestionActivity extends AppCompatActivity {
         artsSportsCheckBox = findViewById(R.id.artsports);
         moviesCheckBox = findViewById(R.id.movies);
 
+        selectOnlyOneCheckBox();
+
         questionSuggestionText = findViewById(R.id.questionSuggestion);
         rightAnswerText = findViewById(R.id.rightAnswerSuggestion);
         wrongAnswer1Text = findViewById(R.id.wrongAnswer1);
@@ -73,43 +76,111 @@ public class QSuggestionActivity extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            int domainID = 0;
-            String suggestedQuestion = questionSuggestionText.getText().toString();
-            String rightAnswerString = rightAnswerText.getText().toString();
-            String wrongAnswer1String = wrongAnswer1Text.getText().toString();
-            String wrongAnswer2String = wrongAnswer2Text.getText().toString();
-            String wrongAnswer3String = wrongAnswer3Text.getText().toString();
+                int domainID = 0;
+                String suggestedQuestion = questionSuggestionText.getText().toString();
+                String rightAnswerString = rightAnswerText.getText().toString();
+                String wrongAnswer1String = wrongAnswer1Text.getText().toString();
+                String wrongAnswer2String = wrongAnswer2Text.getText().toString();
+                String wrongAnswer3String = wrongAnswer3Text.getText().toString();
 
-            if (geographyCheckBox.isChecked()) domainID = 1;
-            if (historyCheckBox.isChecked()) domainID = 2;
-            if (scienceCheckBox.isChecked()) domainID = 3;
-            if (moviesCheckBox.isChecked()) domainID = 4;
-            if (artsSportsCheckBox.isChecked()) domainID = 5;
+                if (suggestedQuestion.length() == 0 || rightAnswerString.length() == 0
+                        || wrongAnswer1String.length() == 0 || wrongAnswer2String.length() == 0
+                        || wrongAnswer3String.length() == 0) {
+                    Toast.makeText(getApplicationContext(), "Question / Answer is empty !", Toast.LENGTH_LONG).show();
+
+                } else {
+
+                    if (geographyCheckBox.isChecked()) domainID = 1;
+                    if (historyCheckBox.isChecked()) domainID = 2;
+                    if (scienceCheckBox.isChecked()) domainID = 3;
+                    if (moviesCheckBox.isChecked()) domainID = 4;
+                    if (artsSportsCheckBox.isChecked()) domainID = 5;
 
 
-            result = "{\"question\":\"" + suggestedQuestion + "\",\"answer0\":\"" + wrongAnswer1String
-                    + "\",\"answer1\":\"" + wrongAnswer2String +  "\",\"answer2\":\"" + wrongAnswer3String
-                    + "\",\"right\":\"" + rightAnswerString + "\",\"domain\":\"" + domainID + "\"}";
+                    result = "{\"question\":\"" + suggestedQuestion + "\",\"answer0\":\"" + wrongAnswer1String
+                            + "\",\"answer1\":\"" + wrongAnswer2String + "\",\"answer2\":\"" + wrongAnswer3String
+                            + "\",\"right\":\"" + rightAnswerString + "\",\"domain\":\"" + domainID + "\"}";
 
-            Call<ResponseBody> mService = service.add_questionAndAnswers(result);
+                    Call<ResponseBody> mService = service.add_questionAndAnswers(result);
 
-            mService.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        Toast.makeText(getApplicationContext(), R.string.createQA, Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(getApplicationContext(), Dashboard.class);
-                        startActivity(intent);
-                    }
+                    mService.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            Toast.makeText(getApplicationContext(), R.string.createQA, Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                            startActivity(intent);
+                        }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.v("TAGUL", t.getMessage());
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Log.v("Fail Q Suggestion", t.getMessage());
+                        }
+                    });
+
+                }
 
             }
-
         });
-        
+    }
+
+
+    private void selectOnlyOneCheckBox() {
+        historyCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    geographyCheckBox.setChecked(false);
+                    scienceCheckBox.setChecked(false);
+                    artsSportsCheckBox.setChecked(false);
+                    moviesCheckBox.setChecked(false);
+                }
+            }
+        });
+        geographyCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    historyCheckBox.setChecked(false);
+                    scienceCheckBox.setChecked(false);
+                    artsSportsCheckBox.setChecked(false);
+                    moviesCheckBox.setChecked(false);
+                }
+            }
+        });
+        scienceCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    historyCheckBox.setChecked(false);
+                    geographyCheckBox.setChecked(false);
+                    artsSportsCheckBox.setChecked(false);
+                    moviesCheckBox.setChecked(false);
+                }
+            }
+        });
+
+        artsSportsCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    historyCheckBox.setChecked(false);
+                    geographyCheckBox.setChecked(false);
+                    scienceCheckBox.setChecked(false);
+                    moviesCheckBox.setChecked(false);
+                }
+            }
+        });
+
+        moviesCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    historyCheckBox.setChecked(false);
+                    geographyCheckBox.setChecked(false);
+                    scienceCheckBox.setChecked(false);
+                    artsSportsCheckBox.setChecked(false);
+                }
+            }
+        });
     }
 }
