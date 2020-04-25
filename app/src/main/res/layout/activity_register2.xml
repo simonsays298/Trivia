@@ -12,47 +12,47 @@
         android:id="@+id/enterUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
 
         android:ems="10"
         android:hint="@string/enter_new_username"
         android:inputType="textPersonName"
         android:textColor="@color/colorPrimaryDark"
         android:textColorHint="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/newPass"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.373" />
 
     <Button
         android:id="@+id/buttonCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:text="@string/create_user"
         android:textColor="@color/colorPrimary"
-        android:layout_centerInParent="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newPassReType" />
+        app:layout_constraintTop_toBottomOf="@+id/newPassReType"
+        app:layout_constraintVertical_bias="0.173" />
 
     <EditText
         android:id="@+id/newPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:ems="10"
         android:hint="@string/newPassword"
         android:inputType="textPassword"
-
         android:textColor="@color/colorPrimaryDark"
         android:textColorHint="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@+id/newPassReType"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/enterUsername"
+        app:layout_constraintVertical_bias="0.636" />
 
     <EditText
         android:id="@+id/newPassReType"
@@ -62,12 +62,12 @@
         android:hint="@string/retype_password"
         android:inputType="textPassword"
         android:textColor="@color/colorPrimaryDark"
-        android:textColorHint="@color/colorPrimaryDark"
 
-        app:layout_constraintBottom_toTopOf="@+id/buttonCreate"
+        android:textColorHint="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newPass" />
+        app:layout_constraintTop_toBottomOf="@+id/enterUsername"
+        app:layout_constraintVertical_bias="0.184" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
