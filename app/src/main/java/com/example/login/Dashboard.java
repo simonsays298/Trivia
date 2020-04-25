@@ -77,7 +77,7 @@ public class Dashboard extends AppCompatActivity {
                 return true;
             case R.id.Item_QSuggestion:
                 // for question suggestions
-                intent = new Intent(getApplicationContext(), QSuggestionActivity.class);
+                intent = new Intent(getApplicationContext(), QFactoryActivity.class);
                 startActivity(intent);
                 return true;
             case R.id.Item_Logout:
