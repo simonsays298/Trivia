@@ -3,6 +3,7 @@ package com.example.login;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +24,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -43,6 +45,7 @@ public class CompetitiveActivity extends AppCompatActivity {
     private String multi;
     JSONObject rooms;
     List<String> roomsList = new ArrayList<>();
+    HashMap<String, String> nameIdMap=new HashMap<String, String>();
     private int noRooms;
     private int counter = 0;
 
@@ -79,6 +82,7 @@ public class CompetitiveActivity extends AppCompatActivity {
 
             }
         });
+        createRoom.setEnabled(true);
 
         try {
             loadRooms();
@@ -129,7 +133,10 @@ public class CompetitiveActivity extends AppCompatActivity {
             for(int i = 0 ; i < noRooms ; i++){
                 JSONObject nameRoom = rooms.getJSONObject(String.valueOf(i));
                 if(!roomsList.contains(nameRoom.getString("creator"))){
+                    String name = nameRoom.getString("creator");
+                    String id = nameRoom.getString("id");
                     roomsList.add(nameRoom.getString("creator"));
+                    nameIdMap.put(name, id);
                 }
 
             }
@@ -138,6 +145,18 @@ public class CompetitiveActivity extends AppCompatActivity {
         ArrayAdapter<String> itemsAdapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, roomsList);
         room.setAdapter(itemsAdapter);
+
+        room.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String entryNameRoom= (String) parent.getAdapter().getItem(position);
+                String sendID = nameIdMap.get(entryNameRoom);
+                Log.v("TAGULL","AICI " + sendID);
+//                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+//                String getId= pref.getString("ID", null);
+
+            }
+        });
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -150,5 +169,7 @@ public class CompetitiveActivity extends AppCompatActivity {
                 }
             }
         },100);
+
+
     }
 }

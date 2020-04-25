@@ -3,6 +3,7 @@ package com.example.login;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -99,6 +100,11 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("TOPIC", "HISTORY");
                             startActivity(intent);
                         }else{
+//                            SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+//                            SharedPreferences.Editor editor = pref.edit();
+//                            editor.putString("ID",gamesId);
+//                            editor.apply();
+
                             Log.v("TAGUL","BRAVO MAI ASTEPATA");
                         }
 

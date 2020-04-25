@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -69,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
                 //TODO make a request to server using retrofit
 
                 user = editText.getText().toString();
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("USERNAME",user);
+                editor.apply();
                 password = psswd.getText().toString();
 
                 Call<ResponseBody> mService = service.authenticate(user, password);
