@@ -12,36 +12,84 @@
         android:layout_height="wrap_content"
         android:textColor="@color/Green"
         android:textSize="20sp"
+        android:text="welcome text!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.133" />
 
-    <Button
-        android:id="@+id/training"
-        android:layout_width="312dp"
-        android:layout_height="154dp"
-        android:text="@string/training_style"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeText"
-        app:layout_constraintVertical_bias="0.179"
-        tools:text="@string/training_style" />
+    <LinearLayout
+        android:id="@+id/linearLayout2"
 
-    <Button
-        android:id="@+id/competitive"
-        android:layout_width="314dp"
-        android:layout_height="149dp"
-        android:text="@string/competitive_style"
-        android:textColor="@color/colorPrimary"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginBottom="631dp"
+        android:orientation="horizontal"
+        android:paddingLeft="4.0dip"
+        android:paddingTop="10.0dip"
+        android:paddingRight="4.0dip"
+        android:paddingBottom="1.0dip"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/training"
-        tools:text="@string/competitive_style" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/questionImg"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:text="@string/cancel"
+            android:textColor="@color/colorPrimary"
+            app:srcCompat="@drawable/training" />
+
+        <Button
+            android:id="@+id/training"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:text="@string/training_style"
+            android:textColor="@color/colorPrimary" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+
+
+        android:layout_marginTop="300dp"
+        android:layout_marginBottom="531dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="4.0dip"
+        android:paddingTop="9.0dip"
+        android:paddingRight="4.0dip"
+        android:paddingBottom="1.0dip"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <ImageView
+            android:id="@+id/starImg"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:text="@string/cancel"
+            android:textColor="@color/colorPrimary"
+            app:srcCompat="@drawable/vs" />
+
+        <Button
+            android:id="@+id/competitive"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:text="@string/competitive_style"
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
