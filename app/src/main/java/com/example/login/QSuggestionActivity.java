@@ -40,6 +40,7 @@ public class QSuggestionActivity extends AppCompatActivity {
     private Button sendButton;
 
     private String result;
+    private String user;
 
     private JSONObject obj = new JSONObject();
 
@@ -56,6 +57,7 @@ public class QSuggestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_q_suggestion);
         Intent intent = getIntent();
+        user = getIntent().getStringExtra("USERNAME");
 
         historyCheckBox = findViewById(R.id.history);
         geographyCheckBox = findViewById(R.id.geography);
@@ -108,6 +110,7 @@ public class QSuggestionActivity extends AppCompatActivity {
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             Toast.makeText(getApplicationContext(), R.string.createQA, Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                            intent.putExtra("USERNAME", user);
                             startActivity(intent);
                         }
 

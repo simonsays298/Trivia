@@ -106,15 +106,15 @@ public class RateQuestionActivity extends AppCompatActivity {
                         String rightAnswer = qaObj.getString("answer3");
                         String domain = null;
                         if (qaObj.getString("domain").equals("1"))
-                            domain = "Geography";
+                            domain = "Geography".toUpperCase();
                         else if (qaObj.getString("domain").equals("2"))
-                            domain = "History";
+                            domain = "History".toUpperCase();
                         else if (qaObj.getString("domain").equals("3"))
-                            domain = "Science";
+                            domain = "Science".toUpperCase();
                         else if (qaObj.getString("domain").equals("4"))
-                            domain = "Movies & Celebrities";
+                            domain = "Movies & Celebrities".toUpperCase();
                         else if (qaObj.getString("domain").equals("5"))
-                            domain = "Arts & Sports";
+                            domain = "Arts & Sports".toUpperCase();
 
 
                         String question = qaObj.getString("question");
@@ -139,47 +139,4 @@ public class RateQuestionActivity extends AppCompatActivity {
         });
     }
 
-    public List<String[]> readData() {
-        List<String[]> resultList = new ArrayList<>();
-
-        String[] fruit7 = new String[2];
-        fruit7[0] = "orange";
-        fruit7[1] = "47 Calories";
-        resultList.add(fruit7);
-
-        String[] fruit1 = new String[2];
-        fruit1[0] = "cherry";
-        fruit1[1] = "50 Calories";
-        resultList.add(fruit1);
-
-
-        String[] fruit3 = new String[2];
-        fruit3[0] = "banana";
-        fruit3[1] = "89 Calories";
-        resultList.add(fruit3);
-
-        String[] fruit4 = new String[2];
-        fruit4[0] = "apple";
-        fruit4[1] = "52 Calories";
-        resultList.add(fruit4);
-
-        String[] fruit10 = new String[2];
-        fruit10[0] = "kiwi";
-        fruit10[1] = "61 Calories";
-        resultList.add(fruit10);
-
-        String[] fruit5 = new String[2];
-        fruit5[0] = "pear";
-        fruit5[1] = "57 Calories";
-        resultList.add(fruit5);
-
-
-        String[] fruit2 = new String[2];
-        fruit2[0] = "strawberry";
-        fruit2[1] = "33 Calories";
-        resultList.add(fruit2);
-
-
-        return resultList;
-    }
 }

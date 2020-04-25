@@ -36,15 +36,7 @@
             android:text="Question #1"
             android:textColor="@color/colorPrimaryDark" />
 
-        <TextView
-            android:id="@+id/domain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/questionName"
-            android:paddingTop="10dp"
-            android:text="Domain"
-            android:textColor="@color/colorPrimary" />
+
 
         <ImageButton
             android:id="@+id/checkButton"
@@ -58,10 +50,34 @@
             android:src="@drawable/check" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+
+        android:gravity="start"
+        android:orientation="horizontal"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
+
+        <TextView
+            android:id="@+id/domain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="25dp"
+            android:paddingStart="20dp"
+            android:text="Domain"
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
+
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="fill_parent"
-        android:layout_height="102dp"
+        android:layout_height="132dp"
 
         android:gravity="center"
         android:orientation="horizontal"
@@ -70,7 +86,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <TextView
             android:id="@+id/rightAns"

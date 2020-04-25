@@ -29,8 +29,6 @@ public class Dashboard extends AppCompatActivity {
 
         user = getIntent().getStringExtra("USERNAME");
 
-
-
         btn_Tr = findViewById(R.id.training);
         btn_Co = findViewById(R.id.competitive);
         welcomeTextView = findViewById(R.id.welcomeText);
