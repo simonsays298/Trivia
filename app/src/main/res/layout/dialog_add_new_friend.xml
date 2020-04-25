@@ -14,7 +14,7 @@
         android:textColor="@color/Green" />
     <LinearLayout
         android:orientation="horizontal"
-        android:background="@android:drawable/bottom_bar"
+
         android:paddingLeft="4.0dip"
         android:paddingTop="5.0dip"
         android:paddingRight="4.0dip"
