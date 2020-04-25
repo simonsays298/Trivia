@@ -64,4 +64,6 @@
     <string name="cancel">Cancel</string>
     <string name="rate_a_question">Rate a question</string>
     <string name="suggest_a_question">Suggest a question</string>
+    <string name="retype_password">Retype password</string>
+    <string name="not_match_pass">Password not matching</string>
 </resources>
