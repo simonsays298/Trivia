@@ -10,7 +10,7 @@
         android:id="@+id/createRoom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="440dp"
+        android:layout_marginBottom="92dp"
         android:text="@string/createRoom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,8 +20,10 @@
 
     <ListView
         android:id="@+id/listView"
-        android:layout_width="123dp"
-        android:layout_height="49dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toTopOf="@+id/createRoom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -19,6 +19,9 @@ public interface UserService {
     @GET("api/get_question")
     Call<ResponseBody> get_questions(@Query("id") String id);
 
+    @GET("api/get_rooms")
+    Call<ResponseBody> get_rooms();
+
     @POST("api/create_account")
     Call<ResponseBody> createUser(@Body String json);
 

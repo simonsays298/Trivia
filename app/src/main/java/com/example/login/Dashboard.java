@@ -35,6 +35,7 @@ public class Dashboard extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), TrainingActivity.class);
                 intent.putExtra("USERNAME",user);
+                intent.putExtra("MULTI","0");
                 startActivity(intent);
             }
         });
@@ -44,6 +45,7 @@ public class Dashboard extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CompetitiveActivity.class);
                 intent.putExtra("USERNAME",user);
+                intent.putExtra("MULTI","1");
                 startActivity(intent);
             }
         });

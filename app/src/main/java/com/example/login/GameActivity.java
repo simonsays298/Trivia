@@ -7,6 +7,7 @@ import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -86,6 +87,17 @@ public class GameActivity extends AppCompatActivity {
                     tm.cancel();
                     counter +=1;
                     loadQuestions();
+                }
+                if(millisUntilFinished / 1000 <= 5){
+                    checkAns.setText("Better Hurry!!!");
+                    checkAns.setTextColor(Color.RED);
+                    checkAns.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                    timer.setTextColor(Color.RED);
+                    timer.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                }else{
+                    timer.setTextColor(Color.GRAY);
+                    timer.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                    checkAns.setText("");
                 }
 
 

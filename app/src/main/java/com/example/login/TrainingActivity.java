@@ -32,7 +32,7 @@ public class TrainingActivity extends AppCompatActivity {
     private Button movie;
     private Button science;
     private String user;
-    private String sendDomain;
+    private String multi;
 
 
     //SharedPReferences
@@ -50,6 +50,7 @@ public class TrainingActivity extends AppCompatActivity {
         UserService service = retrofit.create(UserService.class);
 
         user = getIntent().getStringExtra("USERNAME");
+        multi = getIntent().getStringExtra("MULTI");
 
         history = findViewById(R.id.History);
         geo = findViewById(R.id.geography);
@@ -72,7 +73,7 @@ public class TrainingActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 try {
-                    json.put("multi", "0");
+                    json.put("multi", multi);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -91,12 +92,17 @@ public class TrainingActivity extends AppCompatActivity {
                         }
 
                         Log.v("TAGUL",gamesId);
-                        Intent intent = new Intent(getApplicationContext(), GameActivity.class);
-                        intent.putExtra("USERNAME",user);
-                        intent.putExtra("GAMESID",gamesId);
-                        intent.putExtra("TOPIC", "HISTORY");
+                        if(multi.equals("0")) {
+                            Intent intent = new Intent(getApplicationContext(), GameActivity.class);
+                            intent.putExtra("USERNAME", user);
+                            intent.putExtra("GAMESID", gamesId);
+                            intent.putExtra("TOPIC", "HISTORY");
+                            startActivity(intent);
+                        }else{
+                            Log.v("TAGUL","BRAVO MAI ASTEPATA");
+                        }
 
-                        startActivity(intent);
+
 
 
                     }
@@ -126,7 +132,7 @@ public class TrainingActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 try {
-                    json.put("multi", "0");
+                    json.put("multi", multi);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -179,7 +185,7 @@ public class TrainingActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 try {
-                    json.put("multi", "0");
+                    json.put("multi", multi);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -232,7 +238,7 @@ public class TrainingActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 try {
-                    json.put("multi", "0");
+                    json.put("multi", multi);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -286,7 +292,7 @@ public class TrainingActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 try {
-                    json.put("multi", "0");
+                    json.put("multi", multi);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
