@@ -2,8 +2,11 @@ package com.example.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,12 +21,15 @@ public class Dashboard extends AppCompatActivity {
     private String user;
     private TextView welcomeTextView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
         user = getIntent().getStringExtra("USERNAME");
+
+
 
         btn_Tr = findViewById(R.id.training);
         btn_Co = findViewById(R.id.competitive);
