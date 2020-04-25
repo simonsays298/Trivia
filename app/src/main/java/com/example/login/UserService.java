@@ -17,17 +17,19 @@ public interface UserService {
     Call<ResponseBody> authenticate(@Query("username") String user, @Query("password") String password);
 
     @GET("api/get_question")
-    Call<ResponseBody> get_questions(@Query("id") String id);
+    Call<ResponseBody> get_questions(@Query("id") String id, @Query("username") String user);
 
     @GET("api/get_rooms")
     Call<ResponseBody> get_rooms();
+
+    @GET("api/found_opponent")
+    Call<ResponseBody> found_opponent(@Query("id") String id);
 
     @POST("api/create_account")
     Call<ResponseBody> createUser(@Body String json);
 
     @POST("api/choose_room")
-    Call<ResponseBody> chooseRoom(@Body String json);
-
+    Call<ResponseBody> chooseRoom(@Body JSONObject json);
 
     @POST("api/register_game")
     Call<ResponseBody> new_game(@Body JSONObject json);

@@ -122,7 +122,8 @@ public class GameActivity extends AppCompatActivity {
             tm.start();
         }
 
-        Call<ResponseBody> mService = service.get_questions(getId);
+
+        Call<ResponseBody> mService = service.get_questions(getId, user);
         mService.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -144,7 +145,7 @@ public class GameActivity extends AppCompatActivity {
 
                 Log.v("TAGUL",resGet.toString());
 
-                if(counter != 5) {
+                if(counter < 5) {
                     try {
                         question.setText(String.format("%d. %s", counter + 1, resGet.getString("question")));
                         ans1.setText(resGet.getString("answer0"));
@@ -185,6 +186,10 @@ public class GameActivity extends AppCompatActivity {
                             tm.cancel();
                             counter++;
                             loadQuestions();
+                        }else{
+                            tm.cancel();
+                            finish();
+                            finishGame();
                         }
                     }
                 }
@@ -220,6 +225,10 @@ public class GameActivity extends AppCompatActivity {
                             tm.cancel();
                             counter++;
                             loadQuestions();
+                        }else{
+                            tm.cancel();
+                            finish();
+                            finishGame();
                         }
 
                     }
@@ -253,6 +262,10 @@ public class GameActivity extends AppCompatActivity {
                             tm.cancel();
                             counter++;
                             loadQuestions();
+                        }else{
+                            tm.cancel();
+                            finish();
+                            finishGame();
                         }
 
                     }
@@ -285,6 +298,10 @@ public class GameActivity extends AppCompatActivity {
                             tm.cancel();
                             counter++;
                             loadQuestions();
+                        }else{
+                            tm.cancel();
+                            finish();
+                            finishGame();
                         }
                     }
 
@@ -297,13 +314,18 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+
         if (counter == 5) {
             tm.cancel();
             finishGame();
         }
+
+
+
     }
 
     public void finishGame() {
+
                 Intent intent = new Intent(getApplicationContext(), GameDone.class);
                 intent.putExtra("USERNAME",user);
                 intent.putExtra("ID",getId);

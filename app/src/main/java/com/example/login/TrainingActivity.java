@@ -34,8 +34,14 @@ public class TrainingActivity extends AppCompatActivity {
     private Button science;
     private String user;
     private String multi;
+    private String foundOpponent;
 
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("https://firsttry-272817.appspot.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
 
+    UserService service = retrofit.create(UserService.class);
     //SharedPReferences
 
     @Override
@@ -43,12 +49,7 @@ public class TrainingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://firsttry-272817.appspot.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        UserService service = retrofit.create(UserService.class);
 
         user = getIntent().getStringExtra("USERNAME");
         multi = getIntent().getStringExtra("MULTI");
@@ -93,6 +94,7 @@ public class TrainingActivity extends AppCompatActivity {
                         }
 
                         Log.v("TAGUL",gamesId);
+                        foundOpponent = gamesId;
                         if(multi.equals("0")) {
                             Intent intent = new Intent(getApplicationContext(), GameActivity.class);
                             intent.putExtra("USERNAME", user);
@@ -100,11 +102,8 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("TOPIC", "HISTORY");
                             startActivity(intent);
                         }else{
-//                            SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
-//                            SharedPreferences.Editor editor = pref.edit();
-//                            editor.putString("ID",gamesId);
-//                            editor.apply();
 
+                            waitForOpponent();
                             Log.v("TAGUL","BRAVO MAI ASTEPATA");
                         }
 
@@ -338,4 +337,34 @@ public class TrainingActivity extends AppCompatActivity {
 
 
     }
+
+    private void waitForOpponent(){
+
+        Call<ResponseBody> mService = service.found_opponent(foundOpponent);
+        mService.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                assert response.body() != null;
+                try {
+                    if(response.body().string().equals("Yes")){
+                        Log.v("TAGUL","YES");
+                    }else{
+                        waitForOpponent();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.v("TAGUL", t.getMessage());
+
+            }
+        });
+    }
+
 }
