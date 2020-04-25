@@ -6,52 +6,56 @@
     android:layout_height="fill_parent"
     android:layout_marginBottom="0dp"
     android:layout_marginTop="0dp"
+    android:orientation="vertical"
     tools:context=".FriendsListViewActivity"
+    android:background="#FFFFFF"
     android:focusableInTouchMode="true">
+
     <LinearLayout
         android:id="@+id/linearLayout1"
 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
 
+        android:background="#FFFFFF"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/questionName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:paddingRight="20dp"
-        android:paddingTop="10dp"
-        android:paddingLeft="20dp"
-        android:textColor="@color/colorPrimaryDark"
-        android:text="Question #1"
-        android:scaleType="centerCrop" />
+        <TextView
+            android:id="@+id/questionName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:scaleType="centerCrop"
+            android:text="Question #1"
+            android:textColor="@color/colorPrimaryDark" />
 
-    <TextView
-        android:id="@+id/domain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/questionName"
-        android:layout_centerVertical="true"
-        android:paddingTop="10dp"
-        android:textColor="@color/colorPrimary"
-        android:text="Domain"/>
+        <TextView
+            android:id="@+id/domain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/questionName"
+            android:paddingTop="10dp"
+            android:text="Domain"
+            android:textColor="@color/colorPrimary" />
 
         <ImageButton
             android:id="@+id/checkButton"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="41dp"
-            android:layout_marginStart="18dp"
+            android:layout_marginStart="150dp"
             android:layout_marginEnd="8dp"
 
             android:paddingTop="10dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/check" />
+            android:src="@drawable/check" />
     </LinearLayout>
 
 
@@ -61,6 +65,7 @@
 
         android:gravity="center"
         android:orientation="horizontal"
+
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
