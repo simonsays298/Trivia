@@ -25,5 +25,15 @@ public class QFactoryActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        rateQButton = findViewById(R.id.rateQButton);
+
+        rateQButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RateQuestionActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginBottom="0dp"
+    android:layout_marginTop="0dp"
+    tools:context=".FriendsListViewActivity"
+    android:focusableInTouchMode="true">
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+        android:id="@+id/questionName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="20dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="Question #1"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/domain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/questionName"
+        android:layout_centerVertical="true"
+        android:paddingTop="10dp"
+        android:textColor="@color/colorPrimary"
+        android:text="Domain"/>
+
+        <ImageButton
+            android:id="@+id/checkButton"
+            android:layout_width="fill_parent"
+            android:layout_height="41dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="8dp"
+            
+            android:paddingTop="10dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/check" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+
+        android:gravity="center"
+        android:orientation="horizontal"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
+
+        <TextView
+            android:id="@+id/rightAns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="Right Answer"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:textColor="@color/Green" />
+
+        <TextView
+            android:id="@+id/wrongAns1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="Wrong Ans #1"
+            android:paddingRight="10dp"
+            android:textColor="@color/Red" />
+
+        <TextView
+            android:id="@+id/wrongAns2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:paddingRight="10dp"
+            android:text="Wrong Ans #2"
+            android:textColor="@color/Red" />
+
+        <TextView
+            android:id="@+id/wrongAns3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="Wrong Ans #3"
+            android:paddingRight="10dp"
+            android:textColor="@color/Red" />
+    </LinearLayout>
+</RelativeLayout>
