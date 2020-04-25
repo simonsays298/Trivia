@@ -75,6 +75,11 @@ public class GameDone extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                try {
+                    finish.put("username",user);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 Call<ResponseBody> finishService = service.finish_game(finish);
                 finishService.enqueue(new Callback<ResponseBody>() {
                     @Override
