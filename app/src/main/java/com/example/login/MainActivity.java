@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText editText;
     private Button btn;
-    private Button btnR;
+    private Button buttonRegister;
     private EditText psswd;
     private String user;
     private String password;
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         btn = findViewById(R.id.Login);
         editText = findViewById(R.id.User);
-        btnR = findViewById(R.id.buttonRegister);
+        buttonRegister = findViewById(R.id.buttonRegister);
         psswd = findViewById(R.id.Password);
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        btnR.setOnClickListener(new View.OnClickListener() {
+        buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO make a request to server using retrofit

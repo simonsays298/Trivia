@@ -33,9 +33,13 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText enterUsernameEditText;
     private EditText passEditText;
+    private EditText reTypePassEditText;
+
     private Button btnCreate;
     private String text;
     private String myPassword;
+    private String retypePassString;
+
     private JSONObject obj = new JSONObject();
     private String result;
 
@@ -55,7 +59,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         enterUsernameEditText = findViewById(R.id.enterUsername);
         passEditText = findViewById(R.id.newPass);
+        reTypePassEditText = findViewById(R.id.newPassReType);
         btnCreate = findViewById(R.id.buttonCreate);
+
+
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,39 +70,44 @@ public class RegisterActivity extends AppCompatActivity {
                 text = enterUsernameEditText.getText().toString();
                 myPassword = passEditText.getText().toString();
 
-                result = "{\"username\":\"" + text + "\",\"password\":\"" + myPassword + "\",\"points\":\"0\"}";
+                retypePassString = reTypePassEditText.getText().toString();
+
+                if (!retypePassString.equals(myPassword)) {
+                    Toast.makeText(getApplicationContext(), R.string.not_match_pass, Toast.LENGTH_LONG).show();
+
+                } else {
+                    result = "{\"username\":\"" + text + "\",\"password\":\"" + myPassword + "\",\"points\":\"0\"}";
+                    Call<ResponseBody> mService = service.createUser(result);
+                    mService.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            assert response.body() != null;
+                            try {
+                                String atext = response.body().string();
+                                if (atext.contains("already exists")) {
+                                    Toast.makeText(getApplicationContext(), R.string.user_already_exists, Toast.LENGTH_LONG).show();
+                                } else if (text.length() == 0 || myPassword.length() == 0) {
+                                    Toast.makeText(getApplicationContext(), R.string.user_pass_empty, Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), R.string.succ_created_account, Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(intent);
+                                }
 
 
-                Call<ResponseBody> mService = service.createUser(result);
-                mService.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        assert response.body() != null;
-                        try {
-                            String atext = response.body().string();
-                            if (atext.contains("already exists")) {
-                                Toast.makeText(getApplicationContext(), R.string.user_already_exists, Toast.LENGTH_LONG).show();
-                            } else if (text.length() == 0 || myPassword.length() == 0) {
-                                Toast.makeText(getApplicationContext(), R.string.user_pass_empty, Toast.LENGTH_LONG).show();
-                            } else {
-                                Toast.makeText(getApplicationContext(), R.string.succ_created_account, Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intent);
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
-
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.v("TAGUL", t.getMessage());
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Log.v("TAGUL", t.getMessage());
+                        }
+                    });
 
 
+                }
             }
         });
 
