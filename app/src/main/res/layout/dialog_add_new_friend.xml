@@ -12,16 +12,32 @@
         android:hint="Enter friend name ..."
         android:textColorHint="@color/Green"
         android:textColor="@color/Green" />
+    <LinearLayout
+        android:orientation="horizontal"
 
-    <Button
-        android:id="@+id/dialogButtonOK"
-        android:layout_width="wrap_content"
+        android:paddingLeft="4.0dip"
+        android:paddingTop="5.0dip"
+        android:paddingRight="4.0dip"
+        android:paddingBottom="1.0dip"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/ok"
-        android:textColor="@color/colorPrimary"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/friendToBeAdded"
-        />
+        android:layout_below="@+id/friendToBeAdded">
+
+        <Button
+            android:id="@+id/dialogButtonCancel"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:text="@string/cancel"
+            android:textColor="@color/colorPrimary"
+            android:layout_weight="1.0" />
+
+        <Button
+            android:id="@+id/dialogButtonOK"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:text="@string/ok"
+            android:textColor="@color/colorPrimary"
+            android:layout_weight="1.0" />
+
+    </LinearLayout>
 </RelativeLayout>
