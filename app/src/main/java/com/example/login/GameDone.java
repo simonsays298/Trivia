@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,7 +70,7 @@ public class GameDone extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 try {
-                    //Log.v("TAGUL", String.valueOf(points));
+                    Log.v("TAGUL", getId);
                     finish.put("points", points);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -79,6 +80,11 @@ public class GameDone extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
+                        try {
+                            Log.v("TAGUL",response.body().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                         intent.putExtra("USERNAME",user);
                         startActivity(intent);

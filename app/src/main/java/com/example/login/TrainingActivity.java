@@ -71,6 +71,11 @@ public class TrainingActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                try {
+                    json.put("multi", "0");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 Call<ResponseBody> mService = service.new_game(json);
                 mService.enqueue(new Callback<ResponseBody>() {
@@ -117,6 +122,11 @@ public class TrainingActivity extends AppCompatActivity {
                 }
                 try {
                     json.put("domain","1");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    json.put("multi", "0");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -168,6 +178,11 @@ public class TrainingActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                try {
+                    json.put("multi", "0");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 Call<ResponseBody> mService = service.new_game(json);
                 mService.enqueue(new Callback<ResponseBody>() {
@@ -213,6 +228,11 @@ public class TrainingActivity extends AppCompatActivity {
                 }
                 try {
                     json.put("domain","4");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    json.put("multi", "0");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -262,6 +282,11 @@ public class TrainingActivity extends AppCompatActivity {
                 }
                 try {
                     json.put("domain","3");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    json.put("multi", "0");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
