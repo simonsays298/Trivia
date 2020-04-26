@@ -100,10 +100,10 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("USERNAME", user);
                             intent.putExtra("GAMESID", gamesId);
                             intent.putExtra("TOPIC", "HISTORY");
+                            intent.putExtra("MULTI",multi);
                             startActivity(intent);
                         }else{
-
-                            waitForOpponent();
+                            waitForOpponent(gamesId, "HISTORY");
                             Log.v("TAGUL","BRAVO MAI ASTEPATA");
                         }
 
@@ -160,6 +160,7 @@ public class TrainingActivity extends AppCompatActivity {
                         intent.putExtra("USERNAME",user);
                         intent.putExtra("GAMESID",gamesId);
                         intent.putExtra("TOPIC", "GEOGRAPHY");
+                        intent.putExtra("MULTI",multi);
 
                         startActivity(intent);
 
@@ -213,6 +214,7 @@ public class TrainingActivity extends AppCompatActivity {
                         intent.putExtra("USERNAME",user);
                         intent.putExtra("GAMESID",gamesId);
                         intent.putExtra("TOPIC", "ARTS & SPORTS");
+                        intent.putExtra("MULTI",multi);
 
                         startActivity(intent);
 
@@ -267,6 +269,7 @@ public class TrainingActivity extends AppCompatActivity {
                         intent.putExtra("USERNAME",user);
                         intent.putExtra("GAMESID",gamesId);
                         intent.putExtra("TOPIC", "MOVIES & CELEBRITIES");
+                        intent.putExtra("MULTI",multi);
 
                         startActivity(intent);
 
@@ -320,6 +323,7 @@ public class TrainingActivity extends AppCompatActivity {
                         intent.putExtra("USERNAME",user);
                         intent.putExtra("GAMESID", gamesId);
                         intent.putExtra("TOPIC", "SCIENCE");
+                        intent.putExtra("MULTI",multi);
                         startActivity(intent);
 
 
@@ -338,7 +342,7 @@ public class TrainingActivity extends AppCompatActivity {
 
     }
 
-    private void waitForOpponent(){
+    private void waitForOpponent(String gamesId, String topic){
 
         Call<ResponseBody> mService = service.found_opponent(foundOpponent);
         mService.enqueue(new Callback<ResponseBody>() {
@@ -348,13 +352,19 @@ public class TrainingActivity extends AppCompatActivity {
                 assert response.body() != null;
                 try {
                     if(response.body().string().equals("Yes")){
-                        Log.v("TAGUL","YES");
+                        Intent intent = new Intent(getApplicationContext(), GameActivity.class);
+                        intent.putExtra("USERNAME", user);
+                        intent.putExtra("GAMESID", gamesId);
+                        intent.putExtra("TOPIC", topic);
+                        intent.putExtra("MULTI",multi);
+                        startActivity(intent);
                     }else{
-                        waitForOpponent();
+                        waitForOpponent(gamesId,topic);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
 
 
             }

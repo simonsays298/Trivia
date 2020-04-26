@@ -109,8 +109,6 @@ public class CompetitiveActivity extends AppCompatActivity {
                     rooms = new JSONObject(res);
                     showList();
 
-
-
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
@@ -184,6 +182,7 @@ public class CompetitiveActivity extends AppCompatActivity {
                             intent.putExtra("USERNAME", user);
                             intent.putExtra("GAMESID", myid);
                             intent.putExtra("TOPIC","HISTORY");
+                            intent.putExtra("MULTI",multi);
                             //intent.putExtra("TOPIC", domain.toUpperCase());
                             startActivity(intent);
                         }
