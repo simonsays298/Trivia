@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import org.json.JSONException;
@@ -28,6 +30,8 @@ public class RateQuestionActivity extends AppCompatActivity {
 
     private static int colorIndex;
 
+    private ImageButton rateButton;
+
     final Context context = this;
 
     private QuestionArrayAdapter questionArrayAdapter;
@@ -48,23 +52,10 @@ public class RateQuestionActivity extends AppCompatActivity {
 
         qListView = (ListView) findViewById(R.id.qSuggestionListView);
 
+
         questionArrayAdapter = new QuestionArrayAdapter(getApplicationContext(),
                 R.layout.q_suggestion_listview_row_layout);
         qListView.setAdapter(questionArrayAdapter);
-
-//        List<String[]> friendList = readData();
-//        for (String[] friendData : friendList) {
-//            String questionName = friendData[0];
-//            String rightAnswer = friendData[0];
-//            String wrongAnswer1 = friendData[0];
-//            String wrongAnswer2 = friendData[0];
-//            String wrongAnswer3 = friendData[0];
-//            String domain = friendData[1];
-//
-//            QuestionData q = new QuestionData(questionName, rightAnswer,
-//                    wrongAnswer1, wrongAnswer2, wrongAnswer3, domain);
-//            questionArrayAdapter.add(q);
-//        }
 
         Call<ResponseBody> mService = service.get_suggested_questions();
 
@@ -137,6 +128,6 @@ public class RateQuestionActivity extends AppCompatActivity {
 
             }
         });
-    }
 
+    }
 }

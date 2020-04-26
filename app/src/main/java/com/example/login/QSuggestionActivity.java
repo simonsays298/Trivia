@@ -109,8 +109,7 @@ public class QSuggestionActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             Toast.makeText(getApplicationContext(), R.string.createQA, Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
-                            intent.putExtra("USERNAME", user);
+                            Intent intent = new Intent(getApplicationContext(), QFactoryActivity.class);
                             startActivity(intent);
                         }
 
