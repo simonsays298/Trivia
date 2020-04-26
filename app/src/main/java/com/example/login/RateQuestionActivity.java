@@ -82,7 +82,6 @@ public class RateQuestionActivity extends AppCompatActivity {
                 }
 
                 int jsonLength = listObj.length();
-                Log.v("SIZE:", String.valueOf(jsonLength));
 
                 for (int i = 0; i < jsonLength; i++) {
                     try {
@@ -93,8 +92,8 @@ public class RateQuestionActivity extends AppCompatActivity {
 
                         String wrongAnswer1 = qaObj.getString("answer0");
                         String rightAnswer = qaObj.getString("answer1");
-                        String wrongAnswer3 = qaObj.getString("answer2");
-                        String wrongAnswer2 = qaObj.getString("answer3");
+                        String wrongAnswer3 = qaObj.getString("answer3");
+                        String wrongAnswer2 = qaObj.getString("answer2");
                         String domain = null;
                         if (qaObj.getString("domain").equals("1"))
                             domain = "Geography".toUpperCase();

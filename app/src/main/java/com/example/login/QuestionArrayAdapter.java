@@ -8,11 +8,29 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+
 class QuestionArrayAdapter extends ArrayAdapter<QuestionData> {
+
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("https://firsttry-272817.appspot.com/")
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
+    UserService service = retrofit.create(UserService.class);
 
     private List<QuestionData> questionDataArrayList = new ArrayList<QuestionData>();
 
@@ -86,19 +104,39 @@ class QuestionArrayAdapter extends ArrayAdapter<QuestionData> {
         viewHolder.rateUserQButton.setOnClickListener(new View.OnClickListener() {
             //When check = 1, you have your FIRST image set to the button
             int check = 1;
+
             @Override
             public void onClick(View v) {
                 // Change image button on click there.
-                if(check == 1) {
+                if (check == 1) {
                     ((ImageButton) v).setImageResource(R.drawable.good1);
                     check = 0;
+                    String result = "{\"question\":\"" + q.getQuestionName() + "\"}";
+                    Call<ResponseBody> mService = service.rate_question(result);
+                    mService.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            assert response.body() != null;
+                            String atext = null;
+                            try {
+                                atext = response.body().string();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.v("RATE QUESTION", atext);
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                        }
+                    });
                 } else {
                     ((ImageButton) v).setImageResource(R.drawable.good);
                     check = 1;
                 }
             }
         });
-
 
         return row;
     }
