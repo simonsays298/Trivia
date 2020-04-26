@@ -1,10 +1,12 @@
 package com.example.login;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ class QuestionArrayAdapter extends ArrayAdapter<QuestionData> {
         TextView wrongAns1TextView;
         TextView wrongAns2TextView;
         TextView wrongAns3TextView;
-
+        ImageButton rateUserQButton;
     }
 
     public QuestionArrayAdapter(Context context, int textViewResourceId) {
@@ -65,10 +67,12 @@ class QuestionArrayAdapter extends ArrayAdapter<QuestionData> {
             viewHolder.wrongAns1TextView = row.findViewById(R.id.wrongAns1);
             viewHolder.wrongAns2TextView = row.findViewById(R.id.wrongAns2);
             viewHolder.wrongAns3TextView = row.findViewById(R.id.wrongAns3);
+            viewHolder.rateUserQButton = row.findViewById(R.id.rateBlackButton);
 
             row.setTag(viewHolder);
         } else {
-            viewHolder = (QuestionArrayAdapter.QuestionViewHolder)row.getTag();
+            viewHolder = (QuestionArrayAdapter.QuestionViewHolder) row.getTag();
+
         }
         QuestionData q = getItem(position);
         viewHolder.questionNameTextView.setText(q.getQuestionName());
@@ -77,6 +81,16 @@ class QuestionArrayAdapter extends ArrayAdapter<QuestionData> {
         viewHolder.wrongAns1TextView.setText(q.getWrongAnswer1());
         viewHolder.wrongAns2TextView.setText(q.getWrongAnswer2());
         viewHolder.wrongAns3TextView.setText(q.getWrongAnswer3());
+        viewHolder.rateUserQButton = row.findViewById(R.id.rateBlackButton);
+
+        viewHolder.rateUserQButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Change image button on click there.
+                ((ImageButton) v).setImageResource(R.drawable.good1);
+            }
+        });
+
 
         return row;
     }

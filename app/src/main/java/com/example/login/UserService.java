@@ -51,4 +51,9 @@ public interface UserService {
 
     @GET("api/get_friends")
     Call<ResponseBody> get_friends(@Query("username") String user);
+
+    @GET("api/get_suggested_questions")
+    Call<ResponseBody> get_suggested_questions();
+
+
 }
