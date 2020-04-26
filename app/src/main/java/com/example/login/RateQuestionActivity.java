@@ -92,9 +92,9 @@ public class RateQuestionActivity extends AppCompatActivity {
                         JSONObject qaObj = new JSONObject(qAItem);
 
                         String wrongAnswer1 = qaObj.getString("answer0");
-                        String wrongAnswer2 = qaObj.getString("answer1");
+                        String rightAnswer = qaObj.getString("answer1");
                         String wrongAnswer3 = qaObj.getString("answer2");
-                        String rightAnswer = qaObj.getString("answer3");
+                        String wrongAnswer2 = qaObj.getString("answer3");
                         String domain = null;
                         if (qaObj.getString("domain").equals("1"))
                             domain = "Geography".toUpperCase();
