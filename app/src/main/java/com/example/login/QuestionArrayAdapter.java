@@ -84,10 +84,18 @@ class QuestionArrayAdapter extends ArrayAdapter<QuestionData> {
         viewHolder.rateUserQButton = row.findViewById(R.id.rateBlackButton);
 
         viewHolder.rateUserQButton.setOnClickListener(new View.OnClickListener() {
+            //When check = 1, you have your FIRST image set to the button
+            int check = 1;
             @Override
             public void onClick(View v) {
                 // Change image button on click there.
-                ((ImageButton) v).setImageResource(R.drawable.good1);
+                if(check == 1) {
+                    ((ImageButton) v).setImageResource(R.drawable.good1);
+                    check = 0;
+                } else {
+                    ((ImageButton) v).setImageResource(R.drawable.good);
+                    check = 1;
+                }
             }
         });
 
