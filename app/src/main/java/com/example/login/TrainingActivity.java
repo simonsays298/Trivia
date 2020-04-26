@@ -103,7 +103,9 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("MULTI",multi);
                             startActivity(intent);
                         }else{
+                            history.setEnabled(false);
                             waitForOpponent(gamesId, "HISTORY");
+                            Toast.makeText(getApplicationContext(), "Wait for the opponent to join", Toast.LENGTH_LONG).show();
                             Log.v("TAGUL","BRAVO MAI ASTEPATA");
                         }
 
@@ -156,13 +158,20 @@ public class TrainingActivity extends AppCompatActivity {
                         }
 
                         Log.v("TAGUL",gamesId);
-                        Intent intent = new Intent(getApplicationContext(), GameActivity.class);
-                        intent.putExtra("USERNAME",user);
-                        intent.putExtra("GAMESID",gamesId);
-                        intent.putExtra("TOPIC", "GEOGRAPHY");
-                        intent.putExtra("MULTI",multi);
-
-                        startActivity(intent);
+                        foundOpponent = gamesId;
+                        if(multi.equals("0")) {
+                            Intent intent = new Intent(getApplicationContext(), GameActivity.class);
+                            intent.putExtra("USERNAME", user);
+                            intent.putExtra("GAMESID", gamesId);
+                            intent.putExtra("TOPIC", "GEOGRAPHY");
+                            intent.putExtra("MULTI",multi);
+                            startActivity(intent);
+                        }else{
+                            geo.setEnabled(false);
+                            Toast.makeText(getApplicationContext(), "Wait for the opponent to join", Toast.LENGTH_LONG).show();
+                            waitForOpponent(gamesId, "GEOGRAPHY");
+                            Log.v("TAGUL","BRAVO MAI ASTEPATA");
+                        }
 
 
                     }
@@ -210,13 +219,20 @@ public class TrainingActivity extends AppCompatActivity {
                         }
 
                         Log.v("TAGUL",gamesId);
-                        Intent intent = new Intent(getApplicationContext(), GameActivity.class);
-                        intent.putExtra("USERNAME",user);
-                        intent.putExtra("GAMESID",gamesId);
-                        intent.putExtra("TOPIC", "ARTS & SPORTS");
-                        intent.putExtra("MULTI",multi);
-
-                        startActivity(intent);
+                        foundOpponent = gamesId;
+                        if(multi.equals("0")) {
+                            Intent intent = new Intent(getApplicationContext(), GameActivity.class);
+                            intent.putExtra("USERNAME", user);
+                            intent.putExtra("GAMESID", gamesId);
+                            intent.putExtra("TOPIC", "ARTS & SPORTS");
+                            intent.putExtra("MULTI",multi);
+                            startActivity(intent);
+                        }else{
+                            arts.setEnabled(false);
+                            Toast.makeText(getApplicationContext(), "Wait for the opponent to join", Toast.LENGTH_LONG).show();
+                            waitForOpponent(gamesId, "ARTS & SPORTS");
+                            Log.v("TAGUL","BRAVO MAI ASTEPATA");
+                        }
 
 
                     }
@@ -265,13 +281,20 @@ public class TrainingActivity extends AppCompatActivity {
                         }
 
                         Log.v("TAGUL",gamesId);
-                        Intent intent = new Intent(getApplicationContext(), GameActivity.class);
-                        intent.putExtra("USERNAME",user);
-                        intent.putExtra("GAMESID",gamesId);
-                        intent.putExtra("TOPIC", "MOVIES & CELEBRITIES");
-                        intent.putExtra("MULTI",multi);
-
-                        startActivity(intent);
+                        foundOpponent = gamesId;
+                        if(multi.equals("0")) {
+                            Intent intent = new Intent(getApplicationContext(), GameActivity.class);
+                            intent.putExtra("USERNAME", user);
+                            intent.putExtra("GAMESID", gamesId);
+                            intent.putExtra("TOPIC", "MOVIES & CELEBRITIES");
+                            intent.putExtra("MULTI",multi);
+                            startActivity(intent);
+                        }else{
+                            movie.setEnabled(false);
+                            Toast.makeText(getApplicationContext(), "Wait for the opponent to join", Toast.LENGTH_LONG).show();
+                            waitForOpponent(gamesId, "MOVIES & CELEBRITIES");
+                            Log.v("TAGUL","BRAVO MAI ASTEPATA");
+                        }
 
 
                     }
@@ -319,12 +342,20 @@ public class TrainingActivity extends AppCompatActivity {
                         }
 
                         Log.v("TAGUL",gamesId);
-                        Intent intent = new Intent(getApplicationContext(), GameActivity.class);
-                        intent.putExtra("USERNAME",user);
-                        intent.putExtra("GAMESID", gamesId);
-                        intent.putExtra("TOPIC", "SCIENCE");
-                        intent.putExtra("MULTI",multi);
-                        startActivity(intent);
+                        foundOpponent = gamesId;
+                        if(multi.equals("0")) {
+                            Intent intent = new Intent(getApplicationContext(), GameActivity.class);
+                            intent.putExtra("USERNAME", user);
+                            intent.putExtra("GAMESID", gamesId);
+                            intent.putExtra("TOPIC", "SCIENCE");
+                            intent.putExtra("MULTI",multi);
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Wait for the opponent to join", Toast.LENGTH_LONG).show();
+                            science.setEnabled(false);
+                            waitForOpponent(gamesId, "SCIENCE");
+                            Log.v("TAGUL","BRAVO MAI ASTEPATA");
+                        }
 
 
                     }

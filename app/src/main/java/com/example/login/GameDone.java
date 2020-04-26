@@ -82,7 +82,7 @@ public class GameDone extends AppCompatActivity {
 
             if(Integer.parseInt(points) == 0){
                 messageGame.setText(R.string.luck_next_time);
-                image.setImageResource(R.drawable.ghost);
+                image.setImageResource(R.drawable.death);
             }
             image.setVisibility(View.VISIBLE);
             findViewById(R.id.loadingPanel).setVisibility(View.GONE);
@@ -203,9 +203,10 @@ public class GameDone extends AppCompatActivity {
                     try {
                         if(res.getString("winner").equals(user)){
                             messageGame.setText("Congratulations, you won!");
+                            image.setImageResource(R.drawable.loser);
                         }else{
                             messageGame.setText(R.string.luck_next_time);
-                            image.setImageResource(R.drawable.ghost);
+                            image.setImageResource(R.drawable.death);
 
                         }
                     } catch (JSONException e) {
