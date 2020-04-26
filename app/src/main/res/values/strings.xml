@@ -4,11 +4,6 @@
     <string name="training_style">Training Module</string>
     <string name="competitive_style">Competitive Game</string>
     <string name="time_left">Time left</string>
-    <string name="my_question">The question</string>
-    <string name="fst_ans">First Ans</string>
-    <string name="snd_ans">Second Ans</string>
-    <string name="third_ans">Thirs Ans</string>
-    <string name="fourth_ans">Fourth Ans</string>
     <string name="domain">Choose the desired topic</string>
     <string name="geo">GEOGRAPHY</string>
     <string name="createRoom">Create Room</string>

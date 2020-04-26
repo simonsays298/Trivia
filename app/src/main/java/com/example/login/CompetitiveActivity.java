@@ -44,8 +44,8 @@ public class CompetitiveActivity extends AppCompatActivity {
     private String user;
     private String multi;
     JSONObject rooms;
-    List<String> roomsList = new ArrayList<>();
-    HashMap<String, ArrayList<String>> nameIdMap= new HashMap<String, ArrayList<String>>();
+    List<String> roomsList;
+    HashMap<String, ArrayList<String>> nameIdMap;
     private int noRooms;
     private int counter = 0;
 
@@ -107,6 +107,9 @@ public class CompetitiveActivity extends AppCompatActivity {
                 try {
                     res = response.body().string();
                     rooms = new JSONObject(res);
+                    nameIdMap = new HashMap<String, ArrayList<String>>();
+                    roomsList = new ArrayList<>();
+                    ;
                     showList();
 
                 } catch (IOException | JSONException e) {
@@ -123,14 +126,14 @@ public class CompetitiveActivity extends AppCompatActivity {
         });
 
 
-
     }
+
     public void showList() throws JSONException {
         noRooms = Integer.parseInt(rooms.getString("no_rooms"));
-        if(noRooms > 0){
-            for(int i = 0 ; i < noRooms ; i++){
+        if (noRooms > 0) {
+            for (int i = 0; i < noRooms; i++) {
                 JSONObject nameRoom = rooms.getJSONObject(String.valueOf(i));
-                if(!roomsList.contains(nameRoom.getString("creator"))){
+                if (!roomsList.contains(nameRoom.getString("creator"))) {
                     String name = nameRoom.getString("creator");
                     String id = nameRoom.getString("id");
                     String domain = nameRoom.getString("domain");
@@ -151,15 +154,15 @@ public class CompetitiveActivity extends AppCompatActivity {
         room.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String entryNameRoom= (String) parent.getAdapter().getItem(position);
+                String entryNameRoom = (String) parent.getAdapter().getItem(position);
                 ArrayList<String> list = new ArrayList<>();
                 list = nameIdMap.get(entryNameRoom);
 
-                Log.v("TAGULL","AICI " + list.get(0));
+                Log.v("TAGULL", "AICI " + list.get(0));
 
                 String myid = list.get(0);
                 String domain = list.get(1);
-                if(!user.equals(entryNameRoom)){
+                if (!user.equals(entryNameRoom)) {
                     JSONObject sendJson = new JSONObject();
 
                     try {
@@ -168,7 +171,7 @@ public class CompetitiveActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     try {
-                        sendJson.put("id",myid);
+                        sendJson.put("id", myid);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -178,14 +181,15 @@ public class CompetitiveActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             Intent intent = new Intent(getApplicationContext(), GameActivity.class);
-                            Log.v("TAGUL",myid);
+                            Log.v("TAGUL", myid);
                             intent.putExtra("USERNAME", user);
                             intent.putExtra("GAMESID", myid);
-                            intent.putExtra("TOPIC","HISTORY");
-                            intent.putExtra("MULTI",multi);
+                            intent.putExtra("TOPIC", "HISTORY");
+                            intent.putExtra("MULTI", multi);
                             //intent.putExtra("TOPIC", domain.toUpperCase());
                             startActivity(intent);
                         }
+
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
                             Log.v("TAGUL", t.getMessage());
@@ -194,9 +198,6 @@ public class CompetitiveActivity extends AppCompatActivity {
                     });
                 }
 
-
-//                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
-//                String getId= pref.getString("ID", null);
 
             }
         });
@@ -211,7 +212,7 @@ public class CompetitiveActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        },100);
+        }, 100);
 
 
     }

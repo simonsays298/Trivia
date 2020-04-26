@@ -9,19 +9,45 @@
     tools:visibility="visible">
 
     <TextView
-        android:id="@+id/opScor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="9dp"
+        android:id="@+id/finalScore4"
+        android:layout_width="14dp"
+        android:layout_height="67dp"
         android:gravity="center_horizontal|center_vertical"
-        app:autoSizeTextType="uniform"
+        android:text=":"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/yourScore"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.88"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/opUser"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/messageG"
+        app:layout_constraintVertical_bias="0.596"
+        tools:text=":" />
+
+    <TextView
+        android:id="@+id/finalScore3"
+        android:layout_width="95dp"
+        android:layout_height="64dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/yourScore"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.778"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/messageG"
+        app:layout_constraintVertical_bias="0.58" />
+
+    <TextView
+        android:id="@+id/finalScore2"
+        android:layout_width="95dp"
+        android:layout_height="64dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/yourScore"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.221"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/messageG"
+        app:layout_constraintVertical_bias="0.58" />
 
     <RelativeLayout
         android:id="@+id/loadingPanel"
@@ -90,7 +116,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.796" />
+        app:layout_constraintVertical_bias="0.857" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -109,42 +135,4 @@
         app:srcCompat="@drawable/images"
         tools:srcCompat="@drawable/images" />
 
-    <TextView
-        android:id="@+id/curUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal|center_vertical"
-        app:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toTopOf="@+id/yourScore"
-        app:layout_constraintEnd_toStartOf="@id/opUser"
-        app:layout_constraintHorizontal_bias="0.187"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/messageG" />
-
-    <TextView
-        android:id="@+id/opUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal|center_vertical"
-        app:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toTopOf="@+id/yourScore"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.88"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/messageG" />
-
-    <TextView
-        android:id="@+id/curScor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="30dp"
-        android:gravity="center_horizontal|center_vertical"
-        app:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toTopOf="@+id/yourScore"
-        app:layout_constraintEnd_toEndOf="@id/opScor"
-        app:layout_constraintHorizontal_bias="0.155"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/curUser"
-        app:layout_constraintVertical_bias="0.1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

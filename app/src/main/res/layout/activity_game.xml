@@ -12,7 +12,6 @@
         android:layout_height="48dp"
         android:fontFamily="sans-serif"
         android:gravity="center_horizontal"
-        android:text="@string/my_question"
         android:textAlignment="gravity"
         android:textColor="#131313"
         android:textStyle="bold|italic"
@@ -21,8 +20,7 @@
         app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.171"
-        tools:text="@string/my_question" />
+        app:layout_constraintVertical_bias="0.171" />
 
     <TextView
         android:id="@+id/timer"
@@ -44,7 +42,6 @@
         android:layout_marginBottom="24dp"
         android:background="#8BC34A"
         android:gravity="center_horizontal|center_vertical"
-        android:text="@string/topic"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textDirection="locale"
@@ -56,63 +53,55 @@
         app:layout_constraintHorizontal_bias="0.66"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:text="@string/topic" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/ans1"
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:soundEffectsEnabled="true"
-        android:text="@string/fst_ans"
         android:textColor="@color/darkPurple"
         app:layout_constraintBottom_toTopOf="@+id/ans2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Question"
-        tools:text="@string/fst_ans" />
+        app:layout_constraintTop_toBottomOf="@+id/Question"/>
 
     <Button
         android:id="@+id/ans2"
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:text="@string/snd_ans"
         android:textColor="@color/darkPurple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Question"
-        app:layout_constraintVertical_bias="0.251"
-        tools:text="@string/snd_ans" />
+        app:layout_constraintVertical_bias="0.251" />
 
     <Button
         android:id="@+id/ans3"
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:text="@string/third_ans"
         android:textColor="@color/darkPurple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ans2"
-        app:layout_constraintVertical_bias="0.124"
-        tools:text="@string/third_ans" />
+        app:layout_constraintVertical_bias="0.124" />
 
     <Button
         android:id="@+id/ans4"
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:text="@string/fourth_ans"
+
         android:textColor="@color/darkPurple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ans3"
-        app:layout_constraintVertical_bias="0.167"
-        tools:text="@string/fourth_ans" />
+        app:layout_constraintVertical_bias="0.167" />
 
     <TextView
         android:id="@+id/myPoints"
@@ -133,9 +122,9 @@
         android:id="@+id/checkAnswer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="90dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginEnd="90dp"
         android:layout_marginBottom="50dp"
         android:gravity="center_horizontal|center_vertical"
         android:textSize="18sp"

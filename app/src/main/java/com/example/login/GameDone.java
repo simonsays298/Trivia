@@ -3,6 +3,7 @@ package com.example.login;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class GameDone extends AppCompatActivity {
 
     Timer timer;
-    private String user ;
+    private String user;
     private String points;
     private String getId;
     private TextView messageGame;
@@ -45,6 +46,7 @@ public class GameDone extends AppCompatActivity {
             .build();
 
     UserService service = retrofit.create(UserService.class);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,10 +57,8 @@ public class GameDone extends AppCompatActivity {
         finalScore = findViewById(R.id.finalScore);
         msgScor = findViewById(R.id.yourScore);
         image = findViewById(R.id.imageView);
-        curUser = findViewById(R.id.curUser);
-        curScor = findViewById(R.id.curScor);
-        opUser = findViewById(R.id.opUser);
-        opScor = findViewById(R.id.opScor);
+        curScor = findViewById(R.id.finalScore2);
+        opScor = findViewById(R.id.finalScore3);
 
         //msgScor.setVisibility(View.GONE);
         image.setVisibility(View.GONE);
@@ -68,25 +68,19 @@ public class GameDone extends AppCompatActivity {
         getId = getIntent().getStringExtra("ID");
         multi = getIntent().getStringExtra("MULTI");
 
-
-
-
         msgScor.setVisibility(View.VISIBLE);
         finalScore.setText(points);
+        findViewById(R.id.finalScore4).setVisibility(View.GONE);
 
 
-
-
-        if(multi.equals("0")) {
-
-
-            if(Integer.parseInt(points) == 0){
+        if (multi.equals("0")) {
+            if (Integer.parseInt(points) == 0) {
                 messageGame.setText(R.string.luck_next_time);
                 image.setImageResource(R.drawable.death);
             }
             image.setVisibility(View.VISIBLE);
             findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-            Log.v("TAGUL","MULTI"+multi);
+            Log.v("TAGUL", "MULTI" + multi);
             timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
@@ -132,8 +126,8 @@ public class GameDone extends AppCompatActivity {
                 }
             }, 1500);
             findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-        }else{
-            msgScor.setVisibility(View.VISIBLE);
+        } else {
+            //msgScor.setVisibility(View.VISIBLE);
 
             JSONObject finish = new JSONObject();
             try {
@@ -178,7 +172,8 @@ public class GameDone extends AppCompatActivity {
         }
 
     }
-    public void waitForopponent(){
+
+    public void waitForopponent() {
 
         Call<ResponseBody> finishService = service.get_winner(getId);
         finishService.enqueue(new Callback<ResponseBody>() {
@@ -192,48 +187,42 @@ public class GameDone extends AppCompatActivity {
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
-                if(winner.contains("Game not done")){
-
-                    messageGame.setText("Waiting fot the opponent to finish...");
+                if (winner.contains("Game not done")) {
+                    messageGame.setText("Waiting for the opponent to finish...");
                     image.setVisibility(View.GONE);
                     waitForopponent();
-                }else{
+                } else {
                     findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-                    Log.v("WINNER",winner);
+                    findViewById(R.id.finalScore4).setVisibility(View.VISIBLE);
+                    Log.v("WINNER", winner);
                     try {
-                        if(res.getString("winner").equals(user)){
+                        if (res.getString("winner").equals(user)) {
                             messageGame.setText("Congratulations, you won!");
                             image.setImageResource(R.drawable.loser);
-                        }else{
+                            msgScor.setVisibility(View.GONE);
+                            finalScore.setVisibility(View.GONE);
+                            curScor.setText(points);
+                            curScor.setTextColor(Color.GREEN);
+                            opScor.setText(res.getString("loser_points"));
+                            opScor.setTextColor(Color.RED);
+                        } else {
                             messageGame.setText(R.string.luck_next_time);
                             image.setImageResource(R.drawable.death);
+                            try {
+                                msgScor.setText("WINNER is " + res.getString("winner").toUpperCase());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            curScor.setText(points);
+                            curScor.setTextColor(Color.RED);
+                            opScor.setText(res.getString("points"));
+                            opScor.setTextColor(Color.GREEN);
 
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    try {
-                        msgScor.setText("WINNER is "+ res.getString("winner"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        finalScore.setText(res.getString("points"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    curUser.setText("Your Score");
-                    curScor.setText(points);
-                    try {
-                        opUser.setText(res.getString("winner"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        opScor.setText(res.getString("points"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+
                     image.setVisibility(View.VISIBLE);
                     findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     timer = new Timer();

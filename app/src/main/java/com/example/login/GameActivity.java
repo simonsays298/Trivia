@@ -48,7 +48,7 @@ public class GameActivity extends AppCompatActivity {
     private int counter = 0;
     private int points = 0;
     private CountDownTimer tm = null;
-    HashMap<String, ArrayList<String>> gameQuestions= new HashMap<String, ArrayList<String>>();
+    HashMap<String, ArrayList<String>> gameQuestions = new HashMap<String, ArrayList<String>>();
     JSONObject resGet;
     String gamesId;
     String multi;
@@ -83,18 +83,18 @@ public class GameActivity extends AppCompatActivity {
         checkAns = findViewById(R.id.checkAnswer);
 
         topic.setText(topicName);
-        myPoints.setText("Points: "+ points);
+        myPoints.setText("Points: " + points);
 
         tm = new CountDownTimer(16 * 1000, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
                 timer.setText("" + millisUntilFinished / 1000);
-                
-                if(millisUntilFinished / 1000 == 0){
+
+                if (millisUntilFinished / 1000 == 0) {
                     tm.cancel();
-                    counter+=1;
-                    if(counter == 5){
+                    counter += 1;
+                    if (counter == 5) {
                         finish();
                         finishGame();
                     }
@@ -105,13 +105,13 @@ public class GameActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                if(millisUntilFinished / 1000 <= 5){
+                if (millisUntilFinished / 1000 <= 5) {
                     checkAns.setText("Better Hurry!!!");
                     checkAns.setTextColor(Color.RED);
                     checkAns.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                     timer.setTextColor(Color.RED);
                     timer.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-                }else{
+                } else {
                     timer.setTextColor(Color.GRAY);
                     timer.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
                     checkAns.setText("");
@@ -122,7 +122,7 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                
+
             }
         };
 
@@ -138,22 +138,11 @@ public class GameActivity extends AppCompatActivity {
                     gamesId = response.body().string();
                     resGet = new JSONObject(gamesId);
                     getQuestions(counter);
-                    Log.v("TAGUL",gamesId);
+                    Log.v("TAGUL", gamesId);
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
 
-//                try {
-//
-
-//
-//                    //loadQuestions();
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-
-                //Log.v("TAGUL", resGet.toString());
             }
 
             @Override
@@ -163,40 +152,34 @@ public class GameActivity extends AppCompatActivity {
         });
 
 
-
-
         //loadQuestions();
 
 
     }
-    public void getQuestions(int i ) throws JSONException {
 
-            JSONObject qAndA = resGet.getJSONObject(String.valueOf(i));
-            ArrayList<String> list = new ArrayList<>();
-            list.add(qAndA.getString("question"));
-            list.add(qAndA.getString("answer0"));
-            list.add(qAndA.getString("answer1"));
-            list.add(qAndA.getString("answer2"));
-            list.add(qAndA.getString("answer3"));
-            list.add(qAndA.getString("right"));
-            gameQuestions.put(String.valueOf(i), list);
-            loadQuestions(i);
-            Log.v("TAGUL1",String.valueOf(i));
+    public void getQuestions(int i) throws JSONException {
+
+        JSONObject qAndA = resGet.getJSONObject(String.valueOf(i));
+        ArrayList<String> list = new ArrayList<>();
+        list.add(qAndA.getString("question"));
+        list.add(qAndA.getString("answer0"));
+        list.add(qAndA.getString("answer1"));
+        list.add(qAndA.getString("answer2"));
+        list.add(qAndA.getString("answer3"));
+        list.add(qAndA.getString("right"));
+        gameQuestions.put(String.valueOf(i), list);
+        loadQuestions(i);
+        Log.v("TAGUL1", String.valueOf(i));
 
 
     }
 
-    public void loadQuestions(int i ) throws JSONException {
+    public void loadQuestions(int i) throws JSONException {
 
-
-        Log.v("TAGUL",String.valueOf(counter));
 
         timer.setText("" + 16);
 
-        Log.v("SIMO",String.valueOf(counter));
-
-
-        if(counter == 5){
+        if (counter == 5) {
             tm.cancel();
             finishGame();
         }
@@ -211,191 +194,192 @@ public class GameActivity extends AppCompatActivity {
         String answ4 = gameQuestions.get(String.valueOf(i)).get(4);
         String right = gameQuestions.get(String.valueOf(i)).get(5);
 
-            question.setText(String.format("%d. %s", i + 1, gameQuestions.get(String.valueOf(i)).get(0)));
-            ans1.setText(answ1);
-            ans2.setText(answ2);
-            ans3.setText(answ3);
-            ans4.setText(answ4);
+        question.setText(String.format("%d. %s", i + 1, gameQuestions.get(String.valueOf(i)).get(0)));
+        ans1.setText(answ1);
+        ans2.setText(answ2);
+        ans3.setText(answ3);
+        ans4.setText(answ4);
 
 
-            ans1.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            if (answ1.toLowerCase().contains(right.toLowerCase())) {
-                                                TransitionDrawable trans = correctAns();
-                                                ans1.setBackground(trans);
-                                                trans.startTransition(400);
-                                                points = points + 10;
+        ans1.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (answ1.toLowerCase().contains(right.toLowerCase())) {
+                                            TransitionDrawable trans = correctAns();
+                                            ans1.setBackground(trans);
+                                            trans.startTransition(400);
+
+                                            points = points + 10;
+                                            myPoints.setText("Points: " + points);
+
+                                        } else {
+                                            TransitionDrawable trans = wrongAns();
+                                            ans1.setBackground(trans);
+                                            trans.startTransition(400);
+
+                                            if (points != 0) {
+                                                points = points - 5;
                                                 myPoints.setText("Points: " + points);
-
-                                            } else {
-                                                TransitionDrawable trans = wrongAns();
-                                                ans1.setBackground(trans);
-                                                trans.startTransition(400);
-
-                                                if (points != 0) {
-                                                    points = points - 5;
-                                                    myPoints.setText("Points: " + points);
-                                                }
                                             }
-                                            //endgame++;
-                                            tm.cancel();
-                                            counter++;
-                                            if(counter == 5){
-                                                tm.cancel();
-                                                finishGame();
-                                            }
-                                            try {
-                                                getQuestions(counter);
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-
                                         }
+                                        //endgame++;
+                                        tm.cancel();
+                                        counter++;
+                                        if (counter == 5) {
+                                            tm.cancel();
+                                            finishGame();
+                                        }
+                                        try {
+                                            getQuestions(counter);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
                                     }
+                                }
 
-            );
+        );
 
-            ans2.setOnClickListener(new View.OnClickListener() {
+        ans2.setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
-                    if (answ2.toLowerCase().contains(right.toLowerCase())) {
-                        TransitionDrawable trans = correctAns();
-                        ans2.setBackground(trans);
-                        trans.startTransition(400);
+            @Override
+            public void onClick(View v) {
+                if (answ2.toLowerCase().contains(right.toLowerCase())) {
+                    TransitionDrawable trans = correctAns();
+                    ans2.setBackground(trans);
+                    trans.startTransition(400);
 
-                        points = points + 10;
+                    points = points + 10;
+                    myPoints.setText("Points: " + points);
+                } else {
+                    TransitionDrawable trans = wrongAns();
+                    ans2.setBackground(trans);
+                    trans.startTransition(400);
+
+                    if (points != 0) {
+                        points = points - 5;
                         myPoints.setText("Points: " + points);
-                    } else {
-                        TransitionDrawable trans = wrongAns();
-                        ans2.setBackground(trans);
-                        trans.startTransition(400);
-
-                        if (points != 0) {
-                            points = points - 5;
-                            myPoints.setText("Points: " + points);
-                        }
                     }
-
-
-                    tm.cancel();
-                    counter++;
-                    if(counter == 5){
-                        tm.cancel();
-                        finishGame();
-                    }
-                    try {
-                        getQuestions(counter);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
-                }
-            });
-
-            ans3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (answ3.toLowerCase().contains(right.toLowerCase())) {
-                        TransitionDrawable trans = correctAns();
-                        ans3.setBackground(trans);
-                        trans.startTransition(400);
-
-                        points = points + 10;
-                        myPoints.setText("Points: " + points);
-                    } else {
-                        TransitionDrawable trans = wrongAns();
-                        ans3.setBackground(trans);
-                        trans.startTransition(400);
-
-                        if (points != 0) {
-                            points = points - 5;
-                            myPoints.setText("Points: " + points);
-                        }
-                    }
-
-
-                    tm.cancel();
-                    counter++;
-                    if(counter == 5){
-                        tm.cancel();
-                        finishGame();
-                    }
-                    try {
-                        getQuestions(counter);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
-                }
-            });
-            ans4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (answ4.toLowerCase().contains(right.toLowerCase())) {
-                        TransitionDrawable trans = correctAns();
-                        ans4.setBackground(trans);
-                        trans.startTransition(400);
-
-                        points = points + 10;
-                        myPoints.setText("Points: " + points);
-                    } else {
-                        TransitionDrawable trans = wrongAns();
-                        ans4.setBackground(trans);
-                        trans.startTransition(400);
-
-                        if (points != 0) {
-                            points = points - 5;
-                            myPoints.setText("Points: " + points);
-                        }
-                    }
-
-                    tm.cancel();
-                    counter += 1;
-                    if(counter == 5){
-                        tm.cancel();
-                        finishGame();
-                    }
-                    try {
-                        getQuestions(counter);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
                 }
 
-            });
+
+                tm.cancel();
+                counter++;
+                if (counter == 5) {
+                    tm.cancel();
+                    finishGame();
+                }
+                try {
+                    getQuestions(counter);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
+
+        ans3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (answ3.toLowerCase().contains(right.toLowerCase())) {
+                    TransitionDrawable trans = correctAns();
+                    ans3.setBackground(trans);
+                    trans.startTransition(400);
+
+                    points = points + 10;
+                    myPoints.setText("Points: " + points);
+                } else {
+                    TransitionDrawable trans = wrongAns();
+                    ans3.setBackground(trans);
+                    trans.startTransition(400);
+
+                    if (points != 0) {
+                        points = points - 5;
+                        myPoints.setText("Points: " + points);
+                    }
+                }
+
+
+                tm.cancel();
+                counter++;
+                if (counter == 5) {
+                    tm.cancel();
+                    finishGame();
+                }
+                try {
+                    getQuestions(counter);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
+        ans4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (answ4.toLowerCase().contains(right.toLowerCase())) {
+                    TransitionDrawable trans = correctAns();
+                    ans4.setBackground(trans);
+                    trans.startTransition(400);
+
+
+                    points = points + 10;
+                    myPoints.setText("Points: " + points);
+                } else {
+                    TransitionDrawable trans = wrongAns();
+                    ans4.setBackground(trans);
+                    trans.startTransition(400);
+
+                    if (points != 0) {
+                        points = points - 5;
+                        myPoints.setText("Points: " + points);
+                    }
+                }
+
+                tm.cancel();
+                counter += 1;
+                if (counter == 5) {
+                    tm.cancel();
+                    finishGame();
+                }
+                try {
+                    getQuestions(counter);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        });
 //            i++;
 //            getQuestions(i);
 
 
-
-        Log.v("TAGUL",String.valueOf(counter));
-
+        Log.v("TAGUL", String.valueOf(counter));
 
 
     }
 
     public void finishGame() {
 
-                Intent intent = new Intent(getApplicationContext(), GameDone.class);
-                intent.putExtra("USERNAME",user);
-                intent.putExtra("ID",getId);
-                intent.putExtra("POINTS",String.valueOf(points));
-                intent.putExtra("MULTI",multi);
-                startActivity(intent);
-                finish();
+        Intent intent = new Intent(getApplicationContext(), GameDone.class);
+        intent.putExtra("USERNAME", user);
+        intent.putExtra("ID", getId);
+        intent.putExtra("POINTS", String.valueOf(points));
+        intent.putExtra("MULTI", multi);
+        startActivity(intent);
+        finish();
     }
 
-    public TransitionDrawable correctAns(){
+    public TransitionDrawable correctAns() {
         ColorDrawable[] color = {new ColorDrawable(Color.GREEN), new ColorDrawable(Color.LTGRAY)};
         TransitionDrawable trans = new TransitionDrawable(color);
         return trans;
     }
-    public TransitionDrawable wrongAns(){
+
+    public TransitionDrawable wrongAns() {
         ColorDrawable[] color = {new ColorDrawable(Color.RED), new ColorDrawable(Color.LTGRAY)};
         TransitionDrawable trans = new TransitionDrawable(color);
         return trans;
