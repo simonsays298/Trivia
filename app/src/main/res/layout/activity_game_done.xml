@@ -9,6 +9,40 @@
     tools:visibility="visible">
 
     <TextView
+        android:id="@+id/opScor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="9dp"
+        android:gravity="center_horizontal|center_vertical"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/yourScore"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.88"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/opUser"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <RelativeLayout
+        android:id="@+id/loadingPanel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginEnd="150dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/messageG"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+    </RelativeLayout>
+
+    <TextView
         android:id="@+id/messageG"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -37,12 +71,13 @@
         android:text="@string/yourScore"
         android:textSize="18dp"
         android:textStyle="bold"
+        app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toTopOf="@+id/finalScore"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.964"
+        app:layout_constraintVertical_bias="0.962"
         tools:text="@string/yourScore" />
 
     <TextView
@@ -55,7 +90,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.782" />
+        app:layout_constraintVertical_bias="0.796" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -73,4 +108,43 @@
         app:layout_constraintVertical_bias="0.466"
         app:srcCompat="@drawable/images"
         tools:srcCompat="@drawable/images" />
+
+    <TextView
+        android:id="@+id/curUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/yourScore"
+        app:layout_constraintEnd_toStartOf="@id/opUser"
+        app:layout_constraintHorizontal_bias="0.187"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/messageG" />
+
+    <TextView
+        android:id="@+id/opUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/yourScore"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.88"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/messageG" />
+
+    <TextView
+        android:id="@+id/curScor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal|center_vertical"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/yourScore"
+        app:layout_constraintEnd_toEndOf="@id/opScor"
+        app:layout_constraintHorizontal_bias="0.155"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/curUser"
+        app:layout_constraintVertical_bias="0.1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

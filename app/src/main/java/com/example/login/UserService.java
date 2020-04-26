@@ -19,15 +19,20 @@ public interface UserService {
     @GET("api/get_question")
     Call<ResponseBody> get_questions(@Query("id") String id);
 
+    @GET("api/get_winner")
+    Call<ResponseBody> get_winner(@Query("id") String id);
+
     @GET("api/get_rooms")
     Call<ResponseBody> get_rooms();
+
+    @GET("api/found_opponent")
+    Call<ResponseBody> found_opponent(@Query("id") String id);
 
     @POST("api/create_account")
     Call<ResponseBody> createUser(@Body String json);
 
     @POST("api/choose_room")
-    Call<ResponseBody> chooseRoom(@Body String json);
-
+    Call<ResponseBody> chooseRoom(@Body JSONObject json);
 
     @POST("api/register_game")
     Call<ResponseBody> new_game(@Body JSONObject json);
