@@ -38,9 +38,6 @@ class QuestionArrayAdapter extends ArrayAdapter<QuestionData> {
         TextView questionNameTextView;
         TextView domainTextView;
         TextView rightAnsTextView;
-        TextView wrongAns1TextView;
-        TextView wrongAns2TextView;
-        TextView wrongAns3TextView;
         ImageButton rateUserQButton;
     }
 
@@ -82,9 +79,6 @@ class QuestionArrayAdapter extends ArrayAdapter<QuestionData> {
             viewHolder.questionNameTextView = row.findViewById(R.id.questionName);
             viewHolder.domainTextView = row.findViewById(R.id.domain);
             viewHolder.rightAnsTextView = row.findViewById(R.id.rightAns);
-            viewHolder.wrongAns1TextView = row.findViewById(R.id.wrongAns1);
-            viewHolder.wrongAns2TextView = row.findViewById(R.id.wrongAns2);
-            viewHolder.wrongAns3TextView = row.findViewById(R.id.wrongAns3);
             viewHolder.rateUserQButton = row.findViewById(R.id.rateBlackButton);
 
             row.setTag(viewHolder);
@@ -96,9 +90,6 @@ class QuestionArrayAdapter extends ArrayAdapter<QuestionData> {
         viewHolder.questionNameTextView.setText(q.getQuestionName());
         viewHolder.domainTextView.setText(q.getDomain());
         viewHolder.rightAnsTextView.setText(q.getRightAnswer());
-        viewHolder.wrongAns1TextView.setText(q.getWrongAnswer1());
-        viewHolder.wrongAns2TextView.setText(q.getWrongAnswer2());
-        viewHolder.wrongAns3TextView.setText(q.getWrongAnswer3());
         viewHolder.rateUserQButton = row.findViewById(R.id.rateBlackButton);
 
         viewHolder.rateUserQButton.setOnClickListener(new View.OnClickListener() {

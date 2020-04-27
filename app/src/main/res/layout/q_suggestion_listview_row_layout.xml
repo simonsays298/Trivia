@@ -96,32 +96,7 @@
                 android:text="Right Answer"
                 android:textColor="@color/Green" />
 
-            <TextView
-                android:id="@+id/wrongAns1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:paddingEnd="10dp"
-                android:text="Wrong Ans #1"
-                android:textColor="@color/Red" />
 
-            <TextView
-                android:id="@+id/wrongAns2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:paddingEnd="10dp"
-                android:text="Wrong Ans #2"
-                android:textColor="@color/Red" />
-
-            <TextView
-                android:id="@+id/wrongAns3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:paddingEnd="10dp"
-                android:text="Wrong Ans #3"
-                android:textColor="@color/Red" />
         </LinearLayout>
     </RelativeLayout>
 
