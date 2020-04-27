@@ -5,6 +5,9 @@
     <string name="competitive_style">Competitive Game</string>
     <string name="time_left">Time left</string>
     <string name="domain">Choose the desired topic</string>
+    <string name="op_to_join">Wait for the opponent to join</string>
+    <string name="cancel_room_or_not">Wait for an opponent or delete your game?</string>
+    <string name="looking_for_player">Looking for a player to join you...</string>
     <string name="geo">GEOGRAPHY</string>
     <string name="createRoom">Create Room</string>
     <string name="historyT">HISTORY</string>
@@ -47,6 +50,7 @@
     <string name="invite">Invite</string>
     <string name="add_new_friend">Add new friend</string>
     <string name="ok">Ok</string>
+    <string name="active_rooms">Active Rooms</string>
     <string name="q_a_empty">Question / Answer is empty !</string>
     <string name="friend_succ_added">Friend successfully added!</string>
     <string name="points_friendslist"> points</string>
@@ -61,4 +65,5 @@
     <string name="suggest_a_question">Suggest a question</string>
     <string name="retype_password">Retype password</string>
     <string name="not_match_pass">Password not matching</string>
+    <string name="hurry_up">Hurry Up!!!</string>
 </resources>

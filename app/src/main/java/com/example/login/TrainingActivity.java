@@ -98,17 +98,9 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("MULTI", multi);
                             startActivity(intent);
                         } else {
-                            science.setEnabled(false);
-                            geo.setEnabled(false);
-                            movie.setEnabled(false);
-                            arts.setEnabled(false);
-                            history.setEnabled(false);
                             waitForOpponent(gamesId, getResources().getString(R.string.historyT));
-                            Toast.makeText(getApplicationContext(), "Wait for the opponent to join", Toast.LENGTH_LONG).show();
-                            //Log.v("TAGUL", "BRAVO MAI ASTEPATA");
+                            delOrNotGame(gamesId);
                         }
-
-
                     }
 
                     @Override
@@ -164,14 +156,8 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("MULTI", multi);
                             startActivity(intent);
                         } else {
-                            science.setEnabled(false);
-                            geo.setEnabled(false);
-                            movie.setEnabled(false);
-                            arts.setEnabled(false);
-                            history.setEnabled(false);
-                            Toast.makeText(getApplicationContext(), "Wait for the opponent to join", Toast.LENGTH_LONG).show();
                             waitForOpponent(gamesId, getResources().getString(R.string.geo));
-                            Log.v("TAGUL", "BRAVO MAI ASTEPATA");
+                            delOrNotGame(gamesId);
                         }
 
 
@@ -229,14 +215,9 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("MULTI", multi);
                             startActivity(intent);
                         } else {
-                            science.setEnabled(false);
-                            geo.setEnabled(false);
-                            movie.setEnabled(false);
-                            arts.setEnabled(false);
-                            history.setEnabled(false);
-                            Toast.makeText(getApplicationContext(), "Wait for the opponent to join", Toast.LENGTH_LONG).show();
                             waitForOpponent(gamesId, getResources().getString(R.string.arts));
-                            Log.v("TAGUL", "BRAVO MAI ASTEPATA");
+                            delOrNotGame(gamesId);
+//                            Log.v("TAGUL", "BRAVO MAI ASTEPATA");
                         }
 
 
@@ -295,14 +276,9 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("MULTI", multi);
                             startActivity(intent);
                         } else {
-                            science.setEnabled(false);
-                            geo.setEnabled(false);
-                            movie.setEnabled(false);
-                            arts.setEnabled(false);
-                            history.setEnabled(false);
-                            Toast.makeText(getApplicationContext(), "Wait for the opponent to join", Toast.LENGTH_LONG).show();
                             waitForOpponent(gamesId, getResources().getString(R.string.movie));
-                            Log.v("TAGUL", "BRAVO MAI ASTEPATA");
+                            delOrNotGame(gamesId);
+//                            Log.v("TAGUL", "BRAVO MAI ASTEPATA");
                         }
 
 
@@ -360,17 +336,9 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("MULTI", multi);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(getApplicationContext(), "Wait for the opponent to join", Toast.LENGTH_LONG).show();
-
-                            science.setEnabled(false);
-                            geo.setEnabled(false);
-                            movie.setEnabled(false);
-                            arts.setEnabled(false);
-                            history.setEnabled(false);
+//                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.op_to_join), Toast.LENGTH_LONG).show();
                             waitForOpponent(gamesId, getResources().getString(R.string.science));
-                            showDiag(gamesId);
-
-                            Log.v("TAGUL", "BRAVO MAI ASTEPATA");
+                            delOrNotGame(gamesId);
                         }
 
 
@@ -388,10 +356,18 @@ public class TrainingActivity extends AppCompatActivity {
 
     }
 
+    private void delOrNotGame(String gamesId) {
+        science.setEnabled(false);
+        geo.setEnabled(false);
+        movie.setEnabled(false);
+        arts.setEnabled(false);
+        history.setEnabled(false);
+        showDiag(gamesId);
+    }
+
     private void waitForOpponent(String gamesId, String topic) {
 
-
-        if (stop == false) {
+        if (!stop) {
             Call<ResponseBody> mService = service.found_opponent(foundOpponent);
             mService.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -407,7 +383,7 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("MULTI", multi);
                             startActivity(intent);
                         } else {
-                            if (stop == false)
+                            if (!stop)
                                 waitForOpponent(gamesId, topic);
                             else
                                 finish();
@@ -434,14 +410,12 @@ public class TrainingActivity extends AppCompatActivity {
 
     private void showDiag(String gamesId) {
         AlertDialog alertDialog = new AlertDialog.Builder(this)
-//set icon
-                .setIcon(android.R.drawable.ic_dialog_alert)
-//set title
-                .setTitle("Are you sure to Exit")
-//set message
-                .setMessage("Exiting will call finish() method")
-//set positive button
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                //set icon
+                .setIcon(android.R.drawable.ic_dialog_info)
+                //set title
+                .setTitle(getResources().getString(R.string.cancel_room_or_not))
+                //set positive button
+                .setPositiveButton("Delete game", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //set what would happen when positive button is clicked
@@ -463,13 +437,11 @@ public class TrainingActivity extends AppCompatActivity {
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
-                                //if(response.body().string().contains("Room deleted")) {
                                 Intent intent = new Intent(getApplicationContext(), CompetitiveActivity.class);
                                 intent.putExtra("USERNAME", user);
                                 intent.putExtra("MULTI", multi);
                                 startActivity(intent);
                                 finish();
-                                //}
 
                             }
 
@@ -483,13 +455,11 @@ public class TrainingActivity extends AppCompatActivity {
                         finish();
                     }
                 })
-//set negative button
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                //set negative button
+                .setNegativeButton("Wait", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        //set what should happen when negative button is clicked
-                        //waitForOpponent(gamesId, "SCIENCE");
-                        Toast.makeText(getApplicationContext(), "Still Waiting", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.looking_for_player), Toast.LENGTH_LONG).show();
                     }
                 })
                 .show();

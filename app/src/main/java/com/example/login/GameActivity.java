@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Timer;
 
 import okhttp3.ResponseBody;
@@ -106,7 +107,8 @@ public class GameActivity extends AppCompatActivity {
                     }
                 }
                 if (millisUntilFinished / 1000 <= 5) {
-                    checkAns.setText("Better Hurry!!!");
+                    checkAns.setVisibility(View.VISIBLE);
+                    checkAns.setText(R.string.hurry_up);
                     checkAns.setTextColor(Color.RED);
                     checkAns.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                     timer.setTextColor(Color.RED);
@@ -114,7 +116,7 @@ public class GameActivity extends AppCompatActivity {
                 } else {
                     timer.setTextColor(Color.GRAY);
                     timer.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-                    checkAns.setText("");
+                    checkAns.setVisibility(View.GONE);
                 }
 
 
@@ -131,18 +133,15 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 assert response.body() != null;
-
-
                 resGet = null;
                 try {
                     gamesId = response.body().string();
                     resGet = new JSONObject(gamesId);
                     getQuestions(counter);
-                    Log.v("TAGUL", gamesId);
+                   // Log.v("TAGUL", gamesId);
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
-
             }
 
             @Override
@@ -150,10 +149,6 @@ public class GameActivity extends AppCompatActivity {
                 Log.v("TAGUL", t.getMessage());
             }
         });
-
-
-        //loadQuestions();
-
 
     }
 
@@ -169,14 +164,11 @@ public class GameActivity extends AppCompatActivity {
         list.add(qAndA.getString("right"));
         gameQuestions.put(String.valueOf(i), list);
         loadQuestions(i);
-        Log.v("TAGUL1", String.valueOf(i));
 
 
     }
 
     public void loadQuestions(int i) throws JSONException {
-
-
         timer.setText("" + 16);
 
         if (counter == 5) {
@@ -188,11 +180,11 @@ public class GameActivity extends AppCompatActivity {
             tm.start();
         }
 
-        String answ1 = gameQuestions.get(String.valueOf(i)).get(1);
-        String answ2 = gameQuestions.get(String.valueOf(i)).get(2);
-        String answ3 = gameQuestions.get(String.valueOf(i)).get(3);
-        String answ4 = gameQuestions.get(String.valueOf(i)).get(4);
-        String right = gameQuestions.get(String.valueOf(i)).get(5);
+        String answ1 = Objects.requireNonNull(gameQuestions.get(String.valueOf(i))).get(1);
+        String answ2 = Objects.requireNonNull(gameQuestions.get(String.valueOf(i))).get(2);
+        String answ3 = Objects.requireNonNull(gameQuestions.get(String.valueOf(i))).get(3);
+        String answ4 = Objects.requireNonNull(gameQuestions.get(String.valueOf(i))).get(4);
+        String right = Objects.requireNonNull(gameQuestions.get(String.valueOf(i))).get(5);
 
         question.setText(String.format("%d. %s", i + 1, gameQuestions.get(String.valueOf(i)).get(0)));
         ans1.setText(answ1);
@@ -200,44 +192,31 @@ public class GameActivity extends AppCompatActivity {
         ans3.setText(answ3);
         ans4.setText(answ4);
 
-
         ans1.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        if (answ1.toLowerCase().contains(right.toLowerCase())) {
-                                            TransitionDrawable trans = correctAns();
-                                            ans1.setBackground(trans);
-                                            trans.startTransition(400);
+            @Override
+            public void onClick(View v) {
+                if (answ1.toLowerCase().contains(right.toLowerCase())) {
+                    TransitionDrawable trans = correctAns();
+                    ans1.setBackground(trans);
+                    trans.startTransition(400);
 
-                                            points = points + 10;
-                                            myPoints.setText("Points: " + points);
+                    points = points + 10;
+                    myPoints.setText("Points: " + points);
 
-                                        } else {
-                                            TransitionDrawable trans = wrongAns();
-                                            ans1.setBackground(trans);
-                                            trans.startTransition(400);
+                } else {
+                    TransitionDrawable trans = wrongAns();
+                    ans1.setBackground(trans);
+                    trans.startTransition(400);
 
-                                            if (points != 0) {
-                                                points = points - 5;
-                                                myPoints.setText("Points: " + points);
-                                            }
-                                        }
-                                        //endgame++;
-                                        tm.cancel();
-                                        counter++;
-                                        if (counter == 5) {
-                                            tm.cancel();
-                                            finishGame();
-                                        }
-                                        try {
-                                            getQuestions(counter);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
+                    if (points != 0) {
+                        points = points - 5;
+                        myPoints.setText("Points: " + points);
+                    }
+                }
+                nextQuestion();
 
-                                    }
-                                }
-
+            }
+        }
         );
 
         ans2.setOnClickListener(new View.OnClickListener() {
@@ -261,21 +240,7 @@ public class GameActivity extends AppCompatActivity {
                         myPoints.setText("Points: " + points);
                     }
                 }
-
-
-                tm.cancel();
-                counter++;
-                if (counter == 5) {
-                    tm.cancel();
-                    finishGame();
-                }
-                try {
-                    getQuestions(counter);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
+                nextQuestion();
             }
         });
 
@@ -299,21 +264,7 @@ public class GameActivity extends AppCompatActivity {
                         myPoints.setText("Points: " + points);
                     }
                 }
-
-
-                tm.cancel();
-                counter++;
-                if (counter == 5) {
-                    tm.cancel();
-                    finishGame();
-                }
-                try {
-                    getQuestions(counter);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
+                nextQuestion();
             }
         });
         ans4.setOnClickListener(new View.OnClickListener() {
@@ -337,29 +288,25 @@ public class GameActivity extends AppCompatActivity {
                         myPoints.setText("Points: " + points);
                     }
                 }
-
-                tm.cancel();
-                counter += 1;
-                if (counter == 5) {
-                    tm.cancel();
-                    finishGame();
-                }
-                try {
-                    getQuestions(counter);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                nextQuestion();
 
             }
 
         });
-//            i++;
-//            getQuestions(i);
+    }
 
-
-        Log.v("TAGUL", String.valueOf(counter));
-
-
+    private void nextQuestion() {
+        tm.cancel();
+        counter++;
+        if (counter == 5) {
+            tm.cancel();
+            finishGame();
+        }
+        try {
+            getQuestions(counter);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public void finishGame() {

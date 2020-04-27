@@ -23,7 +23,7 @@ public interface UserService {
     Call<ResponseBody> get_winner(@Query("id") String id);
 
     @GET("api/get_rooms")
-    Call<ResponseBody> get_rooms();
+    Call<ResponseBody> get_rooms(@Query("username") String user);
 
     @GET("api/found_opponent")
     Call<ResponseBody> found_opponent(@Query("id") String id);

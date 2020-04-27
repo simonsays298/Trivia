@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -95,7 +96,7 @@ public class CompetitiveActivity extends AppCompatActivity {
 
     public void loadRooms() throws JSONException {
 
-        Call<ResponseBody> mService = service.get_rooms();
+        Call<ResponseBody> mService = service.get_rooms(user);
         mService.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -180,14 +181,21 @@ public class CompetitiveActivity extends AppCompatActivity {
                     mService.enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            Intent intent = new Intent(getApplicationContext(), GameActivity.class);
-                            Log.v("TAGUL", myid);
-                            intent.putExtra("USERNAME", user);
-                            intent.putExtra("GAMESID", myid);
-                            intent.putExtra("TOPIC", "HISTORY");
-                            intent.putExtra("MULTI", multi);
-                            //intent.putExtra("TOPIC", domain.toUpperCase());
-                            startActivity(intent);
+                            try {
+                                if(response.body().string().equals("Done")) {
+                                    Intent intent = new Intent(getApplicationContext(), GameActivity.class);
+                                    Log.v("TAGUL", myid);
+                                    intent.putExtra("USERNAME", user);
+                                    intent.putExtra("GAMESID", myid);
+                                    intent.putExtra("TOPIC", "HISTORY");
+                                    intent.putExtra("MULTI", multi);
+                                    startActivity(intent);
+                                }else{
+                                    Toast.makeText(getApplicationContext(), "Room already taken", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
 
                         @Override
