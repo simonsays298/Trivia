@@ -58,5 +58,8 @@ public interface UserService {
     @GET("api/get_suggested_questions")
     Call<ResponseBody> get_suggested_questions();
 
+    @POST("api/rate_question")
+    Call<ResponseBody> rate_question(@Body String question);
+
 
 }
