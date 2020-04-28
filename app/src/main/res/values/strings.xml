@@ -10,6 +10,7 @@
     <string name="looking_for_player">Looking for a player to join you...</string>
     <string name="geo">GEOGRAPHY</string>
     <string name="createRoom">Create Room</string>
+    <string name="createyouRoom">Create your room here</string>
     <string name="historyT">HISTORY</string>
     <string name="topic">TOPIC</string>
     <string name="points">Points: </string>
