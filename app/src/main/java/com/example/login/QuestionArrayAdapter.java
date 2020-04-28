@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -114,17 +115,38 @@ class QuestionArrayAdapter extends ArrayAdapter<QuestionData> {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            Log.v("RATE QUESTION", atext);
+                            Log.v("RATE", atext);
                         }
 
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                            Log.v("Fail at Rate", Objects.requireNonNull(t.getMessage()));
                         }
                     });
                 } else {
                     ((ImageButton) v).setImageResource(R.drawable.good);
                     check = 1;
+                    String result = "{\"question\":\"" + q.getQuestionName() + "\"}";
+                    Call<ResponseBody> mService = service.unrate_question(result);
+                    mService.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            assert response.body() != null;
+                            String atext = null;
+
+                            try {
+                                atext = response.body().string();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.v("UNRATE", atext);
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Log.v("Fail at Unrate", Objects.requireNonNull(t.getMessage()));
+                        }
+                    });
                 }
             }
         });
