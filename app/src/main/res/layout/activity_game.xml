@@ -8,10 +8,13 @@
 
     <TextView
         android:id="@+id/Question"
-        android:layout_width="378dp"
-        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginBottom="540dp"
+        android:autoText="true"
         android:fontFamily="sans-serif"
-        android:gravity="center_horizontal"
+        android:gravity="center_horizontal|center_vertical"
         android:textAlignment="gravity"
         android:textColor="#131313"
         android:textStyle="bold|italic"
