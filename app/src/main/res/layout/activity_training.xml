@@ -22,7 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.054"
+        app:layout_constraintVertical_bias="0.022"
         tools:text="@string/domain"
         tools:visibility="visible" />
 
@@ -38,7 +38,7 @@
         app:layout_constraintHorizontal_bias="0.852"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chooseD"
-        app:layout_constraintVertical_bias="0.666"
+        app:layout_constraintVertical_bias="0.644"
         tools:text="@string/geo" />
 
     <Button
@@ -53,7 +53,7 @@
         app:layout_constraintHorizontal_bias="0.852"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chooseD"
-        app:layout_constraintVertical_bias="0.841"
+        app:layout_constraintVertical_bias="0.814"
         tools:text="@string/historyT" />
 
     <Button
@@ -68,7 +68,7 @@
         app:layout_constraintHorizontal_bias="0.852"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chooseD"
-        app:layout_constraintVertical_bias="0.9"
+        app:layout_constraintVertical_bias="0.874"
         tools:text="@string/scienceT" />
 
     <Button
@@ -83,7 +83,7 @@
         app:layout_constraintHorizontal_bias="0.852"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chooseD"
-        app:layout_constraintVertical_bias="0.924"
+        app:layout_constraintVertical_bias="0.904"
         tools:text="@string/movie" />
 
     <Button
