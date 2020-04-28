@@ -182,7 +182,9 @@ public class CompetitiveActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             try {
-                                if(response.body().string().equals("Done")) {
+                                String enter = response.body().string();
+                                Log.v("ATGUL",enter);
+                                if(!enter.contains("Done")) {
                                     Intent intent = new Intent(getApplicationContext(), GameActivity.class);
                                     Log.v("TAGUL", myid);
                                     intent.putExtra("USERNAME", user);
