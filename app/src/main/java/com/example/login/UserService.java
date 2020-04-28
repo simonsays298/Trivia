@@ -61,5 +61,9 @@ public interface UserService {
     @POST("api/rate_question")
     Call<ResponseBody> rate_question(@Body String question);
 
+    @POST("api/unrate_question")
+    Call<ResponseBody> unrate_question(@Body String question);
+
+
 
 }
