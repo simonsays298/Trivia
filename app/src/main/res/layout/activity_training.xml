@@ -39,7 +39,7 @@
         app:layout_constraintHorizontal_bias="0.863"
         app:layout_constraintStart_toEndOf="@+id/imageEarth"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooseD"
+        app:layout_constraintTop_toBottomOf="@+id/button"
         app:layout_constraintVertical_bias="0.644"
         tools:text="@string/geo" />
 
@@ -111,7 +111,7 @@
         app:layout_constraintEnd_toStartOf="@+id/geography"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooseD"
+        app:layout_constraintTop_toBottomOf="@+id/button"
 
         app:layout_constraintVertical_bias="0.64"
         app:srcCompat="@drawable/earth" />
@@ -163,16 +163,17 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:background="@drawable/shape"
-        android:text="Leave Room"
+        android:text="@string/leave_room"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/geography"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chooseD"
         app:layout_constraintVertical_bias="0.0"
-        tools:text="Leave Room" />
+        tools:text="@string/leave_room" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
