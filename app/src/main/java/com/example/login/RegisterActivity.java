@@ -10,16 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.gson.internal.$Gson$Types;
-
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import java.io.IOException;
-import java.lang.reflect.Type;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -77,17 +70,20 @@ public class RegisterActivity extends AppCompatActivity {
 
                 } else {
                     result = "{\"username\":\"" + text + "\",\"password\":\"" + myPassword + "\",\"points\":\"0\"}";
-                    Call<ResponseBody> mService = service.createUser(result);
+                    Call<ResponseBody> mService = service.createAccount(result);
                     mService.enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             assert response.body() != null;
                             try {
                                 String atext = response.body().string();
+                                Log.v("REGISTER", atext);
                                 if (atext.contains("already exists")) {
                                     Toast.makeText(getApplicationContext(), R.string.user_already_exists, Toast.LENGTH_LONG).show();
                                 } else if (text.length() == 0 || myPassword.length() == 0) {
                                     Toast.makeText(getApplicationContext(), R.string.user_pass_empty, Toast.LENGTH_LONG).show();
+                                } if (atext.contains("Invalid input")) {
+                                    Toast.makeText(getApplicationContext(), R.string.register_invalid_format, Toast.LENGTH_LONG).show();
                                 } else {
                                     Toast.makeText(getApplicationContext(), R.string.succ_created_account, Toast.LENGTH_LONG).show();
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);

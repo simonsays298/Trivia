@@ -29,7 +29,7 @@ public interface UserService {
     Call<ResponseBody> found_opponent(@Query("id") String id);
 
     @POST("api/create_account")
-    Call<ResponseBody> createUser(@Body String json);
+    Call<ResponseBody> createAccount(@Body String json);
 
     @POST("api/delete_game")
     Call<ResponseBody> delet_game(@Body JSONObject json);
