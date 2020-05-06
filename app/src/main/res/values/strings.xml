@@ -11,6 +11,7 @@
     <string name="geo">GEOGRAPHY</string>
     <string name="createRoom">Create Room</string>
     <string name="createyouRoom">Create your room here</string>
+    <string name="backHome">Home Screen</string>
     <string name="historyT">HISTORY</string>
     <string name="topic">TOPIC</string>
     <string name="points">Points: </string>
@@ -21,6 +22,7 @@
     <string name="movie">MOVIES &amp; CELEBRITIES</string>
     <string name="trivia_textbox">Test your knowledge in this Trivia Quiz Game</string>
     <string name="enter_new_username">Enter new username</string>
+    <string name="tie">It\'s a tie!</string>
     <string name="enter_username">Enter username</string>
     <string name="create_user">Create user</string>
     <string name="password">Type your password</string>

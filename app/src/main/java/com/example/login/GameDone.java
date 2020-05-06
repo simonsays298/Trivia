@@ -3,10 +3,12 @@ package com.example.login;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +38,7 @@ public class GameDone extends AppCompatActivity {
     private TextView msgScor;
     private ImageView image;
     private String multi;
+    private Button backHome;
     TextView curUser, curScor;
     TextView opUser, opScor;
 
@@ -59,6 +62,7 @@ public class GameDone extends AppCompatActivity {
         image = findViewById(R.id.imageView);
         curScor = findViewById(R.id.finalScore2);
         opScor = findViewById(R.id.finalScore3);
+        backHome = findViewById(R.id.backHome);
 
         //msgScor.setVisibility(View.GONE);
         image.setVisibility(View.GONE);
@@ -71,20 +75,25 @@ public class GameDone extends AppCompatActivity {
         msgScor.setVisibility(View.VISIBLE);
         finalScore.setText(points);
         findViewById(R.id.finalScore4).setVisibility(View.GONE);
+        backHome.setVisibility(View.GONE);
+
+        Log.v("PUNCTEE",user);
+        Log.v("PUNCTEE",points);
 
 
         if (multi.equals("0")) {
+            backHome.setVisibility(View.VISIBLE);
             if (Integer.parseInt(points) == 0) {
                 messageGame.setText(R.string.luck_next_time);
                 image.setImageResource(R.drawable.death);
             }
+            msgScor.setTextColor(Color.DKGRAY);
             image.setVisibility(View.VISIBLE);
             findViewById(R.id.loadingPanel).setVisibility(View.GONE);
             Log.v("TAGUL", "MULTI" + multi);
-            timer = new Timer();
-            timer.schedule(new TimerTask() {
+            backHome.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void run() {
+                public void onClick(View v) {
                     JSONObject finish = new JSONObject();
                     try {
                         finish.put("id", getId);
@@ -124,10 +133,10 @@ public class GameDone extends AppCompatActivity {
                         }
                     });
                 }
-            }, 1500);
+            });
             findViewById(R.id.loadingPanel).setVisibility(View.GONE);
         } else {
-            //msgScor.setVisibility(View.VISIBLE);
+
 
             JSONObject finish = new JSONObject();
             try {
@@ -190,10 +199,12 @@ public class GameDone extends AppCompatActivity {
                 if (winner.contains("Game not done")) {
                     messageGame.setText("Waiting for the opponent to finish...");
                     image.setVisibility(View.GONE);
+                    msgScor.setTextColor(Color.DKGRAY);
                     waitForopponent();
                 } else {
                     findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     findViewById(R.id.finalScore4).setVisibility(View.VISIBLE);
+                    backHome.setVisibility(View.VISIBLE);
                     Log.v("WINNER", winner);
                     try {
                         if (res.getString("winner").equals(user)) {
@@ -206,17 +217,31 @@ public class GameDone extends AppCompatActivity {
                             opScor.setText(res.getString("loser_points"));
                             opScor.setTextColor(Color.RED);
                         } else {
-                            messageGame.setText(R.string.luck_next_time);
-                            image.setImageResource(R.drawable.death);
-                            try {
-                                msgScor.setText("WINNER is " + res.getString("winner").toUpperCase());
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            if (res.getString("winner").equals("equal score")) {
+                                messageGame.setText(R.string.tie);
+                                image.setImageResource(R.drawable.loser);
+                                msgScor.setVisibility(View.GONE);
+                                finalScore.setVisibility(View.GONE);
+                                curScor.setText(points);
+                                curScor.setTextColor(Color.RED);
+                                opScor.setText(res.getString("loser_points"));
+                                opScor.setTextColor(Color.RED);
+                            }else{
+                                messageGame.setText(R.string.luck_next_time);
+                                image.setImageResource(R.drawable.death);
+                                try {
+                                    msgScor.setText("WINNER is " + res.getString("winner").toUpperCase());
+                                    finalScore.setVisibility(View.GONE);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                curScor.setText(points);
+                                curScor.setTextColor(Color.RED);
+                                opScor.setText(res.getString("points"));
+                                opScor.setTextColor(Color.GREEN);
+
                             }
-                            curScor.setText(points);
-                            curScor.setTextColor(Color.RED);
-                            opScor.setText(res.getString("points"));
-                            opScor.setTextColor(Color.GREEN);
+
 
                         }
                     } catch (JSONException e) {
@@ -225,16 +250,16 @@ public class GameDone extends AppCompatActivity {
 
                     image.setVisibility(View.VISIBLE);
                     findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-                    timer = new Timer();
-                    timer.schedule(new TimerTask() {
+                    backHome.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void run() {
+                        public void onClick(View v) {
                             Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                             intent.putExtra("USERNAME", user);
                             startActivity(intent);
                             finish();
                         }
-                    }, 5000);
+                    });
+
 
                 }
 

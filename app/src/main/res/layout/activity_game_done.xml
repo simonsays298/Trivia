@@ -95,6 +95,7 @@
         android:layout_height="26dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="@string/yourScore"
+        android:textColor="@color/colorPrimary"
         android:textSize="18dp"
         android:textStyle="bold"
         app:autoSizeTextType="uniform"
@@ -103,7 +104,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.962"
+        app:layout_constraintVertical_bias="0.963"
         tools:text="@string/yourScore" />
 
     <TextView
@@ -116,7 +117,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.857" />
+        app:layout_constraintVertical_bias="0.746" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -134,5 +135,20 @@
         app:layout_constraintVertical_bias="0.466"
         app:srcCompat="@drawable/images"
         tools:srcCompat="@drawable/images" />
+
+    <Button
+        android:id="@+id/backHome"
+        android:layout_width="180dp"
+        android:layout_height="70dp"
+        android:drawableStart="@drawable/baseline_home_24"
+        android:text="@string/backHome"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/finalScore"
+        app:layout_constraintVertical_bias="0.292"
+        tools:text="@string/backHome" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

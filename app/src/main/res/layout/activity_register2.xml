@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
+        android:drawableStart="@drawable/baseline_account_box_24"
         android:ems="10"
         android:hint="@string/enter_new_username"
         android:inputType="textPersonName"
@@ -43,6 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
+        android:drawableStart="@drawable/baseline_lock_24"
         android:ems="10"
         android:hint="@string/newPassword"
         android:inputType="textPassword"
@@ -58,11 +60,12 @@
         android:id="@+id/newPassReType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawableStart="@drawable/baseline_lock_24"
         android:ems="10"
         android:hint="@string/retype_password"
         android:inputType="textPassword"
-        android:textColor="@color/colorPrimaryDark"
 
+        android:textColor="@color/colorPrimaryDark"
         android:textColorHint="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

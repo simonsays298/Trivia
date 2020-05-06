@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:fontFamily="sans-serif"
-        android:gravity="center_horizontal"
+        android:gravity="center|center_horizontal"
         android:textAlignment="gravity"
         android:textColor="#131313"
         android:textStyle="bold|italic"
