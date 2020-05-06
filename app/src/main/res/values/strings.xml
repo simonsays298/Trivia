@@ -6,7 +6,7 @@
     <string name="time_left">Time left</string>
     <string name="domain">Choose the desired topic</string>
     <string name="op_to_join">Wait for the opponent to join</string>
-    <string name="cancel_room_or_not">Wait for an opponent or delete your game?</string>
+    <string name="cancel_room_or_not">Wait for an opponent or leave your game?</string>
     <string name="looking_for_player">Looking for a player to join you...</string>
     <string name="geo">GEOGRAPHY</string>
     <string name="createRoom">Create Room</string>

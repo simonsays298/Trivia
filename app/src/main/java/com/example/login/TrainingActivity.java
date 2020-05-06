@@ -415,7 +415,7 @@ public class TrainingActivity extends AppCompatActivity {
                 //set title
                 .setTitle(getResources().getString(R.string.cancel_room_or_not))
                 //set positive button
-                .setPositiveButton("Delete game", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Leave", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //set what would happen when positive button is clicked
