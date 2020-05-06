@@ -35,7 +35,8 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/History"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.852"
+        app:layout_constraintHorizontal_bias="0.863"
+        app:layout_constraintStart_toEndOf="@+id/imageEarth"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chooseD"
         app:layout_constraintVertical_bias="0.644"
@@ -50,9 +51,9 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/Science"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.852"
+        app:layout_constraintHorizontal_bias="0.863"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooseD"
+        app:layout_constraintTop_toBottomOf="@+id/geography"
         app:layout_constraintVertical_bias="0.814"
         tools:text="@string/historyT" />
 
@@ -65,9 +66,9 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/Movies"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.852"
+        app:layout_constraintHorizontal_bias="0.863"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooseD"
+        app:layout_constraintTop_toBottomOf="@+id/History"
         app:layout_constraintVertical_bias="0.874"
         tools:text="@string/scienceT" />
 
@@ -80,9 +81,9 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/Arts"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.852"
+        app:layout_constraintHorizontal_bias="0.863"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooseD"
+        app:layout_constraintTop_toBottomOf="@+id/Science"
         app:layout_constraintVertical_bias="0.904"
         tools:text="@string/movie" />
 
@@ -95,61 +96,68 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.852"
+        app:layout_constraintHorizontal_bias="0.863"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooseD"
-        app:layout_constraintVertical_bias="0.919"
+        app:layout_constraintTop_toBottomOf="@+id/Movies"
+        app:layout_constraintVertical_bias="0.92"
         tools:text="@string/arts" />
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="0sp"
-        android:layout_height="0sp"
-        app:layout_constraintBottom_toBottomOf="@+id/geography"
+        android:id="@+id/imageEarth"
+        android:layout_width="154sp"
+        android:layout_height="76sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageHistory"
         app:layout_constraintEnd_toStartOf="@+id/geography"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/geography"
+        app:layout_constraintTop_toBottomOf="@+id/chooseD"
+
+        app:layout_constraintVertical_bias="0.64"
         app:srcCompat="@drawable/earth" />
 
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="0sp"
-        android:layout_height="0sp"
-        app:layout_constraintBottom_toBottomOf="@+id/History"
+        android:id="@+id/imageHistory"
+        android:layout_width="154sp"
+        android:layout_height="76sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageScience"
         app:layout_constraintEnd_toStartOf="@+id/History"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/History"
+        app:layout_constraintTop_toBottomOf="@+id/imageEarth"
+        app:layout_constraintVertical_bias="0.45"
         app:srcCompat="@drawable/greek" />
 
     <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="0sp"
-        android:layout_height="0sp"
-        app:layout_constraintBottom_toBottomOf="@+id/Science"
+        android:id="@+id/imageScience"
+        android:layout_width="154sp"
+        android:layout_height="76sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageMovies"
         app:layout_constraintEnd_toStartOf="@+id/Science"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Science"
+        app:layout_constraintTop_toBottomOf="@+id/imageHistory"
         app:srcCompat="@drawable/test_tube" />
 
     <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="0sp"
-        android:layout_height="0sp"
-        app:layout_constraintBottom_toBottomOf="@+id/Movies"
+        android:id="@+id/imageMovies"
+        android:layout_width="154sp"
+        android:layout_height="76sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageArts"
         app:layout_constraintEnd_toStartOf="@+id/Movies"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Movies"
+        app:layout_constraintTop_toBottomOf="@+id/imageScience"
         app:srcCompat="@drawable/popcorn" />
 
     <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="0sp"
-        android:layout_height="0sp"
-        app:layout_constraintBottom_toBottomOf="@+id/Arts"
+        android:id="@+id/imageArts"
+        android:layout_width="154sp"
+        android:layout_height="76sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Arts"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Arts"
+        app:layout_constraintTop_toBottomOf="@+id/imageMovies"
         app:srcCompat="@drawable/painting" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
