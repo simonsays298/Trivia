@@ -13,13 +13,16 @@
         android:text="@string/add_new_friend"
         android:textColor="@color/colorPrimary"/>
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="637dp"
         android:layout_below="@+id/addNewFriendButton"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="0dp"
+        android:orientation="horizontal"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
         android:scrollbarAlwaysDrawVerticalTrack="true" />
 
 </RelativeLayout>

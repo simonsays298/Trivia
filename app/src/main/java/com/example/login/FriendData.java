@@ -1,7 +1,7 @@
 package com.example.login;
 
 public class FriendData {
-    private static final String TAG = "Fruit";
+
     private String friendName;
     private String nrFriendPoints;
 

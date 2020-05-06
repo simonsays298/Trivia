@@ -2,7 +2,7 @@ package com.example.login;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,11 +12,16 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -29,8 +34,12 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class FriendsListViewActivity extends AppCompatActivity {
     private static final String TAG = "ListViewActivity";
 
-    private FriendsArrayAdapter friendsArrayAdapter;
+    List<FriendData> friendDataList = new ArrayList<>();
+
+    private FriendDataAdapter friendDataAdapter;
     private ListView listView;
+
+    SwipeController swipeController = null;
 
     private static int colorIndex;
 
@@ -58,11 +67,11 @@ public class FriendsListViewActivity extends AppCompatActivity {
 
         colorIndex = 0;
 
-        listView = (ListView) findViewById(R.id.listView);
-
-        friendsArrayAdapter = new FriendsArrayAdapter(getApplicationContext(),
-                R.layout.activity_listview_row_layout);
-        listView.setAdapter(friendsArrayAdapter);
+//        listView = findViewById(R.id.listView);
+//
+//        friendsArrayAdapter = new FriendsArrayAdapter(getApplicationContext(),
+//                R.layout.activity_listview_row_layout);
+//        listView.setAdapter(friendsArrayAdapter);
 
         Call<ResponseBody> mService1 = service.get_friends(userName);
 
@@ -96,8 +105,8 @@ public class FriendsListViewActivity extends AppCompatActivity {
                                 + " " + getString(R.string.points_friendslist);
 
                         FriendData friend = new FriendData(friendN, nrFriendPoints);
-
-                        friendsArrayAdapter.insert(friend, i);
+                        friendDataList.add(i, friend);
+                        //friendsArrayAdapter.insert(friend, i);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -111,6 +120,35 @@ public class FriendsListViewActivity extends AppCompatActivity {
 
             }
         });
+
+        friendDataAdapter = new FriendDataAdapter(friendDataList);
+        setupRecyclerView();
+//        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.listView);
+//
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+//        recyclerView.setAdapter(friendDataAdapter);
+//
+//        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
+//        itemTouchhelper.attachToRecyclerView(recyclerView);
+//
+////        swipeController = new SwipeController(new SwipeControllerActions() {
+////            @Override
+////            public void onRightClicked(int position) {
+////                mAdapter.players.remove(position);
+////                mAdapter.notifyItemRemoved(position);
+////                mAdapter.notifyItemRangeChanged(position, mAdapter.getItemCount());
+////            }
+////        });
+//
+////        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+////            @Override
+////            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+////                swipeController.onDraw(c);
+////            }
+////        });
+//
+//        SwipeController swipeController = new SwipeController();
+
 
         addNewFriendButton = findViewById(R.id.addNewFriendButton);
         addNewFriendButton.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +201,7 @@ public class FriendsListViewActivity extends AppCompatActivity {
                                                     R.string.friend_succ_added, Toast.LENGTH_LONG).show();
                                             //friendsArrayAdapter.notifyDataSetChanged();
                                             FriendsListViewActivity.this.recreate();
-                                            friendsArrayAdapter.notifyDataSetChanged();
+                                            friendDataAdapter.notifyDataSetChanged();
                                             dialog.dismiss();
 //                                            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
 //                                            startActivity(intent);
@@ -189,6 +227,34 @@ public class FriendsListViewActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void setupRecyclerView() {
+        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.listView);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false));
+
+        recyclerView.setAdapter(friendDataAdapter);
+
+        swipeController = new SwipeController(new SwipeControllerActions() {
+            @Override
+            public void onRightClicked(int position) {
+//                friendDataAdapter.friendDataArrayList.remove(position);
+//                friendDataAdapter.notifyItemRemoved(position);
+//                friendDataAdapter.notifyItemRangeChanged(position, friendDataAdapter.getItemCount());
+            }
+        });
+
+        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
+        itemTouchhelper.attachToRecyclerView(recyclerView);
+
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                swipeController.onDraw(c);
+            }
+        });
     }
 
 }
