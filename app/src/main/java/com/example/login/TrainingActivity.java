@@ -39,6 +39,7 @@ public class TrainingActivity extends AppCompatActivity {
     private String user;
     private String multi;
     private String foundOpponent;
+    private Button leaveRoom;
     private boolean stop = false;
 
     @Override
@@ -54,6 +55,9 @@ public class TrainingActivity extends AppCompatActivity {
         arts = findViewById(R.id.Arts);
         movie = findViewById(R.id.Movies);
         science = findViewById(R.id.Science);
+        leaveRoom = findViewById(R.id.leaveRoom);
+        leaveRoom.setVisibility(View.GONE);
+
 
         history.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +102,7 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("MULTI", multi);
                             startActivity(intent);
                         } else {
+                            leaveRoom.setVisibility(View.VISIBLE);
                             waitForOpponent(gamesId, getResources().getString(R.string.historyT));
                             delOrNotGame(gamesId);
                         }
@@ -156,6 +161,7 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("MULTI", multi);
                             startActivity(intent);
                         } else {
+                            leaveRoom.setVisibility(View.VISIBLE);
                             waitForOpponent(gamesId, getResources().getString(R.string.geo));
                             delOrNotGame(gamesId);
                         }
@@ -215,6 +221,7 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("MULTI", multi);
                             startActivity(intent);
                         } else {
+                            leaveRoom.setVisibility(View.VISIBLE);
                             waitForOpponent(gamesId, getResources().getString(R.string.arts));
                             delOrNotGame(gamesId);
 //                            Log.v("TAGUL", "BRAVO MAI ASTEPATA");
@@ -276,6 +283,7 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("MULTI", multi);
                             startActivity(intent);
                         } else {
+                            leaveRoom.setVisibility(View.VISIBLE);
                             waitForOpponent(gamesId, getResources().getString(R.string.movie));
                             delOrNotGame(gamesId);
 //                            Log.v("TAGUL", "BRAVO MAI ASTEPATA");
@@ -336,6 +344,7 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("MULTI", multi);
                             startActivity(intent);
                         } else {
+                            leaveRoom.setVisibility(View.VISIBLE);
 //                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.op_to_join), Toast.LENGTH_LONG).show();
                             waitForOpponent(gamesId, getResources().getString(R.string.science));
                             delOrNotGame(gamesId);
@@ -350,6 +359,13 @@ public class TrainingActivity extends AppCompatActivity {
 
                     }
                 });
+            }
+        });
+
+        leaveRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                leavingRoom(foundOpponent);
             }
         });
 
@@ -463,6 +479,41 @@ public class TrainingActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+
+    private void leavingRoom(String gamesId){
+        stop = true;
+        JSONObject json = new JSONObject();
+        try {
+            json.put("id", gamesId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Call<ResponseBody> mService = service.delet_game(json);
+        mService.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                assert response.body() != null;
+                try {
+                    Log.v("RESPONSEE", response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Intent intent = new Intent(getApplicationContext(), CompetitiveActivity.class);
+                intent.putExtra("USERNAME", user);
+                intent.putExtra("MULTI", multi);
+                startActivity(intent);
+                finish();
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.v("TAGUL", t.getMessage());
+
+            }
+        });
     }
 
 }
