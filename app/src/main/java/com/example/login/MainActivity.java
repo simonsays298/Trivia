@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private EditText editText;
-    private Button btn;
+    private Button btnLogin;
     private Button buttonRegister;
     private EditText psswd;
     private String user;
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        btn = findViewById(R.id.Login);
+        btnLogin = findViewById(R.id.Login);
         editText = findViewById(R.id.User);
         buttonRegister = findViewById(R.id.buttonRegister);
         psswd = findViewById(R.id.Password);
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         UserService service = retrofit.create(UserService.class);
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO make a request to server using retrofit
