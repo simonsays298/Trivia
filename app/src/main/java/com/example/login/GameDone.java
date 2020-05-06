@@ -217,9 +217,9 @@ public class GameDone extends AppCompatActivity {
                             opScor.setText(res.getString("loser_points"));
                             opScor.setTextColor(Color.RED);
                         } else {
-                            if (res.getString("winner").equals("equal score")) {
+                            if (res.getString("winner").equals("equal scores")) {
                                 messageGame.setText(R.string.tie);
-                                image.setImageResource(R.drawable.loser);
+                                image.setImageResource(R.drawable.ghost);
                                 msgScor.setVisibility(View.GONE);
                                 finalScore.setVisibility(View.GONE);
                                 curScor.setText(points);
