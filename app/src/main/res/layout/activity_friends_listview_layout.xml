@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <Button
         android:id="@+id/addNewFriendButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="135dp"
+        android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:drawableStart="@drawable/person_add_24"
+        android:gravity="center"
         android:text="@string/add_new_friend"
         android:textColor="@color/colorPrimary"/>
 
@@ -20,9 +23,11 @@
         android:layout_below="@+id/addNewFriendButton"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="0dp"
-        android:orientation="horizontal"
         android:clipToPadding="false"
+        android:orientation="horizontal"
         android:overScrollMode="never"
-        android:scrollbarAlwaysDrawVerticalTrack="true" />
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:visibility="visible"
+        tools:visibility="visible" />
 
 </RelativeLayout>
