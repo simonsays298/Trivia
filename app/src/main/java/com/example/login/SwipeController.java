@@ -8,7 +8,6 @@ import android.graphics.RectF;
 import android.view.MotionEvent;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -60,7 +59,8 @@ class SwipeController extends ItemTouchHelper.Callback {
     }
 
     @Override
-    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                            float dX, float dY, int actionState, boolean isCurrentlyActive) {
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
             if (buttonShowedState != ButtonsState.GONE) {
                 if (buttonShowedState == ButtonsState.LEFT_VISIBLE) dX = Math.max(dX, buttonWidth);
@@ -103,7 +103,10 @@ class SwipeController extends ItemTouchHelper.Callback {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void setTouchDownListener(final Canvas c, final RecyclerView recyclerView, final RecyclerView.ViewHolder viewHolder, final float dX, final float dY, final int actionState, final boolean isCurrentlyActive) {
+    private void setTouchDownListener(final Canvas c, final RecyclerView recyclerView,
+                                      final RecyclerView.ViewHolder viewHolder,
+                                      final float dX, final float dY, final int actionState,
+                                        final boolean isCurrentlyActive) {
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -161,12 +164,12 @@ class SwipeController extends ItemTouchHelper.Callback {
         Paint p = new Paint();
 
         RectF leftButton = new RectF(itemView.getLeft(), itemView.getTop(), itemView.getLeft() + buttonWidthWithoutPadding, itemView.getBottom());
-        p.setColor(Color.GREEN);
+        p.setColor(Color.parseColor("#009688"));
         c.drawRoundRect(leftButton, corners, corners, p);
         drawText("INVITE", c, leftButton, p);
 
         RectF rightButton = new RectF(itemView.getRight() - buttonWidthWithoutPadding, itemView.getTop(), itemView.getRight(), itemView.getBottom());
-        p.setColor(Color.RED);
+        p.setColor(Color.parseColor("#D30921"));
         c.drawRoundRect(rightButton, corners, corners, p);
         drawText("DELETE", c, rightButton, p);
 

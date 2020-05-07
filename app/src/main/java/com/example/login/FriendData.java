@@ -5,6 +5,8 @@ public class FriendData {
     private String friendName;
     private String nrFriendPoints;
 
+
+
     public FriendData(String fruitName, String nrFriendPoints) {
         super();
         this.setFiendName(fruitName);
@@ -27,5 +29,11 @@ public class FriendData {
         this.nrFriendPoints = nrFriendPoints;
     }
 
-
+    @Override
+    public String toString() {
+        return "FriendData{" +
+                "friendName='" + friendName + '\'' +
+                ", nrFriendPoints='" + nrFriendPoints + '\'' +
+                '}';
+    }
 }

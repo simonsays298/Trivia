@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,7 +36,6 @@ public class FriendsListViewActivity extends AppCompatActivity {
     List<FriendData> friendDataList = new ArrayList<>();
 
     private FriendDataAdapter friendDataAdapter;
-    private ListView listView;
 
     SwipeController swipeController = null;
 
@@ -67,11 +65,8 @@ public class FriendsListViewActivity extends AppCompatActivity {
 
         colorIndex = 0;
 
-//        listView = findViewById(R.id.listView);
-//
-//        friendsArrayAdapter = new FriendsArrayAdapter(getApplicationContext(),
-//                R.layout.activity_listview_row_layout);
-//        listView.setAdapter(friendsArrayAdapter);
+        friendDataAdapter = new FriendDataAdapter(friendDataList);
+        setupRecyclerView();
 
         Call<ResponseBody> mService1 = service.get_friends(userName);
 
@@ -106,11 +101,12 @@ public class FriendsListViewActivity extends AppCompatActivity {
 
                         FriendData friend = new FriendData(friendN, nrFriendPoints);
                         friendDataList.add(i, friend);
-                        //friendsArrayAdapter.insert(friend, i);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
+                friendDataAdapter.notifyDataSetChanged();
+
 
             }
 
@@ -120,34 +116,6 @@ public class FriendsListViewActivity extends AppCompatActivity {
 
             }
         });
-
-        friendDataAdapter = new FriendDataAdapter(friendDataList);
-        setupRecyclerView();
-//        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.listView);
-//
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-//        recyclerView.setAdapter(friendDataAdapter);
-//
-//        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
-//        itemTouchhelper.attachToRecyclerView(recyclerView);
-//
-////        swipeController = new SwipeController(new SwipeControllerActions() {
-////            @Override
-////            public void onRightClicked(int position) {
-////                mAdapter.players.remove(position);
-////                mAdapter.notifyItemRemoved(position);
-////                mAdapter.notifyItemRangeChanged(position, mAdapter.getItemCount());
-////            }
-////        });
-//
-////        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-////            @Override
-////            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-////                swipeController.onDraw(c);
-////            }
-////        });
-//
-//        SwipeController swipeController = new SwipeController();
 
 
         addNewFriendButton = findViewById(R.id.addNewFriendButton);
@@ -203,8 +171,6 @@ public class FriendsListViewActivity extends AppCompatActivity {
                                             FriendsListViewActivity.this.recreate();
                                             friendDataAdapter.notifyDataSetChanged();
                                             dialog.dismiss();
-//                                            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
-//                                            startActivity(intent);
                                         }
 
                                     } catch (IOException e) {
@@ -225,7 +191,6 @@ public class FriendsListViewActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-
 
     }
 
