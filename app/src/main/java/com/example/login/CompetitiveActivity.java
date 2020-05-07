@@ -1,9 +1,13 @@
 package com.example.login;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -40,13 +44,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class CompetitiveActivity extends AppCompatActivity {
 
 
-    private ListView room;
+
+    private ArrayList<RoomData> exampleList;
     private Button createRoom;
     private String user;
     private String multi;
     JSONObject rooms;
     List<String> roomsList;
     HashMap<String, ArrayList<String>> nameIdMap;
+    private RecyclerView mRecyclerView;
+    private RoomAdapterActivity mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
     private int noRooms;
     private int counter = 0;
 
@@ -64,11 +72,17 @@ public class CompetitiveActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_competitive);
 
+
+//        createExampleList();
+//        buildRecyclerView();
+
         user = getIntent().getStringExtra("USERNAME");
         multi = getIntent().getStringExtra("MULTI");
 
-        room = findViewById(R.id.listView);
+        //room = findViewById(R.id.listView);
         createRoom = findViewById(R.id.createRoom);
+
+
 
         createRoom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,12 +106,14 @@ public class CompetitiveActivity extends AppCompatActivity {
         }
 
 
+
     }
 
     public void loadRooms() throws JSONException {
 
         Call<ResponseBody> mService = service.get_rooms(user);
         mService.enqueue(new Callback<ResponseBody>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -107,10 +123,10 @@ public class CompetitiveActivity extends AppCompatActivity {
 
                 try {
                     res = response.body().string();
+                    Log.v("ROOM",res);
                     rooms = new JSONObject(res);
                     nameIdMap = new HashMap<String, ArrayList<String>>();
-                    roomsList = new ArrayList<>();
-                    ;
+                    exampleList = new ArrayList<RoomData>();
                     showList();
 
                 } catch (IOException | JSONException e) {
@@ -129,33 +145,56 @@ public class CompetitiveActivity extends AppCompatActivity {
 
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void showList() throws JSONException {
         noRooms = Integer.parseInt(rooms.getString("no_rooms"));
         if (noRooms > 0) {
             for (int i = 0; i < noRooms; i++) {
                 JSONObject nameRoom = rooms.getJSONObject(String.valueOf(i));
-                if (!roomsList.contains(nameRoom.getString("creator"))) {
+                if (!exampleList.stream().anyMatch(o -> o.getText2().equals(nameRoom))) {
                     String name = nameRoom.getString("creator");
                     String id = nameRoom.getString("id");
                     String domain = nameRoom.getString("domain");
                     ArrayList<String> list = new ArrayList<>();
                     list.add(id);
                     list.add(domain);
-                    roomsList.add(nameRoom.getString("creator"));
+                    exampleList.add(new RoomData(R.drawable.room_multi,"For Anyone", name));
+                    Log.v("ROOM",exampleList.get(0).getText2());
                     nameIdMap.put(name, list);
                 }
 
             }
         }
 
-        ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, roomsList);
-        room.setAdapter(itemsAdapter);
 
-        room.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        mRecyclerView = findViewById(R.id.rooms);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mAdapter = new RoomAdapterActivity(exampleList);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        createRoom = findViewById(R.id.createRoom);
+        mRecyclerView.setAdapter(mAdapter);
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String entryNameRoom = (String) parent.getAdapter().getItem(position);
+            public void run() {
+                try {
+                    loadRooms();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, 100);
+
+        mAdapter.setOnItemClickListener(new RoomAdapterActivity.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+                String entryNameRoom = exampleList.get(position).getText2();
                 ArrayList<String> list = new ArrayList<>();
                 list = nameIdMap.get(entryNameRoom);
 
@@ -209,21 +248,11 @@ public class CompetitiveActivity extends AppCompatActivity {
                 }
 
 
+
             }
         });
 
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    loadRooms();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, 100);
-
 
     }
+
 }

@@ -40,29 +40,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="250dp"
-        android:layout_height="200dp"
-        android:layout_marginBottom="71dp"
-        app:layout_constraintBottom_toTopOf="@+id/createRoom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageDown"
-        app:layout_constraintVertical_bias="1.0" />
-
     <ImageView
         android:id="@+id/imageDown"
         android:layout_width="147dp"
         android:layout_height="40dp"
         android:layout_marginTop="60dp"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/listView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/downward" />
 
 
@@ -93,7 +78,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/listView"
-        app:layout_constraintVertical_bias="0.89"
         tools:text="@string/createRoom" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rooms"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/createRoom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageDown"
+        app:layout_constraintVertical_bias="0.52" />
 </androidx.constraintlayout.widget.ConstraintLayout>
