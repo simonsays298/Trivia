@@ -71,4 +71,5 @@
     <string name="not_match_pass">Password not matching</string>
     <string name="hurry_up">Hurry Up!!!</string>
     <string name="register_invalid_format">Username/password format is invalid</string>
+    <string name="friend_succ_del">Friend successfully deleted</string>
 </resources>

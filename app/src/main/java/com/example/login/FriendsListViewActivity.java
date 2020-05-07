@@ -105,6 +105,7 @@ public class FriendsListViewActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                Log.v("SIZE", String.valueOf(friendDataList.size()));
                 friendDataAdapter.notifyDataSetChanged();
 
 
@@ -170,6 +171,8 @@ public class FriendsListViewActivity extends AppCompatActivity {
                                             //friendsArrayAdapter.notifyDataSetChanged();
                                             FriendsListViewActivity.this.recreate();
                                             friendDataAdapter.notifyDataSetChanged();
+//                                            friendDataAdapter.notifyItemInserted(friendDataList.size());
+//                                            friendDataAdapter.notifyItemRangeChanged(friendDataList.size(), friendDataAdapter.getItemCount());
                                             dialog.dismiss();
                                         }
 
@@ -195,7 +198,7 @@ public class FriendsListViewActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView() {
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.listView);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.listView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
@@ -208,8 +211,40 @@ public class FriendsListViewActivity extends AppCompatActivity {
 //                friendDataAdapter.friendDataArrayList.remove(position);
 //                friendDataAdapter.notifyItemRemoved(position);
 //                friendDataAdapter.notifyItemRangeChanged(position, friendDataAdapter.getItemCount());
+                String friendRightSwiped = friendDataList.get(position).getFriendName();
+
+                String result = "{\"username\":\"" + userName + "\",\"friend\":\"" + friendRightSwiped + "\"}";
+
+                Call<ResponseBody> mService = service.delete_friend(result);
+                mService.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        assert response.body() != null;
+                        try {
+                            String atext = response.body().string();
+                            Log.v("Friend deleted", Boolean.toString(atext.contains("Friend deleted")));
+                            if (atext.contains("Friend deleted")) {
+                                Toast.makeText(getApplicationContext(),
+                                        R.string.friend_succ_del, Toast.LENGTH_LONG).show();
+                                //friendsArrayAdapter.notifyDataSetChanged();
+                                //FriendsListViewActivity.this.recreate();
+                                FriendsListViewActivity.this.recreate();
+                                friendDataAdapter.notifyDataSetChanged();
+                            }
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.v("DELETE Friend", t.getMessage());
+                    }
+                });
             }
         });
+
 
         ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
         itemTouchhelper.attachToRecyclerView(recyclerView);
