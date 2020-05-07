@@ -32,7 +32,7 @@
     <string name="test_your">Test your</string>
     <string name="knowledge_in_this">knowledge in this</string>
     <string name="trivia_game">Trivia Game</string>
-    <string name="view_profile">View Profile</string>
+    <string name="view_profile">Profile</string>
     <string name="friends">Friends</string>
     <string name="question_factory">Question Factory</string>
     <string name="geography">Geography</string>
@@ -52,7 +52,7 @@
     <string name="createQA"><![CDATA[Congrats! You have successfully created a Trivia Q & A!]]></string>
     <string name="log_out">Log out</string>
     <string name="invite">Invite</string>
-    <string name="add_new_friend">Add new friend</string>
+    <string name="add_new_friend">Add friend</string>
     <string name="ok">Ok</string>
     <string name="active_rooms">Active Rooms</string>
     <string name="q_a_empty">Question / Answer is empty !</string>
