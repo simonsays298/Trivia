@@ -10,7 +10,6 @@
         android:id="@+id/textView3"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
         android:background="#8BC34A"
         android:gravity="center_horizontal|center_vertical"
         android:text="@string/active_rooms"
@@ -40,16 +39,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
+
     <ImageView
         android:id="@+id/imageDown"
         android:layout_width="147dp"
         android:layout_height="40dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/rooms"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
         app:srcCompat="@drawable/downward" />
-
 
     <ImageView
         android:id="@+id/imageVs"
@@ -76,19 +77,20 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/imageVs"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rooms"
         tools:text="@string/createRoom" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rooms"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="1dp"
+        android:layout_width="299dp"
+        android:layout_height="254dp"
+        android:layout_marginBottom="40dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/createRoom"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageDown"
         app:layout_constraintVertical_bias="0.52" />
