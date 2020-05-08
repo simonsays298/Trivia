@@ -44,8 +44,6 @@ public class FriendsRecyclerViewActivity extends AppCompatActivity {
 
     SwipeController swipeController = null;
 
-    private static int colorIndex;
-
     private Button addNewFriendButton;
     final Context context = this;
 
@@ -67,8 +65,6 @@ public class FriendsRecyclerViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.friends_recyclerview_layout);
         userName = getIntent().getStringExtra("USERNAME");
-
-        colorIndex = 0;
 
         friendDataAdapter = new FriendDataAdapter(friendDataList);
         setupRecyclerView();
@@ -200,7 +196,7 @@ public class FriendsRecyclerViewActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.listView);
+        RecyclerView recyclerView = findViewById(R.id.listView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
@@ -212,57 +208,12 @@ public class FriendsRecyclerViewActivity extends AppCompatActivity {
             public void onRightClicked(int position) {
                 String friendRightSwiped = friendDataList.get(position).getFriendName();
 
-                AlertDialog alertDialog = new AlertDialog.Builder(FriendsRecyclerViewActivity.this)
-                        //set icon
-                        .setIcon(android.R.drawable.ic_dialog_info)
-                        //set title
-                        .setTitle(getString(R.string.sure_delete_friend) + " " + friendRightSwiped + " ?")
-                        //set positive button
-                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //set what would happen when positive button is clicked
+                showRemoveAlertDialog(friendRightSwiped);
+            }
 
-                                String result = "{\"username\":\"" + userName + "\",\"friend\":\"" + friendRightSwiped + "\"}";
-
-                                Call<ResponseBody> mService = service.delete_friend(result);
-                                mService.enqueue(new Callback<ResponseBody>() {
-                                    @Override
-                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                        assert response.body() != null;
-                                        try {
-                                            String atext = response.body().string();
-                                            Log.v("Friend deleted", Boolean.toString(atext.contains("Friend deleted")));
-                                            if (atext.contains("Friend deleted")) {
-                                                Toast.makeText(getApplicationContext(),
-                                                        R.string.friend_succ_del, Toast.LENGTH_LONG).show();
-                                                FriendsRecyclerViewActivity.this.recreate();
-                                                friendDataAdapter.notifyDataSetChanged();
-                                            }
-
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                        Log.v("DELETE Friend", t.getMessage());
-                                    }
-                                });
-
-                                //finish();
-                            }
-                        })
-
-                        //set negative button
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                            }
-                        })
-                        .show();
-
+            @Override
+            public void onLeftClicked(int position) {
+                String friendLeftSwiped = friendDataList.get(position).getFriendName();
 
             }
 
@@ -278,6 +229,59 @@ public class FriendsRecyclerViewActivity extends AppCompatActivity {
                 swipeController.onDraw(c);
             }
         });
+    }
+
+    private void showRemoveAlertDialog(String friendRightSwiped) {
+        AlertDialog alertDialog = new AlertDialog.Builder(FriendsRecyclerViewActivity.this)
+                //set icon
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                //set title
+                .setTitle(getString(R.string.sure_delete_friend) + " " + friendRightSwiped + " from list?")
+                //set positive button
+                .setPositiveButton("Remove", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //set what would happen when positive button is clicked
+
+                        String result = "{\"username\":\"" + userName + "\",\"friend\":\"" + friendRightSwiped + "\"}";
+
+                        Call<ResponseBody> mService = service.delete_friend(result);
+                        mService.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                assert response.body() != null;
+                                try {
+                                    String atext = response.body().string();
+                                    Log.v("Friend deleted", Boolean.toString(atext.contains("Friend deleted")));
+                                    if (atext.contains("Friend deleted")) {
+                                        Toast.makeText(getApplicationContext(),
+                                                R.string.friend_succ_del, Toast.LENGTH_LONG).show();
+                                        FriendsRecyclerViewActivity.this.recreate();
+                                        friendDataAdapter.notifyDataSetChanged();
+                                    }
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                Log.v("DELETE Friend", t.getMessage());
+                            }
+                        });
+
+                        //finish();
+                    }
+                })
+
+                //set negative button
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                })
+                .show();
     }
 
 }
