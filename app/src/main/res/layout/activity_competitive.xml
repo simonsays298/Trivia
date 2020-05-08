@@ -82,9 +82,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rooms"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="301dp"
+        android:layout_height="293dp"
+        android:layout_marginTop="48dp"
         android:layout_marginBottom="1dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/createRoom"
