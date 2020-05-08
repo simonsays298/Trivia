@@ -1,17 +1,15 @@
 package com.example.login;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,7 +21,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-class QuestionArrayAdapter extends ArrayAdapter<QuestionData> {
+class QuestionDataAdapter extends RecyclerView.Adapter<QuestionDataAdapter.QuestionViewHolder> {
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://firsttry-272817.appspot.com/")
@@ -33,65 +31,43 @@ class QuestionArrayAdapter extends ArrayAdapter<QuestionData> {
 
     UserService service = retrofit.create(UserService.class);
 
-    private List<QuestionData> questionDataArrayList = new ArrayList<QuestionData>();
+    private List<QuestionData> questionDataArrayList;
 
-    static class QuestionViewHolder {
+    public class QuestionViewHolder extends RecyclerView.ViewHolder {
         TextView questionNameTextView;
         TextView domainTextView;
         TextView rightAnsTextView;
         ImageButton rateUserQButton;
-    }
 
-    public QuestionArrayAdapter(Context context, int textViewResourceId) {
-        super(context, textViewResourceId);
-    }
-
-    @Override
-    public void add(QuestionData object) {
-        questionDataArrayList.add(object);
-        super.add(object);
-    }
-
-    @Override
-    public void insert(QuestionData object, int index) {
-        questionDataArrayList.add(index, object);
-        super.insert(object, index);
-    }
-
-    @Override
-    public int getCount() {
-        return this.questionDataArrayList.size();
-    }
-
-    @Override
-    public QuestionData getItem(int index) {
-        return this.questionDataArrayList.get(index);
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View row = convertView;
-        QuestionArrayAdapter.QuestionViewHolder viewHolder;
-        if (row == null) {
-            LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(R.layout.q_suggestion_listview_row_layout, parent, false);
-            viewHolder = new QuestionArrayAdapter.QuestionViewHolder();
-
-            viewHolder.questionNameTextView = row.findViewById(R.id.questionName);
-            viewHolder.domainTextView = row.findViewById(R.id.domain);
-            viewHolder.rightAnsTextView = row.findViewById(R.id.rightAns);
-            viewHolder.rateUserQButton = row.findViewById(R.id.rateBlackButton);
-
-            row.setTag(viewHolder);
-        } else {
-            viewHolder = (QuestionArrayAdapter.QuestionViewHolder) row.getTag();
-
+        public QuestionViewHolder(View view) {
+            super(view);
+            this.questionNameTextView = view.findViewById(R.id.questionName);
+            this.domainTextView = view.findViewById(R.id.domain);
+            this.rightAnsTextView = view.findViewById(R.id.rightAns);
+            this.rateUserQButton = view.findViewById(R.id.rateBlackButton);
         }
-        QuestionData q = getItem(position);
+    }
+
+    public QuestionDataAdapter(List<QuestionData> questionDataArrayList) {
+        this.questionDataArrayList = questionDataArrayList;
+    }
+
+
+    @Override
+    public QuestionDataAdapter.QuestionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.q_suggestion_recyclerview_row_layout, parent, false);
+
+        return new QuestionDataAdapter.QuestionViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(QuestionDataAdapter.QuestionViewHolder viewHolder, int position) {
+
+        QuestionData q = questionDataArrayList.get(position);
         viewHolder.questionNameTextView.setText(q.getQuestionName());
         viewHolder.domainTextView.setText(q.getDomain());
         viewHolder.rightAnsTextView.setText(q.getRightAnswer());
-        viewHolder.rateUserQButton = row.findViewById(R.id.rateBlackButton);
 
         viewHolder.rateUserQButton.setOnClickListener(new View.OnClickListener() {
             //When check = 1, you have your FIRST image set to the button
@@ -151,6 +127,11 @@ class QuestionArrayAdapter extends ArrayAdapter<QuestionData> {
             }
         });
 
-        return row;
     }
+
+    @Override
+    public int getItemCount() {
+        return questionDataArrayList.size();
+    }
+
 }
