@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -214,6 +215,13 @@ public class FriendsRecyclerViewActivity extends AppCompatActivity {
             @Override
             public void onLeftClicked(int position) {
                 String friendLeftSwiped = friendDataList.get(position).getFriendName();
+                Intent intent = new Intent(getApplicationContext(), TrainingActivity.class);
+                intent.putExtra("USERNAME", userName);
+                intent.putExtra("MULTI", "1");
+                intent.putExtra("INVITE", "invited");
+                intent.putExtra("INVITED FRIEND", friendLeftSwiped);
+                startActivity(intent);
+
 
             }
 

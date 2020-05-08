@@ -38,6 +38,8 @@ public class TrainingActivity extends AppCompatActivity {
     private Button science;
     private String user;
     private String multi;
+    private String invite;
+    private String invitedFriend;
     private String foundOpponent;
     private Button leaveRoom;
     private boolean stop = false;
@@ -49,6 +51,13 @@ public class TrainingActivity extends AppCompatActivity {
 
         user = getIntent().getStringExtra("USERNAME");
         multi = getIntent().getStringExtra("MULTI");
+        invite = getIntent().getStringExtra("INVITE");
+        if(getIntent().hasExtra("INVITED FRIEND") && getIntent().hasExtra("INVITE")){
+            invitedFriend = getIntent().getStringExtra("INVITED FRIEND");
+            invite = getIntent().getStringExtra("INVITE");
+        }else{
+            invite = "not invited";
+        }
 
         history = findViewById(R.id.History);
         geo = findViewById(R.id.geography);
@@ -77,6 +86,15 @@ public class TrainingActivity extends AppCompatActivity {
                     json.put("multi", multi);
                 } catch (JSONException e) {
                     e.printStackTrace();
+                }
+
+                if(invite.equals("invited")){
+                    Log.v("INVITED ", invitedFriend);
+                    try {
+                        json.put("friend", invitedFriend);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 Call<ResponseBody> mService = service.new_game(json);

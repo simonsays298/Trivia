@@ -25,6 +25,9 @@ public interface UserService {
     @GET("api/get_rooms")
     Call<ResponseBody> get_rooms(@Query("username") String user);
 
+    @GET("api/get_invites")
+    Call<ResponseBody> get_invites(@Query("username") String user);
+
     @GET("api/found_opponent")
     Call<ResponseBody> found_opponent(@Query("id") String id);
 

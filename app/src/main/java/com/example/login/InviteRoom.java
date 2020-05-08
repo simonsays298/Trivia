@@ -1,17 +1,18 @@
 package com.example.login;
 
-import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,12 +31,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CompetitiveActivity extends AppCompatActivity {
-
-
+public class InviteRoom extends AppCompatActivity {
 
     private ArrayList<RoomData> exampleList;
-    private Button createRoom;
     private String user;
     private String multi;
     JSONObject rooms;
@@ -46,6 +44,7 @@ public class CompetitiveActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private int noRooms;
     private int counter = 0;
+
 
     String res;
 
@@ -59,29 +58,10 @@ public class CompetitiveActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_competitive);
+        setContentView(R.layout.activity_invite_room);
 
         user = getIntent().getStringExtra("USERNAME");
-        multi = getIntent().getStringExtra("MULTI");
-
-        createRoom = findViewById(R.id.createRoom);
-
-
-
-        createRoom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createRoom.setText("Creating Room");
-                createRoom.setEnabled(false);
-
-                Intent intent = new Intent(getApplicationContext(), TrainingActivity.class);
-                intent.putExtra("USERNAME", user);
-                intent.putExtra("MULTI", multi);
-                startActivity(intent);
-
-            }
-        });
-        createRoom.setEnabled(true);
+        multi = "1";
 
         try {
             loadRooms();
@@ -95,12 +75,11 @@ public class CompetitiveActivity extends AppCompatActivity {
 
     public void loadRooms() throws JSONException {
 
-        Call<ResponseBody> mService = service.get_rooms(user);
+        Call<ResponseBody> mService = service.get_invites(user);
         mService.enqueue(new Callback<ResponseBody>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
                 assert response.body() != null;
                 res = null;
                 rooms = null;
@@ -143,24 +122,22 @@ public class CompetitiveActivity extends AppCompatActivity {
                     ArrayList<String> list = new ArrayList<>();
                     list.add(id);
                     list.add(domain);
-                    exampleList.add(new RoomData(R.drawable.room_multi,"For Anyone", name));
+                    exampleList.add(new RoomData(R.drawable.room_multi,"For " + user,  name));
                     Log.v("ROOM",exampleList.get(0).getText2());
                     nameIdMap.put(name, list);
                 }
 
             }
+            mRecyclerView = findViewById(R.id.invitesView);
+            mRecyclerView.setHasFixedSize(true);
+            mLayoutManager = new LinearLayoutManager(this);
+            mAdapter = new RoomAdapterActivity(exampleList, user, nameIdMap, multi, getApplicationContext(),"invited");
+
+            mRecyclerView.setLayoutManager(mLayoutManager);
+
+            mRecyclerView.setAdapter(mAdapter);
         }
 
-
-
-        mRecyclerView = findViewById(R.id.rooms);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new RoomAdapterActivity(exampleList, user, nameIdMap, multi, getApplicationContext());
-
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        mRecyclerView.setAdapter(mAdapter);
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -175,5 +152,4 @@ public class CompetitiveActivity extends AppCompatActivity {
         }, 500);
 
     }
-
 }

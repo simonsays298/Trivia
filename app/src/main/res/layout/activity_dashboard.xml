@@ -57,10 +57,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="fill_parent"
+
+
         android:layout_height="100dp"
-
-
         android:layout_marginTop="400dp"
         android:layout_marginBottom="531dp"
         android:gravity="center"
@@ -90,6 +91,38 @@
             android:layout_weight="1.0"
             android:text="@string/competitive_style"
             android:textColor="@color/colorPrimary" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:orientation="horizontal"
+        android:paddingLeft="4.0dip"
+        android:paddingTop="8.0dip"
+        android:paddingEnd="4.0dip"
+        android:paddingRight="1.0dip"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/gamepad" />
+
+        <Button
+            android:id="@+id/inviteRoom"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="Your Invites"
+            android:textColor="@color/colorPrimary"
+            tools:text="Your Invites" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
