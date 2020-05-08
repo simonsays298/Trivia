@@ -18,7 +18,7 @@
         <activity android:name=".GameDone" />
         <activity android:name=".GameActivity" />
         <activity android:name=".QSuggestionActivity" />
-        <activity android:name=".FriendsListViewActivity" />
+        <activity android:name=".FriendsRecyclerViewActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".TrainingActivity" />
         <activity android:name=".CompetitiveActivity" />

@@ -1,14 +1,13 @@
 package com.example.login;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +25,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RateQuestionActivity extends AppCompatActivity {
-    private ListView qListView;
 
     private static int colorIndex;
 
@@ -34,7 +32,8 @@ public class RateQuestionActivity extends AppCompatActivity {
 
     final Context context = this;
 
-    private QuestionArrayAdapter questionArrayAdapter;
+    private QuestionDataAdapter questionDataAdapter;
+    List<QuestionData> questionDataList = new ArrayList<>();
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://firsttry-272817.appspot.com/")
@@ -50,12 +49,8 @@ public class RateQuestionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rate_question);
         colorIndex = 0;
 
-        qListView = (ListView) findViewById(R.id.qSuggestionListView);
-
-
-        questionArrayAdapter = new QuestionArrayAdapter(getApplicationContext(),
-                R.layout.q_suggestion_listview_row_layout);
-        qListView.setAdapter(questionArrayAdapter);
+        questionDataAdapter = new QuestionDataAdapter(questionDataList);
+        setupRateRecyclerView();
 
         Call<ResponseBody> mService = service.get_suggested_questions();
 
@@ -109,8 +104,8 @@ public class RateQuestionActivity extends AppCompatActivity {
                         String question = qaObj.getString("question");
 
                         QuestionData suggestedQ = new QuestionData(question, rightAnswer, domain);
-
-                        questionArrayAdapter.insert(suggestedQ, i);
+                        questionDataList.add(i, suggestedQ);
+                        questionDataAdapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -126,5 +121,15 @@ public class RateQuestionActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setupRateRecyclerView() {
+
+        RecyclerView recyclerView = findViewById(R.id.qSuggestionRecyclerView);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false));
+
+        recyclerView.setAdapter(questionDataAdapter);
     }
 }
