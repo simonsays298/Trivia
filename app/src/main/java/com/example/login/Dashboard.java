@@ -73,7 +73,7 @@ public class Dashboard extends AppCompatActivity {
                 return true;
             case R.id.Item_Friends:
                 // for friends
-                intent = new Intent(getApplicationContext(), FriendsListViewActivity.class);
+                intent = new Intent(getApplicationContext(), FriendsRecyclerViewActivity.class);
                 intent.putExtra("USERNAME", user);
                 startActivity(intent);
                 return true;

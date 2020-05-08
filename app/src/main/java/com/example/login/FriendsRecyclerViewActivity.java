@@ -1,13 +1,18 @@
 package com.example.login;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +35,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class FriendsListViewActivity extends AppCompatActivity {
+public class FriendsRecyclerViewActivity extends AppCompatActivity {
     private static final String TAG = "ListViewActivity";
 
     List<FriendData> friendDataList = new ArrayList<>();
@@ -168,11 +173,8 @@ public class FriendsListViewActivity extends AppCompatActivity {
                                         } else if (atext.contains("Friend added")) {
                                             Toast.makeText(getApplicationContext(),
                                                     R.string.friend_succ_added, Toast.LENGTH_LONG).show();
-                                            //friendsArrayAdapter.notifyDataSetChanged();
-                                            FriendsListViewActivity.this.recreate();
+                                            FriendsRecyclerViewActivity.this.recreate();
                                             friendDataAdapter.notifyDataSetChanged();
-//                                            friendDataAdapter.notifyItemInserted(friendDataList.size());
-//                                            friendDataAdapter.notifyItemRangeChanged(friendDataList.size(), friendDataAdapter.getItemCount());
                                             dialog.dismiss();
                                         }
 
@@ -208,41 +210,62 @@ public class FriendsListViewActivity extends AppCompatActivity {
         swipeController = new SwipeController(new SwipeControllerActions() {
             @Override
             public void onRightClicked(int position) {
-//                friendDataAdapter.friendDataArrayList.remove(position);
-//                friendDataAdapter.notifyItemRemoved(position);
-//                friendDataAdapter.notifyItemRangeChanged(position, friendDataAdapter.getItemCount());
                 String friendRightSwiped = friendDataList.get(position).getFriendName();
 
-                String result = "{\"username\":\"" + userName + "\",\"friend\":\"" + friendRightSwiped + "\"}";
+                AlertDialog alertDialog = new AlertDialog.Builder(FriendsRecyclerViewActivity.this)
+                        //set icon
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        //set title
+                        .setTitle(getString(R.string.sure_delete_friend) + " " + friendRightSwiped + " ?")
+                        //set positive button
+                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //set what would happen when positive button is clicked
 
-                Call<ResponseBody> mService = service.delete_friend(result);
-                mService.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        assert response.body() != null;
-                        try {
-                            String atext = response.body().string();
-                            Log.v("Friend deleted", Boolean.toString(atext.contains("Friend deleted")));
-                            if (atext.contains("Friend deleted")) {
-                                Toast.makeText(getApplicationContext(),
-                                        R.string.friend_succ_del, Toast.LENGTH_LONG).show();
-                                //friendsArrayAdapter.notifyDataSetChanged();
-                                //FriendsListViewActivity.this.recreate();
-                                FriendsListViewActivity.this.recreate();
-                                friendDataAdapter.notifyDataSetChanged();
+                                String result = "{\"username\":\"" + userName + "\",\"friend\":\"" + friendRightSwiped + "\"}";
+
+                                Call<ResponseBody> mService = service.delete_friend(result);
+                                mService.enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        assert response.body() != null;
+                                        try {
+                                            String atext = response.body().string();
+                                            Log.v("Friend deleted", Boolean.toString(atext.contains("Friend deleted")));
+                                            if (atext.contains("Friend deleted")) {
+                                                Toast.makeText(getApplicationContext(),
+                                                        R.string.friend_succ_del, Toast.LENGTH_LONG).show();
+                                                FriendsRecyclerViewActivity.this.recreate();
+                                                friendDataAdapter.notifyDataSetChanged();
+                                            }
+
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                        Log.v("DELETE Friend", t.getMessage());
+                                    }
+                                });
+
+                                //finish();
                             }
+                        })
 
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                        //set negative button
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                            }
+                        })
+                        .show();
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.v("DELETE Friend", t.getMessage());
-                    }
-                });
+
             }
+
         });
 
 
