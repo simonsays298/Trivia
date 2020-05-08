@@ -1,29 +1,18 @@
 package com.example.login;
 
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -72,14 +61,9 @@ public class CompetitiveActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_competitive);
 
-
-//        createExampleList();
-//        buildRecyclerView();
-
         user = getIntent().getStringExtra("USERNAME");
         multi = getIntent().getStringExtra("MULTI");
 
-        //room = findViewById(R.id.listView);
         createRoom = findViewById(R.id.createRoom);
 
 
@@ -178,18 +162,6 @@ public class CompetitiveActivity extends AppCompatActivity {
         createRoom = findViewById(R.id.createRoom);
         mRecyclerView.setAdapter(mAdapter);
 
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    loadRooms();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, 100);
-
         mAdapter.setOnItemClickListener(new RoomAdapterActivity.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -251,6 +223,19 @@ public class CompetitiveActivity extends AppCompatActivity {
 
             }
         });
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    loadRooms();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, 100);
+
 
 
     }
