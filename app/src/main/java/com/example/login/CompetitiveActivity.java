@@ -30,7 +30,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CompetitiveActivity extends AppCompatActivity implements RecyclerViewClickInterface {
+public class CompetitiveActivity extends AppCompatActivity {
+
 
 
     private ArrayList<RoomData> exampleList;
@@ -67,7 +68,6 @@ public class CompetitiveActivity extends AppCompatActivity implements RecyclerVi
 
 
 
-
         createRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +90,7 @@ public class CompetitiveActivity extends AppCompatActivity implements RecyclerVi
         }
 
 
+
     }
 
     public void loadRooms() throws JSONException {
@@ -106,7 +107,7 @@ public class CompetitiveActivity extends AppCompatActivity implements RecyclerVi
 
                 try {
                     res = response.body().string();
-                    Log.v("ROOM", res);
+                    Log.v("ROOM",res);
                     rooms = new JSONObject(res);
                     nameIdMap = new HashMap<String, ArrayList<String>>();
                     exampleList = new ArrayList<RoomData>();
@@ -142,15 +143,23 @@ public class CompetitiveActivity extends AppCompatActivity implements RecyclerVi
                     ArrayList<String> list = new ArrayList<>();
                     list.add(id);
                     list.add(domain);
-                    exampleList.add(new RoomData(R.drawable.room_multi, "For Anyone", name));
-                    Log.v("ROOM", exampleList.get(0).getText2());
+                    exampleList.add(new RoomData(R.drawable.room_multi,"For Anyone", name));
+                    Log.v("ROOM",exampleList.get(0).getText2());
                     nameIdMap.put(name, list);
                 }
 
             }
         }
+
+
+
         mRecyclerView = findViewById(R.id.rooms);
-        mAdapter = new RoomAdapterActivity(exampleList, this);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mAdapter = new RoomAdapterActivity(exampleList, user, nameIdMap, multi, getApplicationContext());
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        createRoom = findViewById(R.id.createRoom);
         mRecyclerView.setAdapter(mAdapter);
 
         Timer timer = new Timer();
@@ -165,67 +174,6 @@ public class CompetitiveActivity extends AppCompatActivity implements RecyclerVi
             }
         }, 500);
 
-
     }
 
-    @Override
-    public void onItemClick(int position) {
-        String entryNameRoom = exampleList.get(position).getText2();
-        ArrayList<String> list = new ArrayList<>();
-        list = nameIdMap.get(entryNameRoom);
-
-        Log.v("TAGULL", "AICI " + list.get(0));
-
-        String myid = list.get(0);
-        String domain = list.get(1);
-        if (!user.equals(entryNameRoom)) {
-            JSONObject sendJson = new JSONObject();
-
-            try {
-                sendJson.put("username", user);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            try {
-                sendJson.put("id", myid);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            Call<ResponseBody> mService = service.chooseRoom(sendJson);
-            mService.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
-                        String enter = response.body().string();
-                        Log.v("ATGUL", enter);
-                        if (!enter.contains("Done")) {
-                            Intent intent = new Intent(getApplicationContext(), GameActivity.class);
-                            Log.v("TAGUL", myid);
-                            intent.putExtra("USERNAME", user);
-                            intent.putExtra("GAMESID", myid);
-                            intent.putExtra("TOPIC", "HISTORY");
-                            intent.putExtra("MULTI", multi);
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Room already taken", Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.v("TAGUL", t.getMessage());
-
-                }
-            });
-        }
-
-
-
-
-
-    }
 }

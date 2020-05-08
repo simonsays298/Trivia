@@ -392,6 +392,8 @@ public class TrainingActivity extends AppCompatActivity {
                     assert response.body() != null;
                     try {
                         if (response.body().string().equals("Yes")) {
+                            Log.v("TAGULL","USER " +user);
+                            Log.v("TAGULL","ID "+ gamesId);
                             Intent intent = new Intent(getApplicationContext(), GameActivity.class);
                             intent.putExtra("USERNAME", user);
                             intent.putExtra("GAMESID", gamesId);

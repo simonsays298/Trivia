@@ -49,8 +49,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="false"
             android:clickable="true"
-            app:srcCompat="@drawable/door"
-            tools:srcCompat="@drawable/door" />
+            app:srcCompat="@drawable/multimedia"
+            tools:srcCompat="@drawable/multimedia" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
