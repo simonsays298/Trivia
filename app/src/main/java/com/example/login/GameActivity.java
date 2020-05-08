@@ -68,10 +68,14 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        getId = getIntent().getStringExtra("GAMESID");
-        user = getIntent().getStringExtra("USERNAME");
-        topicName = getIntent().getStringExtra("TOPIC");
-        multi = getIntent().getStringExtra("MULTI");
+        if(getIntent().hasExtra("GAMESID") && getIntent().hasExtra("USERNAME")
+        && getIntent().hasExtra("TOPIC") && getIntent().hasExtra("MULTI")){
+            getId = getIntent().getStringExtra("GAMESID");
+            user = getIntent().getStringExtra("USERNAME");
+            topicName = getIntent().getStringExtra("TOPIC");
+            multi = getIntent().getStringExtra("MULTI");
+        }
+
 
         question = findViewById(R.id.Question);
         timer = findViewById(R.id.timer);

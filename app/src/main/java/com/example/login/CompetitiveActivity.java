@@ -156,73 +156,11 @@ public class CompetitiveActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.rooms);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new RoomAdapterActivity(exampleList);
+        mAdapter = new RoomAdapterActivity(exampleList, user, nameIdMap, multi, getApplicationContext());
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         createRoom = findViewById(R.id.createRoom);
         mRecyclerView.setAdapter(mAdapter);
-
-        mAdapter.setOnItemClickListener(new RoomAdapterActivity.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-
-                String entryNameRoom = exampleList.get(position).getText2();
-                ArrayList<String> list = new ArrayList<>();
-                list = nameIdMap.get(entryNameRoom);
-
-                Log.v("TAGULL", "AICI " + list.get(0));
-
-                String myid = list.get(0);
-                String domain = list.get(1);
-                if (!user.equals(entryNameRoom)) {
-                    JSONObject sendJson = new JSONObject();
-
-                    try {
-                        sendJson.put("username", user);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        sendJson.put("id", myid);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                    Call<ResponseBody> mService = service.chooseRoom(sendJson);
-                    mService.enqueue(new Callback<ResponseBody>() {
-                        @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            try {
-                                String enter = response.body().string();
-                                Log.v("ATGUL",enter);
-                                if(!enter.contains("Done")) {
-                                    Intent intent = new Intent(getApplicationContext(), GameActivity.class);
-                                    Log.v("TAGUL", myid);
-                                    intent.putExtra("USERNAME", user);
-                                    intent.putExtra("GAMESID", myid);
-                                    intent.putExtra("TOPIC", "HISTORY");
-                                    intent.putExtra("MULTI", multi);
-                                    startActivity(intent);
-                                }else{
-                                    Toast.makeText(getApplicationContext(), "Room already taken", Toast.LENGTH_SHORT).show();
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            Log.v("TAGUL", t.getMessage());
-
-                        }
-                    });
-                }
-
-
-
-            }
-        });
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -234,9 +172,7 @@ public class CompetitiveActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        }, 100);
-
-
+        }, 500);
 
     }
 
