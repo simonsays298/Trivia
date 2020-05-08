@@ -40,6 +40,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        this.setTitle(getString(R.string.view_profile));
+
         userName = getIntent().getStringExtra("USERNAME");
 
         //startActivity(intent);

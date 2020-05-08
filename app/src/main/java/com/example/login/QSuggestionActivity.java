@@ -57,6 +57,7 @@ public class QSuggestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_q_suggestion);
         Intent intent = getIntent();
+        this.setTitle(getString(R.string.question_suggestion));
         user = getIntent().getStringExtra("USERNAME");
 
         historyCheckBox = findViewById(R.id.history);

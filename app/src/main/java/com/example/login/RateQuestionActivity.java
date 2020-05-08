@@ -48,6 +48,7 @@ public class RateQuestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate_question);
         colorIndex = 0;
+        this.setTitle(getString(R.string.rate_a_question));
 
         questionDataAdapter = new QuestionDataAdapter(questionDataList);
         setupRateRecyclerView();

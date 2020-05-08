@@ -15,6 +15,7 @@ public class QFactoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_factory);
+        this.setTitle(getString(R.string.question_factory));
 
         suggestQButton = findViewById(R.id.suggestQButton);
 
