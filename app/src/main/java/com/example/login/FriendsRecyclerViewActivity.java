@@ -210,21 +210,13 @@ public class FriendsRecyclerViewActivity extends AppCompatActivity {
             @Override
             public void onRightClicked(int position) {
                 String friendRightSwiped = friendDataList.get(position).getFriendName();
-
                 showRemoveAlertDialog(friendRightSwiped);
             }
 
             @Override
             public void onLeftClicked(int position) {
                 String friendLeftSwiped = friendDataList.get(position).getFriendName();
-                Intent intent = new Intent(getApplicationContext(), TrainingActivity.class);
-                intent.putExtra("USERNAME", userName);
-                intent.putExtra("MULTI", "1");
-                intent.putExtra("INVITE", "invited");
-                intent.putExtra("INVITED FRIEND", friendLeftSwiped);
-                startActivity(intent);
-
-
+                showInviteAlertDialog(friendLeftSwiped);
             }
 
         });
@@ -282,6 +274,35 @@ public class FriendsRecyclerViewActivity extends AppCompatActivity {
                         });
 
                         //finish();
+                    }
+                })
+
+                //set negative button
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                })
+                .show();
+    }
+
+    private void showInviteAlertDialog(String friendLeftSwiped) {
+        AlertDialog alertDialog = new AlertDialog.Builder(FriendsRecyclerViewActivity.this)
+                //set icon
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                //set title
+                .setTitle(getString(R.string.sure_invite) + " " + friendLeftSwiped + "?")
+                //set positive button
+                .setPositiveButton("Invite", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //set what would happen when positive button is clicked
+                        Intent intent = new Intent(getApplicationContext(), TrainingActivity.class);
+                        intent.putExtra("USERNAME", userName);
+                        intent.putExtra("MULTI", "1");
+                        intent.putExtra("INVITE", "invited");
+                        intent.putExtra("INVITED FRIEND", friendLeftSwiped);
+                        startActivity(intent);
                     }
                 })
 

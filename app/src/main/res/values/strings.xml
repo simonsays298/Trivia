@@ -74,4 +74,7 @@
     <string name="register_invalid_format">Username/password format is invalid</string>
     <string name="friend_succ_del">Friend successfully deleted</string>
     <string name="sure_delete_friend">Are you sure you want to remove </string>
+    <string name="sure_invite">Are you sure you want to invite</string>
+    <string name="your_invites">Your invites</string>
+    <string name="dashboard">Dashboard</string>
 </resources>

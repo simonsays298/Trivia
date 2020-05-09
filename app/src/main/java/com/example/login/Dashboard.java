@@ -50,6 +50,8 @@ public class Dashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        this.setTitle(getString(R.string.dashboard));
+
         user = getIntent().getStringExtra("USERNAME");
 
         btn_Tr = findViewById(R.id.training);
