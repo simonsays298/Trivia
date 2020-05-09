@@ -35,7 +35,7 @@ public interface UserService {
     Call<ResponseBody> createAccount(@Body String json);
 
     @POST("api/delete_game")
-    Call<ResponseBody> delet_game(@Body JSONObject json);
+    Call<ResponseBody> delete_game(@Body JSONObject json);
 
     @POST("api/choose_room")
     Call<ResponseBody> chooseRoom(@Body JSONObject json);

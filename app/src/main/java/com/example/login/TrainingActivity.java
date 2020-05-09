@@ -500,7 +500,7 @@ public class TrainingActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Call<ResponseBody> mService = service.delet_game(json);
+                        Call<ResponseBody> mService = service.delete_game(json);
                         mService.enqueue(new Callback<ResponseBody>() {
                             @Override
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -547,7 +547,7 @@ public class TrainingActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Call<ResponseBody> mService = service.delet_game(json);
+        Call<ResponseBody> mService = service.delete_game(json);
         mService.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

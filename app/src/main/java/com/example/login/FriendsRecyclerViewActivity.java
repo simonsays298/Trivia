@@ -67,6 +67,8 @@ public class FriendsRecyclerViewActivity extends AppCompatActivity {
         setContentView(R.layout.friends_recyclerview_layout);
         userName = getIntent().getStringExtra("USERNAME");
 
+        this.setTitle(getString(R.string.friends));
+
         friendDataAdapter = new FriendDataAdapter(friendDataList);
         setupRecyclerView();
 
