@@ -68,6 +68,8 @@ public class TrainingActivity extends AppCompatActivity {
         leaveRoom.setVisibility(View.GONE);
 
 
+
+
         history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,6 +158,15 @@ public class TrainingActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+                if(invite.equals("invited")){
+                    Log.v("INVITED ", invitedFriend);
+                    try {
+                        json.put("friend", invitedFriend);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 Call<ResponseBody> mService = service.new_game(json);
                 mService.enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -214,6 +225,15 @@ public class TrainingActivity extends AppCompatActivity {
                     json.put("multi", multi);
                 } catch (JSONException e) {
                     e.printStackTrace();
+                }
+
+                if(invite.equals("invited")){
+                    Log.v("INVITED ", invitedFriend);
+                    try {
+                        json.put("friend", invitedFriend);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 Call<ResponseBody> mService = service.new_game(json);
@@ -277,6 +297,15 @@ public class TrainingActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+                if(invite.equals("invited")){
+                    Log.v("INVITED ", invitedFriend);
+                    try {
+                        json.put("friend", invitedFriend);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
 
                 Call<ResponseBody> mService = service.new_game(json);
                 mService.enqueue(new Callback<ResponseBody>() {
@@ -337,6 +366,15 @@ public class TrainingActivity extends AppCompatActivity {
                     json.put("multi", multi);
                 } catch (JSONException e) {
                     e.printStackTrace();
+                }
+
+                if(invite.equals("invited")){
+                    Log.v("INVITED ", invitedFriend);
+                    try {
+                        json.put("friend", invitedFriend);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 Call<ResponseBody> mService = service.new_game(json);

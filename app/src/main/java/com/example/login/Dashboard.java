@@ -58,7 +58,10 @@ public class Dashboard extends AppCompatActivity {
         welcomeTextView = findViewById(R.id.welcomeText);
         welcomeTextView.setText("Let's take a quiz, " + user + "!");
 
-        checkForInvites();
+//        PopUpInvite ana = new PopUpInvite();
+//        ana.checkForInvites(user, Dashboard.this);
+        PopUpActivity.checkForInvites(user,Dashboard.this);
+        //checkForInvites();
 
         btn_Tr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +95,7 @@ public class Dashboard extends AppCompatActivity {
 
     }
 
-    private void checkForInvites() {
+    public void checkForInvites() {
 
         Call<ResponseBody> mService = service.get_invites(user);
         mService.enqueue(new Callback<ResponseBody>() {
@@ -208,9 +211,6 @@ public class Dashboard extends AppCompatActivity {
 
     }
 
-//    private void fooThis() {
-//        Toast.makeText(getApplicationContext(),"HOME",Toast.LENGTH_LONG);
-//    }
 
 
 }

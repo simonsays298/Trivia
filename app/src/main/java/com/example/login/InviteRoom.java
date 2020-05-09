@@ -126,15 +126,12 @@ public class InviteRoom extends AppCompatActivity {
                     Log.v("ROOM",exampleList.get(0).getText2());
                     nameIdMap.put(name, list);
                 }
-
             }
             mRecyclerView = findViewById(R.id.invitesView);
             mRecyclerView.setHasFixedSize(true);
             mLayoutManager = new LinearLayoutManager(this);
             mAdapter = new RoomAdapterActivity(exampleList, user, nameIdMap, multi, getApplicationContext(),"invited");
-
             mRecyclerView.setLayoutManager(mLayoutManager);
-
             mRecyclerView.setAdapter(mAdapter);
         }
 
