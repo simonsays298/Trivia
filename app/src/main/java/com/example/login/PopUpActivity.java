@@ -89,9 +89,10 @@ public class PopUpActivity extends AppCompatActivity {
                                     Intent intent = new Intent(context, InviteRoom.class);
                                     intent.putExtra("USERNAME", user);
                                     intent.putExtra("MULTI", "1");
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                                     context.startActivity(intent);
                                     dialogInterface.dismiss();
+
                                 }
                             })
                             //set negative button
@@ -104,13 +105,16 @@ public class PopUpActivity extends AppCompatActivity {
                             .show();
 //
                 }else{
+
+
                     Timer timer = new Timer();
                     timer.schedule(new TimerTask() {
                         @Override
                         public void run() {
                             checkForInvites(user,context);
                         }
-                    }, 500);
+                    }, 1000);
+
 
                 }
 

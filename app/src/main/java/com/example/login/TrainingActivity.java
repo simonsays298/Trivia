@@ -59,7 +59,7 @@ public class TrainingActivity extends AppCompatActivity {
             invite = "not invited";
         }
 
-        PopUpActivity.checkForInvites(user,TrainingActivity.this);
+        //PopUpActivity.checkForInvites(user,TrainingActivity.this);
         //checkForInvites();
 
         history = findViewById(R.id.History);
@@ -123,8 +123,9 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("GAMESID", gamesId);
                             intent.putExtra("TOPIC", getResources().getString(R.string.historyT));
                             intent.putExtra("MULTI", multi);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                            finish();
                         } else {
                             leaveRoom.setVisibility(View.VISIBLE);
                             waitForOpponent(gamesId, getResources().getString(R.string.historyT));
@@ -192,8 +193,9 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("GAMESID", gamesId);
                             intent.putExtra("TOPIC", getResources().getString(R.string.geo));
                             intent.putExtra("MULTI", multi);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                            finish();
                         } else {
                             leaveRoom.setVisibility(View.VISIBLE);
                             waitForOpponent(gamesId, getResources().getString(R.string.geo));
@@ -262,8 +264,9 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("GAMESID", gamesId);
                             intent.putExtra("TOPIC", getResources().getString(R.string.arts));
                             intent.putExtra("MULTI", multi);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                            finish();
                         } else {
                             leaveRoom.setVisibility(View.VISIBLE);
                             waitForOpponent(gamesId, getResources().getString(R.string.arts));
@@ -334,8 +337,9 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("GAMESID", gamesId);
                             intent.putExtra("TOPIC", getResources().getString(R.string.movie));
                             intent.putExtra("MULTI", multi);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                            finish();
                         } else {
                             leaveRoom.setVisibility(View.VISIBLE);
                             waitForOpponent(gamesId, getResources().getString(R.string.movie));
@@ -405,8 +409,9 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("GAMESID", gamesId);
                             intent.putExtra("TOPIC", getResources().getString(R.string.science));
                             intent.putExtra("MULTI", multi);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                            finish();
                         } else {
                             leaveRoom.setVisibility(View.VISIBLE);
 //                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.op_to_join), Toast.LENGTH_LONG).show();
@@ -454,6 +459,7 @@ public class TrainingActivity extends AppCompatActivity {
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                     assert response.body() != null;
+
                     try {
                         String res = response.body().string();
                         Log.v("MYRESSS",res);
@@ -465,15 +471,18 @@ public class TrainingActivity extends AppCompatActivity {
                             intent.putExtra("GAMESID", gamesId);
                             intent.putExtra("TOPIC", topic);
                             intent.putExtra("MULTI", multi);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                            finish();
                         } else {
                             if(res.equals("Declined")){
                                 Toast.makeText(TrainingActivity.this, "Your invitation got declined", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                                 intent.putExtra("USERNAME", user);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
+                                finish();
+                                stop = true;
 
                             }else{
                                 if (!stop)
@@ -535,9 +544,9 @@ public class TrainingActivity extends AppCompatActivity {
                                 Intent intent = new Intent(getApplicationContext(), CompetitiveActivity.class);
                                 intent.putExtra("USERNAME", user);
                                 intent.putExtra("MULTI", multi);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
-                                //finish();
+                                finish();
 
                             }
 
@@ -559,6 +568,7 @@ public class TrainingActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+
     }
 
     private void leavingRoom(String gamesId){
@@ -583,9 +593,9 @@ public class TrainingActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                 intent.putExtra("USERNAME", user);
                 intent.putExtra("MULTI", multi);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                //finish();
+                finish();
 
             }
 

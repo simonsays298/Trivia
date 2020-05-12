@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                                 intent.putExtra("USERNAME",user);
                                 startActivity(intent);
+                                finish();
                             }
 
                         } catch (IOException e) {

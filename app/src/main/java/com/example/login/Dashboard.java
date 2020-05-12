@@ -62,7 +62,7 @@ public class Dashboard extends AppCompatActivity {
         welcomeTextView = findViewById(R.id.welcomeText);
         welcomeTextView.setText("Let's take a quiz, " + user + "!");
 
-        PopUpActivity.checkForInvites(user,Dashboard.this);
+//       PopUpActivity.checkForInvites(user,Dashboard.this);
 
         btn_Tr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,8 +81,9 @@ public class Dashboard extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), InviteRoom.class);
                 intent.putExtra("USERNAME",user);
                 intent.putExtra("MULTI","0");
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -92,8 +93,9 @@ public class Dashboard extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), CompetitiveActivity.class);
                 intent.putExtra("USERNAME",user);
                 intent.putExtra("MULTI","1");
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                finish();
             }
         });
 
