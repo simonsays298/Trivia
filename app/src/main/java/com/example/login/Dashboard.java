@@ -1,6 +1,7 @@
 package com.example.login;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -220,12 +221,12 @@ public class Dashboard extends AppCompatActivity {
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
-            //finish();
+            ActivityCompat.finishAffinity(Dashboard.this);
             return;
         }
 
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Please click BACK again to exit Trivia", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.double_back_click_msg, Toast.LENGTH_SHORT).show();
 
         new Handler().postDelayed(new Runnable() {
 
