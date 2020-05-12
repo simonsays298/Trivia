@@ -1,11 +1,21 @@
 package com.example.login;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.mahfa.dnswitch.DayNightSwitch;
+import com.mahfa.dnswitch.DayNightSwitchListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +35,8 @@ public class ProfileActivity extends AppCompatActivity {
     TextView numberPointsTextView;
     TextView numberFriendsTextView;
 
+    DayNightSwitch dayNightSwitch;
+
     String userName;
 
     Retrofit retrofit = new Retrofit.Builder()
@@ -41,10 +53,25 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         this.setTitle(getString(R.string.view_profile));
-
         userName = getIntent().getStringExtra("USERNAME");
 
-        //startActivity(intent);
+        dayNightSwitch = findViewById(R.id.day_night_switch);
+
+        dayNightSwitch.setDuration(450);
+        dayNightSwitch.setListener(new DayNightSwitchListener() {
+            @Override
+            public void onSwitch(boolean is_night) {
+                if (is_night) {
+                    AppCompatDelegate.setDefaultNightMode(
+                            AppCompatDelegate.MODE_NIGHT_YES);
+
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(
+                            AppCompatDelegate.MODE_NIGHT_NO);
+
+                }
+            }
+        });
 
         userNameTextView = findViewById(R.id.userNameInProfile);
         userNameTextView.setText(userName);
@@ -91,9 +118,16 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-//
-//        numberPointsTextView.setText("My Awesome Text");
-//        numberFriendsTextView.setText("My Awesome Text");
+    }
 
+    private void toggleTheme(boolean prefTheme) {
+        SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
+        editor.putBoolean("DarkTheme", prefTheme);
+        editor.apply();
+
+        Intent intent = getIntent();
+        finish();
+
+        startActivity(intent);
     }
 }
