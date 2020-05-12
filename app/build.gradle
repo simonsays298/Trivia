@@ -27,6 +27,11 @@ android {
     }
 
 }
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -45,6 +50,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.2.1'
     implementation 'com.android.support:preference-v7:29.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.github.Mahfa:DayNightSwitch:1.2'
 
 
 }
