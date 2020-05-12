@@ -223,6 +223,7 @@ public class FriendsRecyclerViewActivity extends AppCompatActivity {
                 intent.putExtra("INVITE", "invited");
                 intent.putExtra("INVITED FRIEND", friendLeftSwiped);
                 startActivity(intent);
+                finish();
 
 
             }

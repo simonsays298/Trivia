@@ -13,6 +13,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -33,7 +35,7 @@ public class PopUpActivity extends AppCompatActivity {
 
     }
 
-    public static  void checkForInvites(String user, Context context) {
+    public static void checkForInvites(String user, Context context) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://firsttry-272817.appspot.com/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -87,8 +89,9 @@ public class PopUpActivity extends AppCompatActivity {
                                     Intent intent = new Intent(context, InviteRoom.class);
                                     intent.putExtra("USERNAME", user);
                                     intent.putExtra("MULTI", "1");
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                                     context.startActivity(intent);
-//                                    finish();
+                                    dialogInterface.dismiss();
                                 }
                             })
                             //set negative button
@@ -101,7 +104,14 @@ public class PopUpActivity extends AppCompatActivity {
                             .show();
 //
                 }else{
-                    checkForInvites(user,context);
+                    Timer timer = new Timer();
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            checkForInvites(user,context);
+                        }
+                    }, 500);
+
                 }
 
 

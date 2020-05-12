@@ -14,4 +14,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonDecline"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape"
+        android:drawableStart="@drawable/baseline_highlight_off_24"
+        android:text="Decline All"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/invitesView"
+        tools:text="Decline All" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -192,6 +192,7 @@ public class GameDone extends AppCompatActivity {
                 JSONObject res = null;
                 try {
                     winner = response.body().string();
+                    Log.v("WINNNER",winner);
                     res = new JSONObject(winner);
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();

@@ -77,6 +77,7 @@ public class CompetitiveActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), TrainingActivity.class);
                 intent.putExtra("USERNAME", user);
                 intent.putExtra("MULTI", multi);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
 
             }

@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -33,18 +34,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class InviteRoom extends AppCompatActivity {
 
-    private ArrayList<RoomData> exampleList;
+
     private String user;
     private String multi;
+    private Button declineAll;
     JSONObject rooms;
-    List<String> roomsList;
     HashMap<String, ArrayList<String>> nameIdMap;
     private RecyclerView mRecyclerView;
     private RoomAdapterActivity mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private int noRooms;
-    private int counter = 0;
-
 
     String res;
 
@@ -62,6 +61,43 @@ public class InviteRoom extends AppCompatActivity {
 
         user = getIntent().getStringExtra("USERNAME");
         multi = "1";
+
+        declineAll = findViewById(R.id.buttonDecline);
+
+        declineAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JSONObject sendUser = new JSONObject();
+                try {
+                    sendUser.put("username",user);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Call<ResponseBody> mService = service.decline_all(sendUser);
+                mService.enqueue(new Callback<ResponseBody>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        assert response.body() != null;
+                        res = null;
+                        try {
+                            res = response.body().string();
+                            Toast.makeText(InviteRoom.this, res, Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.v("TAGUL", t.getMessage());
+
+                    }
+                });
+            }
+        });
 
         try {
             loadRooms();
@@ -89,7 +125,6 @@ public class InviteRoom extends AppCompatActivity {
                     Log.v("ROOM",res);
                     rooms = new JSONObject(res);
                     nameIdMap = new HashMap<String, ArrayList<String>>();
-                    exampleList = new ArrayList<RoomData>();
                     showList();
 
                 } catch (IOException | JSONException e) {
@@ -111,7 +146,9 @@ public class InviteRoom extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void showList() throws JSONException {
+        ArrayList<RoomData> exampleList = new ArrayList<RoomData>();
         noRooms = Integer.parseInt(rooms.getString("no_rooms"));
+        Log.v("INVITESSSS",rooms.getString("no_rooms"));
         if (noRooms > 0) {
             for (int i = 0; i < noRooms; i++) {
                 JSONObject nameRoom = rooms.getJSONObject(String.valueOf(i));
@@ -127,13 +164,14 @@ public class InviteRoom extends AppCompatActivity {
                     nameIdMap.put(name, list);
                 }
             }
-            mRecyclerView = findViewById(R.id.invitesView);
-            mRecyclerView.setHasFixedSize(true);
-            mLayoutManager = new LinearLayoutManager(this);
-            mAdapter = new RoomAdapterActivity(exampleList, user, nameIdMap, multi, getApplicationContext(),"invited");
-            mRecyclerView.setLayoutManager(mLayoutManager);
-            mRecyclerView.setAdapter(mAdapter);
+
         }
+        mRecyclerView = findViewById(R.id.invitesView);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mAdapter = new RoomAdapterActivity(exampleList, user, nameIdMap, multi, getApplicationContext(),"invited");
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
 
 
         Timer timer = new Timer();

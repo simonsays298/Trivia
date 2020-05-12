@@ -100,6 +100,7 @@ public class GameActivity extends AppCompatActivity {
                     tm.cancel();
                     counter += 1;
                     if (counter == 5) {
+                        tm.cancel();
                         finish();
                         finishGame();
                     }
@@ -320,8 +321,9 @@ public class GameActivity extends AppCompatActivity {
         intent.putExtra("ID", getId);
         intent.putExtra("POINTS", String.valueOf(points));
         intent.putExtra("MULTI", multi);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     public TransitionDrawable correctAns() {

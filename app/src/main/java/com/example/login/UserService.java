@@ -40,6 +40,12 @@ public interface UserService {
     @POST("api/choose_room")
     Call<ResponseBody> chooseRoom(@Body JSONObject json);
 
+    @POST("api/decline_invite")
+    Call<ResponseBody> decline_invite(@Body JSONObject json);
+
+    @POST("api/decline_all")
+    Call<ResponseBody> decline_all(@Body JSONObject json);
+
     @POST("api/register_game")
     Call<ResponseBody> new_game(@Body JSONObject json);
 
