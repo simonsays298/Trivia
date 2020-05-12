@@ -77,4 +77,5 @@
     <string name="sure_invite">Are you sure you want to invite</string>
     <string name="your_invites">Your invites</string>
     <string name="dashboard">Dashboard</string>
+    <string name="domain_empty">Domain is empty. Please, choose a domain!</string>
 </resources>
