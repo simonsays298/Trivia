@@ -8,6 +8,7 @@
     <color name="myRed">#C254D5</color>
     <color name="darkPurple">#5C076A</color>
     <color name="LTGRAY">#8C8C8C</color>
+    <color name="question_color">#131313</color>
 
 
 </resources>

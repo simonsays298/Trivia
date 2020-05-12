@@ -92,33 +92,51 @@ public class QSuggestionActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), R.string.q_a_empty, Toast.LENGTH_LONG).show();
 
                 } else {
+                    boolean checked = false;
+                    if (geographyCheckBox.isChecked()) {
+                        domainID = 1;
+                        checked = true;
+                    }
+                    if (historyCheckBox.isChecked()) {
+                        domainID = 2;
+                        checked = true;
+                    }
+                    if (scienceCheckBox.isChecked()) {
+                        domainID = 3;
+                        checked = true;
+                    }
+                    if (moviesCheckBox.isChecked()) {
+                        domainID = 4;
+                        checked = true;
+                    }
+                    if (artsSportsCheckBox.isChecked()) {
+                        domainID = 5;
+                    }
 
-                    if (geographyCheckBox.isChecked()) domainID = 1;
-                    if (historyCheckBox.isChecked()) domainID = 2;
-                    if (scienceCheckBox.isChecked()) domainID = 3;
-                    if (moviesCheckBox.isChecked()) domainID = 4;
-                    if (artsSportsCheckBox.isChecked()) domainID = 5;
+                    if (!checked) {
+                        Toast.makeText(getApplicationContext(), R.string.domain_empty, Toast.LENGTH_LONG).show();
+                    } else {
 
+                        result = "{\"question\":\"" + suggestedQuestion + "\",\"answer0\":\"" + wrongAnswer1String
+                                + "\",\"answer1\":\"" + wrongAnswer2String + "\",\"answer2\":\"" + wrongAnswer3String
+                                + "\",\"right\":\"" + rightAnswerString + "\",\"domain\":\"" + domainID + "\"}";
 
-                    result = "{\"question\":\"" + suggestedQuestion + "\",\"answer0\":\"" + wrongAnswer1String
-                            + "\",\"answer1\":\"" + wrongAnswer2String + "\",\"answer2\":\"" + wrongAnswer3String
-                            + "\",\"right\":\"" + rightAnswerString + "\",\"domain\":\"" + domainID + "\"}";
+                        Call<ResponseBody> mService = service.add_questionAndAnswers(result);
 
-                    Call<ResponseBody> mService = service.add_questionAndAnswers(result);
+                        mService.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                Toast.makeText(getApplicationContext(), R.string.createQA, Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(getApplicationContext(), QFactoryActivity.class);
+                                startActivity(intent);
+                            }
 
-                    mService.enqueue(new Callback<ResponseBody>() {
-                        @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            Toast.makeText(getApplicationContext(), R.string.createQA, Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(getApplicationContext(), QFactoryActivity.class);
-                            startActivity(intent);
-                        }
-
-                        @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            Log.v("Fail Q Suggestion", t.getMessage());
-                        }
-                    });
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                Log.v("Fail Q Suggestion", t.getMessage());
+                            }
+                        });
+                    }
 
                 }
 

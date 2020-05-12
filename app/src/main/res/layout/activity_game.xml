@@ -13,7 +13,7 @@
         android:fontFamily="sans-serif"
         android:gravity="center|center_horizontal"
         android:textAlignment="gravity"
-        android:textColor="#131313"
+        android:textColor="@color/question_color"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

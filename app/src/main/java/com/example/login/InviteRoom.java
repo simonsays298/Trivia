@@ -59,6 +59,8 @@ public class InviteRoom extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite_room);
 
+        this.setTitle(getString(R.string.your_invites));
+
         user = getIntent().getStringExtra("USERNAME");
         multi = "1";
 

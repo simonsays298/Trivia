@@ -11,8 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/Green"
-        android:textSize="20sp"
-        android:text="welcome text!"
+        android:textSize="23sp"
+        android:text="Let's take a quiz, Username"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +25,7 @@
 
         android:layout_width="fill_parent"
         android:layout_height="100dp"
-        android:layout_marginTop="500dp"
+        android:layout_marginTop="430dp"
         android:layout_marginBottom="631dp"
         android:orientation="horizontal"
         android:paddingLeft="4.0dip"
@@ -62,7 +63,7 @@
 
 
         android:layout_height="100dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="330dp"
         android:layout_marginBottom="531dp"
         android:gravity="center"
         android:orientation="horizontal"
@@ -94,10 +95,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
         android:orientation="horizontal"
         android:paddingLeft="4.0dip"
         android:paddingTop="8.0dip"
@@ -108,21 +108,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/gamepad" />
+
 
         <Button
             android:id="@+id/inviteRoom"
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="Your Invites"
-            android:textColor="@color/colorPrimary"
-            tools:text="Your Invites" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/gradient"
+            android:drawableTop="@android:drawable/ic_dialog_email"
+            android:paddingTop="10dp"
+            android:text="@string/your_invites"
+            android:textSize="15dp"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
