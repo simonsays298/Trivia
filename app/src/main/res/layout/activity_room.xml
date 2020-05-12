@@ -54,8 +54,8 @@
             android:backgroundTint="#00FFFFFF"
             android:clickable="true"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/multimedia"
-            tools:srcCompat="@drawable/multimedia"
+            app:srcCompat="@drawable/multimedia_green"
+            tools:srcCompat="@drawable/multimedia_green"
             tools:visibility="visible" />
 
         <ImageButton
