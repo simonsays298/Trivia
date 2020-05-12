@@ -115,8 +115,8 @@ public class RoomAdapterActivity extends RecyclerView.Adapter<RoomAdapterActivit
                         ArrayList<String> list = new ArrayList<>();
                         list = nameIdMap.get(entryNameRoom);
 
-                        Log.v("TAGULL", "AICI " + list.get(0));
-                        Log.v("TAGULL","AICI" + user);
+//                        Log.v("TAGULL", "AICI " + list.get(0));
+//                        Log.v("TAGULL","AICI" + user);
 
                         String myid = list.get(0);
                         String domain = list.get(1);
@@ -147,10 +147,10 @@ public class RoomAdapterActivity extends RecyclerView.Adapter<RoomAdapterActivit
                                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                     try {
                                         String enter = response.body().string();
-                                        Log.v("ATGUL", enter);
+//                                        Log.v("ATGUL", enter);
                                         if (!enter.contains("Done")) {
                                             Intent intent = new Intent(context, GameActivity.class);
-                                            Log.v("TAGUL", myid);
+//                                            Log.v("TAGUL", myid);
                                             intent.putExtra("USERNAME", user);
                                             intent.putExtra("GAMESID", myid);
                                             intent.putExtra("TOPIC", finalDomain);
@@ -202,7 +202,7 @@ public class RoomAdapterActivity extends RecyclerView.Adapter<RoomAdapterActivit
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             try {
                                 String enter = response.body().string();
-                                Log.v("ATGUL", enter);
+//                                Log.v("ATGUL", enter);
                                 if (enter.equals("done")) {
                                     Toast.makeText(context, "Invite declined", Toast.LENGTH_LONG).show();
 

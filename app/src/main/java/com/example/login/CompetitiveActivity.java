@@ -109,7 +109,7 @@ public class CompetitiveActivity extends AppCompatActivity {
 
                 try {
                     res = response.body().string();
-                    Log.v("ROOM",res);
+
                     rooms = new JSONObject(res);
                     nameIdMap = new HashMap<String, ArrayList<String>>();
                     exampleList = new ArrayList<RoomData>();
@@ -146,7 +146,7 @@ public class CompetitiveActivity extends AppCompatActivity {
                     list.add(id);
                     list.add(domain);
                     exampleList.add(new RoomData(R.drawable.room_multi,"For Anyone", name));
-                    Log.v("ROOM",exampleList.get(0).getText2());
+//                    Log.v("ROOM",exampleList.get(0).getText2());
                     nameIdMap.put(name, list);
                 }
 

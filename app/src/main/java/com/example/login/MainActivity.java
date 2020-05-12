@@ -47,9 +47,6 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this,
                     new String[]{Manifest.permission.INTERNET},
                     100);
-        } else {
-            Log.v("TAGUL", "ALREADY GRANTED");
-
         }
 
         btnLogin = findViewById(R.id.Login);

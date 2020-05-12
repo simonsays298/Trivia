@@ -124,7 +124,7 @@ public class InviteRoom extends AppCompatActivity {
 
                 try {
                     res = response.body().string();
-                    Log.v("ROOM",res);
+//                    Log.v("ROOM",res);
                     rooms = new JSONObject(res);
                     nameIdMap = new HashMap<String, ArrayList<String>>();
                     showList();
@@ -150,7 +150,7 @@ public class InviteRoom extends AppCompatActivity {
     public void showList() throws JSONException {
         ArrayList<RoomData> exampleList = new ArrayList<RoomData>();
         noRooms = Integer.parseInt(rooms.getString("no_rooms"));
-        Log.v("INVITESSSS",rooms.getString("no_rooms"));
+//        Log.v("INVITESSSS",rooms.getString("no_rooms"));
         if (noRooms > 0) {
             for (int i = 0; i < noRooms; i++) {
                 JSONObject nameRoom = rooms.getJSONObject(String.valueOf(i));
@@ -162,7 +162,7 @@ public class InviteRoom extends AppCompatActivity {
                     list.add(id);
                     list.add(domain);
                     exampleList.add(new RoomData(R.drawable.room_multi,"For " + user,  name));
-                    Log.v("ROOM",exampleList.get(0).getText2());
+//                    Log.v("ROOM",exampleList.get(0).getText2());
                     nameIdMap.put(name, list);
                 }
             }

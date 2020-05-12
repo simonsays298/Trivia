@@ -63,11 +63,7 @@ public class PopUpActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                try {
-                    Log.v("INVITESSS", invites[0].getString("no_rooms"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
 
                 int no_rooms = 0;
                 try {

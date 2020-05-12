@@ -462,10 +462,10 @@ public class TrainingActivity extends AppCompatActivity {
 
                     try {
                         String res = response.body().string();
-                        Log.v("MYRESSS",res);
+//                        Log.v("MYRESSS",res);
                         if (res.equals("Yes")) {
-                            Log.v("TAGULL","USER " +user);
-                            Log.v("TAGULL","ID "+ gamesId);
+//                            Log.v("TAGULL","USER " +user);
+//                            Log.v("TAGULL","ID "+ gamesId);
                             Intent intent = new Intent(getApplicationContext(), GameActivity.class);
                             intent.putExtra("USERNAME", user);
                             intent.putExtra("GAMESID", gamesId);
@@ -536,11 +536,6 @@ public class TrainingActivity extends AppCompatActivity {
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                                 assert response.body() != null;
-                                try {
-                                    Log.v("RESPONSEE", response.body().string());
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
                                 Intent intent = new Intent(getApplicationContext(), CompetitiveActivity.class);
                                 intent.putExtra("USERNAME", user);
                                 intent.putExtra("MULTI", multi);
@@ -585,11 +580,7 @@ public class TrainingActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 assert response.body() != null;
-                try {
-                    Log.v("RESPONSEE", response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
                 Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                 intent.putExtra("USERNAME", user);
                 intent.putExtra("MULTI", multi);

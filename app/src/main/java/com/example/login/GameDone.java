@@ -77,8 +77,8 @@ public class GameDone extends AppCompatActivity {
         findViewById(R.id.finalScore4).setVisibility(View.GONE);
         backHome.setVisibility(View.GONE);
 
-        Log.v("PUNCTEE",user);
-        Log.v("PUNCTEE",points);
+//        Log.v("PUNCTEE",user);
+//        Log.v("PUNCTEE",points);
 
 
         if (multi.equals("0")) {
@@ -90,7 +90,7 @@ public class GameDone extends AppCompatActivity {
             msgScor.setTextColor(Color.DKGRAY);
             image.setVisibility(View.VISIBLE);
             findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-            Log.v("TAGUL", "MULTI" + multi);
+//            Log.v("TAGUL", "MULTI" + multi);
             backHome.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -101,7 +101,7 @@ public class GameDone extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     try {
-                        Log.v("TAGUL", getId);
+//                        Log.v("TAGUL", getId);
                         finish.put("points", points);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -116,11 +116,6 @@ public class GameDone extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                            try {
-                                Log.v("TAGUL", response.body().string());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
                             Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                             intent.putExtra("USERNAME", user);
                             startActivity(intent);
@@ -145,7 +140,7 @@ public class GameDone extends AppCompatActivity {
                 e.printStackTrace();
             }
             try {
-                Log.v("TAGUL", getId);
+//                Log.v("TAGUL", getId);
                 finish.put("points", points);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -159,12 +154,6 @@ public class GameDone extends AppCompatActivity {
             finishService.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                    try {
-                        Log.v("TAGUL", response.body().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
 
                 @Override
@@ -201,7 +190,6 @@ public class GameDone extends AppCompatActivity {
                     findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     findViewById(R.id.finalScore4).setVisibility(View.VISIBLE);
                     backHome.setVisibility(View.VISIBLE);
-                    Log.v("WINNER", winner);
                     try {
                         if (res.getString("winner").equals(user)) {
                             messageGame.setText("Congratulations, you won!");
@@ -251,6 +239,7 @@ public class GameDone extends AppCompatActivity {
                         public void onClick(View v) {
                             Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                             intent.putExtra("USERNAME", user);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             finish();
                         }
