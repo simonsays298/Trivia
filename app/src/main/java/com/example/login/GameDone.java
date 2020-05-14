@@ -203,7 +203,7 @@ public class GameDone extends AppCompatActivity {
                         } else {
                             if (res.getString("winner").equals("equal scores")) {
                                 messageGame.setText(R.string.tie);
-                                image.setImageResource(R.drawable.ghost);
+                                image.setImageResource(R.drawable.sad_happy);
                                 msgScor.setVisibility(View.GONE);
                                 finalScore.setVisibility(View.GONE);
                                 curScor.setText(points);

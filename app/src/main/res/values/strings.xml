@@ -9,7 +9,7 @@
     <string name="cancel_room_or_not">Wait for opponent or leave your game?</string>
     <string name="leave_room">Leave Room</string>
     <string name="view_invites_or_not">You\'ve got new invites!</string>
-    <string name="looking_for_player">Looking for a player to join you...</string>
+    <string name="looking_for_player">Looking for player to join you...</string>
     <string name="geo">GEOGRAPHY</string>
     <string name="createRoom">Create Room</string>
     <string name="createyouRoom">Create your room here</string>
@@ -62,7 +62,7 @@
     <string name="luck_next_time">Better Luck Next Time!</string>
     <string name="not_trivia_user">This is not a Trivia User!</string>
     <string name="friend_name_empty">Friend name is empty</string>
-    <string name="user_pass_empty">User / Password empty</string>
+    <string name="user_pass_empty">User or Password empty</string>
     <string name="user_already_exists">The user already exists</string>
     <string name="succ_created_account">You have successfully created you account</string>
     <string name="cancel">Cancel</string>
@@ -71,7 +71,7 @@
     <string name="retype_password">Retype password</string>
     <string name="not_match_pass">Password not matching</string>
     <string name="hurry_up">Hurry Up!!!</string>
-    <string name="register_invalid_format">Username/password format is invalid</string>
+    <string name="register_invalid_format">Username or password format is invalid</string>
     <string name="friend_succ_del">Friend successfully deleted</string>
     <string name="sure_delete_friend">Are you sure you want to remove </string>
     <string name="sure_invite">Are you sure you want to invite</string>

@@ -67,16 +67,15 @@ public class Dashboard extends AppCompatActivity {
 
 //       PopUpActivity.checkForInvites(user,Dashboard.this);
 
-            checkForInvites();
-
+        checkForInvites();
 
 
         btn_Tr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), TrainingActivity.class);
-                intent.putExtra("USERNAME",user);
-                intent.putExtra("MULTI","0");
+                intent.putExtra("USERNAME", user);
+                intent.putExtra("MULTI", "0");
 //                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
@@ -86,9 +85,8 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), InviteRoom.class);
-                intent.putExtra("USERNAME",user);
-                intent.putExtra("MULTI","0");
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("USERNAME", user);
+                intent.putExtra("MULTI", "0");
                 startActivity(intent);
                 finish();
             }
@@ -98,9 +96,8 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CompetitiveActivity.class);
-                intent.putExtra("USERNAME",user);
-                intent.putExtra("MULTI","1");
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("USERNAME", user);
+                intent.putExtra("MULTI", "1");
                 startActivity(intent);
                 finish();
             }
@@ -116,15 +113,15 @@ public class Dashboard extends AppCompatActivity {
         // return true so that the menu pop up is opened
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-//        Toast.makeText(getApplicationContext(),"HOME",Toast.LENGTH_LONG);
         switch (item.getItemId()) {
             case R.id.Item_Profile:
                 // for view profile
                 Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                intent.putExtra("USERNAME",user);
+                intent.putExtra("USERNAME", user);
                 startActivity(intent);
                 return true;
             case R.id.Item_Friends:
@@ -139,7 +136,7 @@ public class Dashboard extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.Item_Logout:
-                // for view profile
+                // for logout
                 intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 return true;
@@ -167,7 +164,7 @@ public class Dashboard extends AppCompatActivity {
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                doubleBackToExitPressedOnce = false;
             }
         }, 2000);
     }
@@ -207,7 +204,7 @@ public class Dashboard extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                if(no_rooms > 0){
+                if (no_rooms > 0) {
 
                     try {
                         AlertDialog alertDialog = new AlertDialog.Builder(Dashboard.this)
@@ -237,13 +234,12 @@ public class Dashboard extends AppCompatActivity {
                                     }
                                 })
                                 .show();
-                    }
-                    catch (WindowManager.BadTokenException ex) {
+                    } catch (WindowManager.BadTokenException ex) {
                         ex.printStackTrace();
                     }
 
 //
-                }else{
+                } else {
 
 
                     Timer timer = new Timer();
@@ -269,7 +265,6 @@ public class Dashboard extends AppCompatActivity {
 
 
     }
-
 
 
 }

@@ -55,19 +55,34 @@ public class ProfileActivity extends AppCompatActivity {
         this.setTitle(getString(R.string.view_profile));
         userName = getIntent().getStringExtra("USERNAME");
 
+//        SharedPreferences preferences = getSharedPreferences("pref", MODE_PRIVATE);
+//        boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
+
         dayNightSwitch = findViewById(R.id.day_night_switch);
 
-        dayNightSwitch.setDuration(450);
+        dayNightSwitch.setDuration(250);
         dayNightSwitch.setListener(new DayNightSwitchListener() {
             @Override
             public void onSwitch(boolean is_night) {
                 if (is_night) {
+                    Log.v("dark", "1");
                     AppCompatDelegate.setDefaultNightMode(
                             AppCompatDelegate.MODE_NIGHT_YES);
 
+//                    SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
+//                    editor.putBoolean("dark_theme", true);
+//                    editor.apply();
+
+
                 } else {
+                    Log.v("day", "0");
+
                     AppCompatDelegate.setDefaultNightMode(
                             AppCompatDelegate.MODE_NIGHT_NO);
+
+//                    SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
+//                    editor.putBoolean("dark_theme", false);
+//                    editor.apply();
 
                 }
             }
