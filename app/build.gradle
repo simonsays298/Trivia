@@ -50,7 +50,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.2.1'
     implementation 'com.android.support:preference-v7:29.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.github.Mahfa:DayNightSwitch:1.2'
+    implementation 'com.github.Mahfa:DayNightSwitch:1.2.1'
 
 
 }

@@ -3,16 +3,10 @@ package com.example.login;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mahfa.dnswitch.DayNightSwitch;
 import com.mahfa.dnswitch.DayNightSwitchListener;
@@ -31,11 +25,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class ProfileActivity extends AppCompatActivity {
-    TextView userNameTextView;
-    TextView numberPointsTextView;
-    TextView numberFriendsTextView;
+    private TextView userNameTextView;
+    private TextView numberPointsTextView;
+    private TextView numberFriendsTextView;
 
-    DayNightSwitch dayNightSwitch;
+    private DayNightSwitch dayNightSwitch;
+
+    public static final String KEY_DAY_NIGHT_SWITCH_STATE = "day_night_switch_state";
 
     String userName;
 
@@ -54,39 +50,36 @@ public class ProfileActivity extends AppCompatActivity {
 
         this.setTitle(getString(R.string.view_profile));
         userName = getIntent().getStringExtra("USERNAME");
-
-//        SharedPreferences preferences = getSharedPreferences("pref", MODE_PRIVATE);
-//        boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
-
+        
         dayNightSwitch = findViewById(R.id.day_night_switch);
+        dayNightSwitch.setDuration(450);
 
-        dayNightSwitch.setDuration(250);
         dayNightSwitch.setListener(new DayNightSwitchListener() {
             @Override
             public void onSwitch(boolean is_night) {
                 if (is_night) {
-                    Log.v("dark", "1");
                     AppCompatDelegate.setDefaultNightMode(
                             AppCompatDelegate.MODE_NIGHT_YES);
 
-//                    SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
-//                    editor.putBoolean("dark_theme", true);
+//                    // it will set isDarkModeOn boolean to true
+//                    editor.putBoolean("isDarkModeOn", true);
 //                    editor.apply();
 
-
                 } else {
-                    Log.v("day", "0");
-
                     AppCompatDelegate.setDefaultNightMode(
                             AppCompatDelegate.MODE_NIGHT_NO);
 
-//                    SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
-//                    editor.putBoolean("dark_theme", false);
+//                    // it will set isDarkModeOn boolean to fals
+//                    editor.putBoolean("isDarkModeOn", false);
 //                    editor.apply();
 
                 }
             }
         });
+
+        if (savedInstanceState != null
+                && savedInstanceState.containsKey(KEY_DAY_NIGHT_SWITCH_STATE))
+            dayNightSwitch.setIsNight(savedInstanceState.getBoolean(KEY_DAY_NIGHT_SWITCH_STATE), true);
 
         userNameTextView = findViewById(R.id.userNameInProfile);
         userNameTextView.setText(userName);
@@ -135,14 +128,10 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    private void toggleTheme(boolean prefTheme) {
-        SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
-        editor.putBoolean("DarkTheme", prefTheme);
-        editor.apply();
-
-        Intent intent = getIntent();
-        finish();
-
-        startActivity(intent);
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(KEY_DAY_NIGHT_SWITCH_STATE, dayNightSwitch.isNight());
     }
+
 }
