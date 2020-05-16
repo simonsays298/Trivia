@@ -88,7 +88,6 @@ public class Dashboard extends AppCompatActivity {
                 intent.putExtra("USERNAME", user);
                 intent.putExtra("MULTI", "0");
                 startActivity(intent);
-                finish();
             }
         });
 
