@@ -79,4 +79,5 @@
     <string name="dashboard">Dashboard</string>
     <string name="domain_empty">Domain is empty. Please, choose a domain!</string>
     <string name="double_back_click_msg">Please click BACK again to exit Trivia</string>
+    <string name="lets_take_a_quiz">Let\'s take a quiz, </string>
 </resources>

@@ -63,7 +63,7 @@ public class Dashboard extends AppCompatActivity {
         btn_Co = findViewById(R.id.competitive);
         btn_Invite = findViewById(R.id.inviteRoom);
         welcomeTextView = findViewById(R.id.welcomeText);
-        welcomeTextView.setText("Let's take a quiz, " + user + "!");
+        welcomeTextView.setText(getString(R.string.lets_take_a_quiz) + user + "!");
 
 //       PopUpActivity.checkForInvites(user,Dashboard.this);
 

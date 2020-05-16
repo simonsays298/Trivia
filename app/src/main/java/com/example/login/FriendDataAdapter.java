@@ -28,11 +28,6 @@ public class FriendDataAdapter extends RecyclerView.Adapter<FriendDataAdapter.Fr
         this.friendDataArrayList = friendDataArrayList;
     }
 
-    public void add(FriendData friendData){
-        this.friendDataArrayList.add(friendData);
-    }
-
-
     @Override
     public FriendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())

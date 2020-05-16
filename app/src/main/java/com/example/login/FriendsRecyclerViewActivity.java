@@ -39,19 +39,19 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class FriendsRecyclerViewActivity extends AppCompatActivity {
     private static final String TAG = "ListViewActivity";
 
-    List<FriendData> friendDataList = new ArrayList<>();
+    private List<FriendData> friendDataList = new ArrayList<>();
 
     private FriendDataAdapter friendDataAdapter;
 
-    SwipeController swipeController = null;
+    private SwipeController swipeController = null;
 
     private Button addNewFriendButton;
     final Context context = this;
 
-    EditText friendNameText;
+    private EditText friendNameText;
 
-    String userName;
-    String friendName;
+    private String userName;
+    private String friendName;
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://firsttry-272817.appspot.com/")
@@ -105,6 +105,7 @@ public class FriendsRecyclerViewActivity extends AppCompatActivity {
 
                         FriendData friend = new FriendData(friendN, nrFriendPoints);
                         friendDataList.add(i, friend);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -121,7 +122,6 @@ public class FriendsRecyclerViewActivity extends AppCompatActivity {
 
             }
         });
-
 
         addNewFriendButton = findViewById(R.id.addNewFriendButton);
         addNewFriendButton.setOnClickListener(new View.OnClickListener() {
@@ -172,7 +172,9 @@ public class FriendsRecyclerViewActivity extends AppCompatActivity {
                                         } else if (atext.contains("Friend added")) {
                                             Toast.makeText(getApplicationContext(),
                                                     R.string.friend_succ_added, Toast.LENGTH_LONG).show();
+
                                             FriendsRecyclerViewActivity.this.recreate();
+
                                             friendDataAdapter.notifyDataSetChanged();
                                             dialog.dismiss();
                                         }
@@ -220,7 +222,6 @@ public class FriendsRecyclerViewActivity extends AppCompatActivity {
             }
 
         });
-
 
         ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
         itemTouchhelper.attachToRecyclerView(recyclerView);
