@@ -173,6 +173,9 @@ public class FriendsRecyclerViewActivity extends AppCompatActivity {
                                         if (atext.contains("is not a user")) {
                                             Toast.makeText(getApplicationContext(),
                                                     R.string.not_trivia_user, Toast.LENGTH_LONG).show();
+                                        } else if (atext.contains("You are already friends")) {
+                                            Toast.makeText(getApplicationContext(),
+                                                    friendName + " is already in your list!" , Toast.LENGTH_LONG).show();
                                         } else if (atext.contains("Friend added")) {
                                             Toast.makeText(getApplicationContext(),
                                                     R.string.friend_succ_added, Toast.LENGTH_LONG).show();

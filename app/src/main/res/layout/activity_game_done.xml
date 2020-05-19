@@ -95,6 +95,7 @@
         android:gravity="center_horizontal|center_vertical"
         android:text="@string/yourScore"
         android:textColor="@color/colorPrimary"
+        android:layout_marginTop="16dp"
         android:textSize="18dp"
         android:textStyle="bold"
         app:autoSizeTextType="uniform"
@@ -102,8 +103,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/messageG"
-        app:layout_constraintVertical_bias="0.963"
+        app:layout_constraintTop_toBottomOf="@id/messageG"
+        app:layout_constraintVertical_bias="1"
         tools:text="@string/yourScore" />
 
     <TextView
@@ -137,10 +138,10 @@
 
     <Button
         android:id="@+id/backHome"
-        android:layout_width="180dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/baseline_home_24"
-        android:text="@string/backHome"
+        android:text="@string/dashboard"
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -148,6 +149,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/finalScore"
         app:layout_constraintVertical_bias="0.292"
-        tools:text="@string/backHome" />
+        tools:text="@string/dashboard" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
