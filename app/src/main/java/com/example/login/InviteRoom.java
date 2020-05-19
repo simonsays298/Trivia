@@ -84,7 +84,7 @@ public class InviteRoom extends AppCompatActivity {
                         res = null;
                         try {
                             res = response.body().string();
-                            Toast.makeText(InviteRoom.this, res, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(InviteRoom.this, "Invites Declined!", Toast.LENGTH_SHORT).show();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

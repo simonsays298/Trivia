@@ -16,6 +16,10 @@ public interface UserService {
     @GET("api/has_user")
     Call<ResponseBody> authenticate(@Query("username") String user, @Query("password") String password);
 
+    @GET("api/has_new_invites")
+    Call<ResponseBody> has_new_invites(@Query("username") String user);
+
+
     @GET("api/get_question")
     Call<ResponseBody> get_questions(@Query("id") String id);
 

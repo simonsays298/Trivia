@@ -1,11 +1,6 @@
 package com.example.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +14,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +40,7 @@ public class Dashboard extends AppCompatActivity {
     private String res;
     private JSONObject invites;
     private TextView welcomeTextView;
+    private boolean cancelClicked = false;
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://firsttry-272817.appspot.com/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -98,7 +97,7 @@ public class Dashboard extends AppCompatActivity {
                 intent.putExtra("USERNAME", user);
                 intent.putExtra("MULTI", "1");
                 startActivity(intent);
-                finish();
+
             }
         });
 
@@ -205,37 +204,39 @@ public class Dashboard extends AppCompatActivity {
                 }
                 if (no_rooms > 0) {
 
-                    try {
-                        AlertDialog alertDialog = new AlertDialog.Builder(Dashboard.this)
-                                //set icon
-                                .setIcon(android.R.drawable.ic_dialog_info)
-                                //set title
-                                .setTitle("You\'ve got new invites!")
-                                //set positive button
-                                .setPositiveButton("View", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        //set what would happen when positive button is clicked
-                                        Intent intent = new Intent(Dashboard.this, InviteRoom.class);
-                                        intent.putExtra("USERNAME", user);
-                                        intent.putExtra("MULTI", "1");
+                        try {
+                            AlertDialog alertDialog = new AlertDialog.Builder(Dashboard.this)
+                                    //set icon
+                                    .setIcon(android.R.drawable.ic_dialog_info)
+                                    //set title
+                                    .setTitle("You\'ve got new invites!")
+                                    //set positive button
+                                    .setPositiveButton("View", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            //set what would happen when positive button is clicked
+                                            Intent intent = new Intent(Dashboard.this, InviteRoom.class);
+                                            intent.putExtra("USERNAME", user);
+                                            intent.putExtra("MULTI", "1");
 //                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(intent);
-                                        dialogInterface.dismiss();
+                                            startActivity(intent);
+                                            dialogInterface.dismiss();
 
-                                    }
-                                })
-                                //set negative button
-                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        }
+                                    })
+                                    //set negative button
+                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            cancelClicked = true;
+                                        }
+                                    })
+                                    .show();
+                        } catch (WindowManager.BadTokenException ex) {
+                            ex.printStackTrace();
+                        }
 
-                                    }
-                                })
-                                .show();
-                    } catch (WindowManager.BadTokenException ex) {
-                        ex.printStackTrace();
-                    }
+
 
 //
                 } else {

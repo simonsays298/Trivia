@@ -462,10 +462,8 @@ public class TrainingActivity extends AppCompatActivity {
 
                     try {
                         String res = response.body().string();
-//                        Log.v("MYRESSS",res);
                         if (res.equals("Yes")) {
-//                            Log.v("TAGULL","USER " +user);
-//                            Log.v("TAGULL","ID "+ gamesId);
+
                             Intent intent = new Intent(getApplicationContext(), GameActivity.class);
                             intent.putExtra("USERNAME", user);
                             intent.putExtra("GAMESID", gamesId);
@@ -559,6 +557,7 @@ public class TrainingActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //finish();
+
                         Toast.makeText(getApplicationContext(), getResources().getString(R.string.looking_for_player), Toast.LENGTH_LONG).show();
                     }
                 })

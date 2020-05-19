@@ -107,73 +107,64 @@ public class RoomAdapterActivity extends RecyclerView.Adapter<RoomAdapterActivit
             @Override
             public void onClick(View v) {
                 holder.enterRoom.setImageResource(R.drawable.multimedia_green);
-                Timer timer = new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        String entryNameRoom = currentItem.getText2();
-                        ArrayList<String> list = new ArrayList<>();
-                        list = nameIdMap.get(entryNameRoom);
+                String entryNameRoom = currentItem.getText2();
+                ArrayList<String> list = new ArrayList<>();
+                list = nameIdMap.get(entryNameRoom);
+                String myid = list.get(0);
+                String domain = list.get(1);
+                if(domain.equals("1")) domain = "GEOGRAPHY";
+                if(domain.equals("2")) domain = "HISTORY";
+                if(domain.equals("3")) domain = "SCIENCE";
+                if(domain.equals("4")) domain = "MOVIES & CELEBRITIES";
+                if(domain.equals("5")) domain = "ARTS & SPORTS";
 
-//                        Log.v("TAGULL", "AICI " + list.get(0));
-//                        Log.v("TAGULL","AICI" + user);
+                if (!user.equals(entryNameRoom)) {
+                    JSONObject sendJson = new JSONObject();
 
-                        String myid = list.get(0);
-                        String domain = list.get(1);
-                        if(domain.equals("1")) domain = "GEOGRAPHY";
-                        if(domain.equals("2")) domain = "HISTORY";
-                        if(domain.equals("3")) domain = "SCIENCE";
-                        if(domain.equals("4")) domain = "MOVIES & CELEBRITIES";
-                        if(domain.equals("5")) domain = "ARTS & SPORTS";
-
-                        if (!user.equals(entryNameRoom)) {
-                            JSONObject sendJson = new JSONObject();
-
-                            try {
-                                sendJson.put("username", user);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                sendJson.put("id", myid);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            Call<ResponseBody> mService = service.chooseRoom(sendJson);
-                            String finalDomain = domain;
-                            mService.enqueue(new Callback<ResponseBody>() {
-                                @Override
-                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                    try {
-                                        String enter = response.body().string();
-//                                        Log.v("ATGUL", enter);
-                                        if (!enter.contains("Done")) {
-                                            Intent intent = new Intent(context, GameActivity.class);
-//                                            Log.v("TAGUL", myid);
-                                            intent.putExtra("USERNAME", user);
-                                            intent.putExtra("GAMESID", myid);
-                                            intent.putExtra("TOPIC", finalDomain);
-                                            intent.putExtra("MULTI", multi);
-                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            context.startActivity(intent);
-                                        } else {
-                                            Toast.makeText(context, "Room already taken", Toast.LENGTH_SHORT).show();
-                                        }
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                    Log.v("TAGUL", t.getMessage());
-
-                                }
-                            });
-                        }
+                    try {
+                        sendJson.put("username", user);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                }, 700);
+                    try {
+                        sendJson.put("id", myid);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    Call<ResponseBody> mService = service.chooseRoom(sendJson);
+                    String finalDomain = domain;
+                    mService.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            try {
+                                String enter = response.body().string();
+//                                        Log.v("ATGUL", enter);
+                                if (!enter.contains("Done")) {
+                                    Intent intent = new Intent(context, GameActivity.class);
+//                                            Log.v("TAGUL", myid);
+                                    intent.putExtra("USERNAME", user);
+                                    intent.putExtra("GAMESID", myid);
+                                    intent.putExtra("TOPIC", finalDomain);
+                                    intent.putExtra("MULTI", multi);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    context.startActivity(intent);
+                                } else {
+                                    Toast.makeText(context, "Room already taken", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Log.v("TAGUL", t.getMessage());
+
+                        }
+                    });
+                }
+
 
             }
         });

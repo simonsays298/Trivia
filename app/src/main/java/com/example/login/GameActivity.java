@@ -152,6 +152,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.v("TAGUL", t.getMessage());
+
             }
         });
 

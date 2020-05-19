@@ -3,9 +3,13 @@ package com.example.login;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.mahfa.dnswitch.DayNightSwitch;
@@ -15,6 +19,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -48,8 +54,10 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+
         this.setTitle(getString(R.string.view_profile));
         userName = getIntent().getStringExtra("USERNAME");
+        checkForInvites();
         
         dayNightSwitch = findViewById(R.id.day_night_switch);
         dayNightSwitch.setDuration(450);
@@ -133,5 +141,104 @@ public class ProfileActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putBoolean(KEY_DAY_NIGHT_SWITCH_STATE, dayNightSwitch.isNight());
     }
+
+    public void checkForInvites() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://firsttry-272817.appspot.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserService service = retrofit.create(UserService.class);
+
+        final JSONObject[] invites = new JSONObject[1];
+        final String[] res = new String[1];
+        Call<ResponseBody> mService = service.get_invites(userName);
+        mService.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                assert response.body() != null;
+                invites[0] = null;
+                res[0] = null;
+                try {
+                    res[0] = response.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    invites[0] = new JSONObject(res[0]);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                int no_rooms = 0;
+                try {
+                    no_rooms = Integer.parseInt(invites[0].getString("no_rooms"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if (no_rooms > 0) {
+
+                    try {
+                        AlertDialog alertDialog = new AlertDialog.Builder(ProfileActivity.this)
+                                //set icon
+                                .setIcon(android.R.drawable.ic_dialog_info)
+                                //set title
+                                .setTitle("You\'ve got new invites!")
+                                //set positive button
+                                .setPositiveButton("View", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        //set what would happen when positive button is clicked
+                                        Intent intent = new Intent(ProfileActivity.this, InviteRoom.class);
+                                        intent.putExtra("USERNAME", userName);
+                                        intent.putExtra("MULTI", "1");
+//                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        dialogInterface.dismiss();
+
+                                    }
+                                })
+                                //set negative button
+                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                    }
+                                })
+                                .show();
+                    } catch (WindowManager.BadTokenException ex) {
+                        ex.printStackTrace();
+                    }
+
+
+
+//
+                } else {
+
+
+                    Timer timer = new Timer();
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            checkForInvites();
+                        }
+                    }, 3000);
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.v("TAGUL", t.getMessage());
+
+            }
+        });
+
+
+    }
+
 
 }
